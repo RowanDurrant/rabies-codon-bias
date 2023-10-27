@@ -1,0 +1,36 @@
+sequence.sequenceID	alignment.name	alignment.displayName	sequence.m49_country.id	sequence.m49_country.display_name	sequence.gb_place_sampled	sequence.collection_year	sequence.earliest_collection_year	sequence.latest_collection_year	sequence.gb_length	sequence.gb_create_date	sequence.gb_update_date	sequence.host	sequence.gb_pubmed_id	sequence.isolate
+FJ598135	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2008	2008	2008	1353	01-Feb-2009	01-Feb-2009	Melogale moschata (Chinese Ferret badger)	-	ZJ-LA
+FJ712195	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2008	2008	2008	11923	16-Mar-2009	16-Mar-2009	Chinese ferret badger	-	F02
+FJ712196	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2008	2008	2008	11923	16-Mar-2009	16-Mar-2009	Chinese ferret badger	-	F04
+GU647092	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2008	2008	2008	11922	07-Mar-2010	07-Mar-2010	Melogale moschata (Chinese ferret badger)	-	JX08-45
+KF726852	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	11922	12-Apr-2014	17-Sep-2014	Melogale moschata (ferret badger)	24643334	JX09-18
+KP319184	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-18
+KP319185	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-55
+KP319186	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-41
+KP319187	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-08
+KP319188	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-01
+KP319189	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-14
+KP319190	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-24
+KP319191	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-39
+KP319192	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2009	2009	2009	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX09-42
+KP319193	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2011	2011	2011	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX11-05
+KP319194	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2011	2011	2011	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX11-51
+KP319195	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2011	2011	2011	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX11-109
+KP319196	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2012	2012	2012	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX12-244
+KP319197	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2012	2012	2012	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX12-477
+KP319198	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2012	2012	2012	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX12-566
+KP319199	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2012	2012	2012	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX12-603
+KP319200	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2012	2012	2012	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX12-629
+KP319201	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-09
+KP319202	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-23
+KP319203	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-36
+KP319204	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-39
+KP319205	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-112
+KP319206	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-189
+KP319207	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-235
+KP319208	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-239
+KP319209	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-300
+KP319210	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-301
+KP319211	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-302
+KP319212	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-307
+KP319213	AL_Asian_SEA2b	Asian SEA2b	CHN	China	-	2013	2013	2013	1353	30-May-2017	30-May-2017	Chinese ferret badger	-	JX13-331

@@ -1,0 +1,41 @@
+sequence.sequenceID	alignment.name	alignment.displayName	sequence.m49_country.id	sequence.m49_country.display_name	sequence.gb_place_sampled	sequence.collection_year	sequence.earliest_collection_year	sequence.latest_collection_year	sequence.gb_length	sequence.gb_create_date	sequence.gb_update_date	sequence.host	sequence.gb_pubmed_id	sequence.isolate
+AB519642	AL_Bats_DR	Bats DR	BRA	Brazil	-	-	-	2011	11923	27-Jul-2011	27-Jul-2011	Desmodus rotundus	21301181	BR-DR1
+AF070449	AL_Bats_DR	Bats DR	BRA	Brazil	-	-	-	2000	1414	01-Jan-2000	22-Jan-2002	Desmodus rotundus	10466985	-
+AF351847	AL_Bats_DR	Bats DR	-	-	-	-	-	2001	1353	24-Apr-2001	29-Jan-2009	Desmodus rotundus	11226582	DR.Braz
+AF351852	AL_Bats_DR	Bats DR	-	-	-	-	-	2001	1353	24-Apr-2001	29-Jan-2009	Desmodus rotundus	11226582	DR.Td2; V325
+AY854587	AL_Bats_DR	Bats DR	MEX	Mexico	-	-	-	2005	1372	29-Apr-2005	08-Jun-2006	Desmodus rotundus	16303200	V587
+AY854592	AL_Bats_DR	Bats DR	MEX	Mexico	-	-	-	2005	1382	29-Apr-2005	08-Jun-2006	Desmodus rotundus	16303200	V683
+AY854594	AL_Bats_DR	Bats DR	MEX	Mexico	-	-	-	2005	1455	29-Apr-2005	08-Jun-2006	Desmodus rotundus	-	V834
+AY854595	AL_Bats_DR	Bats DR	MEX	Mexico	-	-	-	2005	1460	29-Apr-2005	08-Jun-2006	Desmodus rotundus	-	V924
+AY877433	AL_Bats_DR	Bats DR	-	-	-	-	-	2005	1463	29-Apr-2005	08-Jun-2006	Desmodus rotundus	16303200	V917
+AY877434	AL_Bats_DR	Bats DR	-	-	-	-	-	2005	1463	29-Apr-2005	08-Jun-2006	Desmodus rotundus	16303200	V919
+AY877435	AL_Bats_DR	Bats DR	-	-	-	-	-	2005	1463	29-Apr-2005	08-Jun-2006	Desmodus rotundus	16303200	V920
+GU592648	AL_Bats_DR	Bats DR	BRA	Brazil	-	-	-	2010	1353	16-Aug-2010	15-Jun-2011	Desmodus rotundus	21473884	brdrusp100/07
+KF656696	AL_Bats_DR	Bats DR	GTM	Guatemala	-	2012	2012	2012	1353	13-Aug-2014	13-Aug-2014	Desmodus rotundus	25080103	A13-0465
+KF656697	AL_Bats_DR	Bats DR	GTM	Guatemala	-	2012	2012	2012	1353	13-Aug-2014	13-Aug-2014	Desmodus rotundus	25080103	A13-0396
+KF864234	AL_Bats_DR	Bats DR	ARG	Argentina	-	1994	1994	1994	1353	09-May-2014	09-May-2014	Desmodus rotundus	24661865	425_1994_FOR
+KF864322	AL_Bats_DR	Bats DR	ARG	Argentina	-	2006	2006	2006	1353	09-May-2014	09-May-2014	Desmodus rotundus	24661865	A699_2006_CHA
+KF864397	AL_Bats_DR	Bats DR	ARG	Argentina	-	2008	2008	2008	1353	09-May-2014	09-May-2014	Desmodus rotundus	24661865	A893_2008_CAT
+KM594040	AL_Bats_DR	Bats DR	BRA	Brazil	-	2013	2013	2013	11879	18-Nov-2015	13-Apr-2016	Desmodus rotundus	-	IP 2992/13
+KM594041	AL_Bats_DR	Bats DR	BRA	Brazil	-	2013	2013	2013	11879	18-Nov-2015	13-Apr-2016	Desmodus rotundus	-	IP 2990/13
+KM594042	AL_Bats_DR	Bats DR	BRA	Brazil	-	2013	2013	2013	11879	18-Nov-2015	13-Apr-2016	Desmodus rotundus	-	IP 2991/13
+KP202393	AL_Bats_DR	Bats DR	MEX	Mexico	-	1988	1988	1988	1462	31-Mar-2015	31-Mar-2015	Desmodus rotundus	-	-
+KT023101	AL_Bats_DR	Bats DR	GUF	French Guiana	-	2010	2010	2010	1353	02-Feb-2016	02-Feb-2016	Desmodus rotundus	26808820	AT6
+KU523255	AL_Bats_DR	Bats DR	GUF	French Guiana	-	2010	2010	2010	11922	21-Feb-2016	03-May-2016	Desmodus rotundus	27056216	AT6
+MN968374	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, La Loma	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	641
+MN968375	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, La Loma	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	563
+MN968376	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, La Loma	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	573
+MN968377	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Milagro	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	676
+MN968378	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Milagro	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	679
+MN968379	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Catedral	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	584
+MN968380	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Guadalcazar	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	604
+MN968381	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Milagro	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	678
+MN968382	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Guadalcazar	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	601
+MN968383	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Guadalcazar	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	605
+MN968384	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Milagro	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	677
+MN968385	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Catedral	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	576
+MN968386	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, Guadalcazar	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	610
+MN968387	AL_Bats_DR	Bats DR	MEX	Mexico	San Luis Potosi, La Loma	2018	2018	2018	1353	31-Mar-2020	31-Mar-2020	Desmodus rotundus	32121499	565
+MT891038	AL_Bats_DR	Bats DR	PER	Peru	Cajamarca	2016	2016	2016	1494	28-Oct-2020	28-Oct-2020	Desmodus rotundus	-	6024_CAJ4
+MW249020	AL_Bats_DR	Bats DR	PER	Peru	-	2016	2016	2016	1353	28-Mar-2021	08-Apr-2021	Desmodus rotundus	33562073	DesRot/Peru/HUA1_8012_SV_VBRV
+MW249021	AL_Bats_DR	Bats DR	PER	Peru	-	2016	2016	2016	1353	28-Mar-2021	08-Apr-2021	Desmodus rotundus	33562073	DesRot/Peru/CAJ4_8364_SV_VBRV

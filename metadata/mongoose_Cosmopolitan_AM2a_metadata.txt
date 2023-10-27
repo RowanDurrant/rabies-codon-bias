@@ -1,0 +1,10 @@
+sequence.sequenceID	alignment.name	alignment.displayName	sequence.m49_country.id	sequence.m49_country.display_name	sequence.gb_place_sampled	sequence.collection_year	sequence.earliest_collection_year	sequence.latest_collection_year	sequence.gb_length	sequence.gb_create_date	sequence.gb_update_date	sequence.host	sequence.gb_pubmed_id	sequence.isolate
+AY854505	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2001	2001	2001	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1079
+AY854525	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2001	2001	2001	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1075
+AY854531	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2002	2002	2002	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1121
+AY854544	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2000	2000	2000	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1067
+AY854546	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2002	2002	2002	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1122
+AY854558	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2002	2002	2002	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1101
+AY854567	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2000	2000	2000	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1036
+AY854573	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2001	2001	2001	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1090
+AY854576	AL_Cosmopolitan_AM2a	Cosmopolitan AM2a	CUB	Cuba	-	2000	2000	2000	1402	29-Apr-2005	25-Jan-2012	mongoose	16740188	V1040
