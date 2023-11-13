@@ -33,18 +33,18 @@ CpG_actual = function(x){
 
 library(Biostrings)
 
- # files = c("sequences/N_gene/Dog_AF1b_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Canis_familiaris_SEA2a_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/CFB_SEA2b_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Desmodus_rotundus_Bats_DR_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Eptesicus fuscus_Bats_EF-E2_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Hoary_bat_Bats_LC_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Mongoose_AM2a_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Skunk-SK_N_nucleotide_alignment.fasta",
- #           "sequences/N_gene/Tadarida brasiliensis_Bats_TB1_N_nucleotide_alignment.fasta")
- # 
- # Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
- #          "Hoary bat", "Mongoose", "Skunk", "Free-tailed bat")
+ files = c("sequences/N_gene/Dog_AF1b_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Canis_familiaris_SEA2a_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/CFB_SEA2b_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Desmodus_rotundus_Bats_DR_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Eptesicus fuscus_Bats_EF-E2_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Hoary_bat_Bats_LC_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Mongoose_AM2a_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Skunk-SK_N_nucleotide_alignment.fasta",
+           "sequences/N_gene/Tadarida brasiliensis_Bats_TB1_N_nucleotide_alignment.fasta")
+
+ Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
+          "Hoary bat", "Mongoose", "Skunk", "Free-tailed bat")
 
 # files = c("sequences/WGS/BBB_Bats_EF-E2_whole_genome_nucleotide_alignment.fasta",
 #           "sequences/WGS/CFB_Asian_SEA2b_whole_genome_nucleotide_alignment.fasta",
@@ -56,17 +56,17 @@ library(Biostrings)
 #Host = c("Big brown bat","Chinese ferret badger","Dog (SEA2a)","Dog (AF1b)", 
 #         "Free-tailed bat","Hoary bat", "Skunk")
  
- files = c("sequences/G_gene/dog_Cosmopolitan_AF1b_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/dog_Asian_SEA2a_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/cfb_Asian_SEA2b_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/Desmodus_rotundus_Bats_DR_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/AL_Bats_EF-E2_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/AL_Bats_LC_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/scsc_RAC-SK_G_nucleotide_alignment.fasta",
-           "sequences/G_gene/AL_Bats_TB1_G_nucleotide_alignment.fasta")
- 
- Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
-          "Hoary bat", "Skunk", "Free-tailed bat")
+ # files = c("sequences/G_gene/dog_Cosmopolitan_AF1b_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/dog_Asian_SEA2a_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/cfb_Asian_SEA2b_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/Desmodus_rotundus_Bats_DR_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/AL_Bats_EF-E2_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/AL_Bats_LC_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/scsc_RAC-SK_G_nucleotide_alignment.fasta",
+ #           "sequences/G_gene/AL_Bats_TB1_G_nucleotide_alignment.fasta")
+ # 
+ # Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
+ #          "Hoary bat", "Skunk", "Free-tailed bat")
 
 cpg = c()
 gc = c()
@@ -87,7 +87,7 @@ for(i in 1:length(files)){
   
 }
 df = data.frame(accessions, hosts, cpg, gc, cpg_actual)
-
+write.csv(df, "N_CpG.csv")
 df$hosts = factor(df$hosts, c("Big brown bat", "Hoary bat", "Free-tailed bat",
                               "Vampire bat", "Dog (SEA2a)", "Chinese ferret badger",
                               "Dog (AF1b)", "Mongoose", "Skunk"))
