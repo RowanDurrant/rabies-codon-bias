@@ -83,6 +83,9 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2, colour = Host))+
   theme(legend.position = "bottom", legend.box = "vertical")
 
 g1
+
+write.csv(df2, "PCA_output.csv")
+
 # ......................................................................
 #G Gene
 

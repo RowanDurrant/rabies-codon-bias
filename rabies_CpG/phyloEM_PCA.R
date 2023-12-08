@@ -27,10 +27,9 @@ ultratree =chronos(mytree, lambda=1, model = 'relaxed')
 #clock: log-Lik = -289.2297, PHIIC = 1276.46 
 
 
-mydata <- read.csv('myseqs_RSDUc.tsv', sep='\t', row.names = 1, header= TRUE)
-
-mydata <- mydata[,c(1,4,7)]
-mydata <- mydata[1:(nrow(mydata)-1),]
+mydata <- read.csv('../PCA_output.csv')
+rownames(mydata) = mydata[,1]
+mydata <- mydata[,c(2,3)]
 mydata <- t(mydata)
 
 
@@ -47,7 +46,7 @@ myres <- PhyloEM(phylo = ultratree,
              random.root = TRUE,                 ## Root is stationary (true model)
              stationary.root = TRUE,
              alpha = tail(alphas), #get the 5 highest alpha values of the vector
-             K_max = 10,                         ## Maximal number of shifts
+             K_max = 15,                         ## Maximal number of shifts
              parallel_alpha = TRUE,              
              Ncores = 5)
   
