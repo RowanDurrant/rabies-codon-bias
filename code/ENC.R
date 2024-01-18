@@ -51,40 +51,37 @@ for(k in 1:nrow(df)){
   df$ENC[k] = ENC
 }
 
-df$Host = factor(df$Host, c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                              "Vampire bat", "Dog (SEA2a)", "Chinese ferret badger",
-                              "Dog (AF1b)", "Mongoose", "Skunk"))
+df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
+                            "Free-tailed bat",
+                            "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
 
 
 library(ggplot2)
 ggplot(data = df, aes(x = Host, y = ENC))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = Host), alpha  = 0.4, 
+  geom_jitter(aes(color = Host), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+ 
   xlab("Clade") +
-  scale_color_manual(values = c("#004949","#009292","#ff6db6","#ffb6db",
-                                "#490092","#006ddb","#b66dff","#6db6ff","#b6dbff",
-                                "#920000","#924900"), name = "Clade", guide = guide_legend(),
-                     labels = c("Bat EF-E2\n(big brown bat)",
-                                "Bat LC\n(hoary bat)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
+  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
+                                "#DDCC77","#CC6677","#882255","#AA4499"), name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "RAC-SK SCSC\n(skunk)"
-                     )) +
-  scale_x_discrete(labels = c("Bat EF-E2\n(big brown bat)",
-                              "Bat LC\n(hoary bat)",
-                              "Bat TB1\n(Mexican free-tailed bat)",
-                              "Bat DR\n(vampire bat)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSC\n(skunk)",
+                                "Bat LC\n(hoary bat)")) +
+  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
+                              "Cosmo AM2a\n(mongoose)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
-                              "Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "RAC-SK SCSC\n(skunk)"
-  ))
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat DR\n(vampire bat)",
+                              "Bat EF-E2\n(big brown bat)",
+                              "RAC-SK SCSC\n(skunk)",
+                              "Bat LC\n(hoary bat)"))
 

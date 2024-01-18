@@ -31,7 +31,7 @@ CpG_actual = function(x){
   return(nCpG)
 }
 
-library(Biostrings)
+library("Biostrings")
 
  files = c("sequences/N_gene/Dog_AF1b_N_nucleotide_alignment.fasta",
            "sequences/N_gene/Canis_familiaris_SEA2a_N_nucleotide_alignment.fasta",
@@ -45,28 +45,6 @@ library(Biostrings)
 
  Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
           "Hoary bat", "Mongoose", "Skunk", "Free-tailed bat")
-
-# files = c("sequences/WGS/BBB_Bats_EF-E2_whole_genome_nucleotide_alignment.fasta",
-#           "sequences/WGS/CFB_Asian_SEA2b_whole_genome_nucleotide_alignment.fasta",
-#           "sequences/WGS/dog_Asian_SEA2a_whole_genome_nucleotide_alignment.fasta",
-#           "sequences/WGS/dog_Cosmopolitan_AF1b_whole_genome_nucleotide_alignment.fasta",
-#           "sequences/WGS/free-tailed_Bats_TB1_whole_genome_nucleotide_alignment.fasta",
-#           "sequences/WGS/hoary_Bats_LC_whole_genome_nucleotide_alignment.fasta",
-#           "sequences/WGS/skunk_RAC-SK_whole_genome_nucleotide_alignment.fasta")
-#Host = c("Big brown bat","Chinese ferret badger","Dog (SEA2a)","Dog (AF1b)", 
-#         "Free-tailed bat","Hoary bat", "Skunk")
- 
- # files = c("sequences/G_gene/dog_Cosmopolitan_AF1b_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/dog_Asian_SEA2a_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/cfb_Asian_SEA2b_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/Desmodus_rotundus_Bats_DR_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/AL_Bats_EF-E2_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/AL_Bats_LC_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/scsc_RAC-SK_G_nucleotide_alignment.fasta",
- #           "sequences/G_gene/AL_Bats_TB1_G_nucleotide_alignment.fasta")
- # 
- # Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
- #          "Hoary bat", "Skunk", "Free-tailed bat")
 
 cpg = c()
 gc = c()
@@ -87,10 +65,11 @@ for(i in 1:length(files)){
   
 }
 df = data.frame(accessions, hosts, cpg, gc, cpg_actual)
-write.csv(df, "N_CpG.csv")
-df$hosts = factor(df$hosts, c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                              "Vampire bat", "Dog (SEA2a)", "Chinese ferret badger",
-                              "Dog (AF1b)", "Mongoose", "Skunk"))
+#write.csv(df, "N_CpG.csv")
+df$hosts = factor(df$hosts, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
+                              "Free-tailed bat",
+                              "Vampire bat", "Big brown bat","Skunk", "Hoary bat" 
+                               ))
 
 df$host_group = NA
 df$host_group[df$hosts %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
@@ -102,107 +81,100 @@ my_pal <- c("#b66dff","#490092","#006ddb","#6db6ff","#b6dbff",
             "#004949","#009292","#ff6db6","#ffb6db"
             
 )
-#write.csv(df, "cpg.csv")
 
 library(ggplot2)
 p1= ggplot(data = df, aes(x = hosts, y = cpg))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = hosts), alpha  = 0.4, 
+  geom_jitter(aes(color = hosts), size = 0.5, 
               width = 0.4, height = 0) +
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("Obs/Exp CpG") + xlab("Clade") +
-  scale_color_manual(values = c("#004949","#009292","#ff6db6","#ffb6db",
-                                "#490092","#006ddb","#b66dff","#6db6ff","#b6dbff",
-                                "#920000","#924900"), name = "Clade", guide = guide_legend(),
-                     labels = c("Bat EF-E2\n(big brown bat)",
-                                "Bat LC\n(hoary bat)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
+  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
+                                "#DDCC77","#CC6677","#882255","#AA4499"), 
+                     name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
+                                "Bat TB1\n(Mexican free-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSC\n(skunk)",
-                                "Gannoruwa bat lyssavirus"
-                     )) +
-  scale_x_discrete(labels = c("Bat EF-E2\n(big brown bat)",
-                              "Bat LC\n(hoary bat)",
-                              "Bat TB1\n(Mexican free-tailed bat)",
-                              "Bat DR\n(vampire bat)",
+                                "Bat LC\n(hoary bat)"
+                                )) +
+  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
+                              "Cosmo AM2a\n(mongoose)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
-                              "Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat DR\n(vampire bat)",
+                              "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSC\n(skunk)",
-                              "Gannoruwa bat lyssavirus"
+                              "Bat LC\n(hoary bat)"
   ))
 
 p2= ggplot(data = df, aes(x = hosts, y = gc))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = hosts), alpha  = 0.4, 
+  geom_jitter(aes(color = hosts), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("GC content") + xlab("Clade") +
-  scale_color_manual(values = c("#004949","#009292","#ff6db6","#ffb6db",
-                                "#490092","#006ddb","#b66dff","#6db6ff","#b6dbff",
-                                "#920000","#924900"), name = "Clade", guide = guide_legend(),
-                     labels = c("Bat EF-E2\n(big brown bat)",
-                                "Bat LC\n(hoary bat)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
+  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
+                                "#DDCC77","#CC6677","#882255","#AA4499"), 
+                     name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
+                                "Bat TB1\n(Mexican free-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSC\n(skunk)",
-                                "Gannoruwa bat lyssavirus"
+                                "Bat LC\n(hoary bat)"
                      )) +
-  scale_x_discrete(labels = c("Bat EF-E2\n(big brown bat)",
-                              "Bat LC\n(hoary bat)",
-                              "Bat TB1\n(Mexican free-tailed bat)",
-                              "Bat DR\n(vampire bat)",
+  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
+                              "Cosmo AM2a\n(mongoose)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
-                              "Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat DR\n(vampire bat)",
+                              "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSC\n(skunk)",
-                              "Gannoruwa bat lyssavirus"
+                              "Bat LC\n(hoary bat)"
   )) 
 
 p3 = ggplot(data = df, aes(x = hosts, y = cpg_actual))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = hosts), alpha  = 0.4, 
+  geom_jitter(aes(color = hosts), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("No. CpGs") + xlab("Clade") +
-  scale_color_manual(values = c("#004949","#009292","#ff6db6","#ffb6db",
-                                "#490092","#006ddb","#b66dff","#6db6ff","#b6dbff",
-                                "#920000","#924900"), name = "Clade", guide = guide_legend(),
-                     labels = c("Bat EF-E2\n(big brown bat)",
-                                "Bat LC\n(hoary bat)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
+  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
+                                "#DDCC77","#CC6677","#882255","#AA4499"), 
+                     name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
+                                "Bat TB1\n(Mexican free-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSC\n(skunk)",
-                                "Gannoruwa bat lyssavirus"
+                                "Bat LC\n(hoary bat)"
                      )) +
-  scale_x_discrete(labels = c("Bat EF-E2\n(big brown bat)",
-                              "Bat LC\n(hoary bat)",
-                              "Bat TB1\n(Mexican free-tailed bat)",
-                              "Bat DR\n(vampire bat)",
+  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
+                              "Cosmo AM2a\n(mongoose)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
-                              "Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat DR\n(vampire bat)",
+                              "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSC\n(skunk)",
-                              "Gannoruwa bat lyssavirus"
+                              "Bat LC\n(hoary bat)"
   ))
 library(ggpubr)
 ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))

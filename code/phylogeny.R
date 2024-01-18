@@ -17,27 +17,29 @@ for(i in 1:length(tree$tip.label)){
 }
 d <- data.frame(node=c(1:(Nnode(tree)+length(tree$tip.label))), 
                 host = c(tipcolours, rep("black", Nnode(tree))))
-d$host = factor(d$host, c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                              "Vampire bat", "Dog (SEA2a)", "Chinese ferret badger",
-                              "Dog (AF1b)", "Mongoose", "Skunk", "Gannoruwa bat lyssavirus"))
+d$host = factor(d$host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
+                          "Free-tailed bat",
+                          "Vampire bat", "Big brown bat","Skunk", "Hoary bat",
+                          "Gannoruwa bat lyssavirus"
+))
 p = ggtree(tree) + 
   theme_tree2()
 p = p %<+% d  +  
+   theme(legend.position="bottom") +
+  ylim (0,300)+
   geom_tippoint(aes(color=host), size = 2) +
-  scale_color_manual(values = c("#004949","#009292","#ff6db6","#ffb6db",
-                                "#490092","#006ddb","#b66dff","#6db6ff","#b6dbff",
-                                "#920000","#924900"), name = "Clade", guide = guide_legend(),
-                     labels = c("Bat EF-E2\n(big brown bat)",
-                                "Bat LC\n(hoary bat)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
+  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
+                                "#DDCC77","#CC6677","#882255","#AA4499", "black"), name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
+                                "Bat TB1\n(Mexican free-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSC\n(skunk)",
+                                "Bat LC\n(hoary bat)",
                                 "Gannoruwa bat lyssavirus"
-                                ))+
-  theme(legend.position="bottom") 
+                     ))
 p
 
