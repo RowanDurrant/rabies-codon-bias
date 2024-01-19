@@ -37,7 +37,7 @@ p = p %<+% d  +
                                 "Bat TB1\n(Mexican free-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)",
                                 "Gannoruwa bat lyssavirus"
                      ))
