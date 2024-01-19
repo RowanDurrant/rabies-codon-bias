@@ -77,11 +77,6 @@ df$host_group[df$hosts %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
 df$host_group[df$hosts %in% c("Dog (SEA2a)", "Chinese ferret badger",
                               "Dog (AF1b)", "Mongoose", "Skunk")] = "Carnivores"
 
-my_pal <- c("#b66dff","#490092","#006ddb","#6db6ff","#b6dbff",
-            "#004949","#009292","#ff6db6","#ffb6db"
-            
-)
-
 library(ggplot2)
 p1= ggplot(data = df, aes(x = hosts, y = cpg))+
   geom_boxplot()+ 
@@ -101,7 +96,7 @@ p1= ggplot(data = df, aes(x = hosts, y = cpg))+
                                 "Bat TB1\n(Mexican free-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"
                                 )) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
@@ -111,7 +106,7 @@ p1= ggplot(data = df, aes(x = hosts, y = cpg))+
                               "Bat TB1\n(Mexican free\n-tailed bat)",
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSC\n(skunk)",
+                              "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"
   ))
 
@@ -132,7 +127,7 @@ p2= ggplot(data = df, aes(x = hosts, y = gc))+
                                 "Bat TB1\n(Mexican free-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"
                      )) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
@@ -142,7 +137,7 @@ p2= ggplot(data = df, aes(x = hosts, y = gc))+
                               "Bat TB1\n(Mexican free\n-tailed bat)",
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSC\n(skunk)",
+                              "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"
   )) 
 
@@ -163,7 +158,7 @@ p3 = ggplot(data = df, aes(x = hosts, y = cpg_actual))+
                                 "Bat TB1\n(Mexican free-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"
                      )) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
@@ -173,51 +168,9 @@ p3 = ggplot(data = df, aes(x = hosts, y = cpg_actual))+
                               "Bat TB1\n(Mexican free\n-tailed bat)",
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSC\n(skunk)",
+                              "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"
   ))
 library(ggpubr)
 ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
 
-# t.test(df$cpg[df$host_group == "Bats"], df$cpg[df$host_group == "Carnivores"])
-# t.test(df$gc[df$host_group == "Bats"], df$gc[df$host_group == "Carnivores"])
-# t.test(df$cpg_actual[df$host_group == "Bats"], df$cpg_actual[df$host_group == "Carnivores"])
-# 
-# SDUc = read.table("myseqs_SDUc_bootstrapped.tsv", sep = "\t", header = T)
-# 
-# df$CpGpos1 = NA
-# df$CpGpos2 = NA
-# df$CpGbridge = NA
-# df$CpGpos1_95 = NA
-# df$CpGpos2_95 = NA
-# df$CpGbridge_95 = NA
-# for(i in df$accessions){
-#   df$CpGpos1[df$accessions == i] = SDUc$CpGpos1[SDUc$acc == i]
-#   df$CpGpos2[df$accessions == i] = SDUc$CpGpos2[SDUc$acc == i]
-#   df$CpGbridge[df$accessions == i] = SDUc$CpGbridge[SDUc$acc == i]
-#  
-#   df$CpGpos1_95[df$accessions == i] = (SDUc$CpGpos1[SDUc$acc == i] > SDUc$CpGpos1_low95CI[SDUc$acc == i] &
-#                                          SDUc$CpGpos1[SDUc$acc == i] < SDUc$CpGpos1_high95CI[SDUc$acc == i])
-#   df$CpGpos2_95[df$accessions == i] = (SDUc$CpGpos2[SDUc$acc == i] > SDUc$CpGpos2_low95CI[SDUc$acc == i] &
-#                                          SDUc$CpGpos2[SDUc$acc == i] < SDUc$CpGpos2_high95CI[SDUc$acc == i])
-#   df$CpGbridge_95[df$accessions == i] = (SDUc$CpGbridge[SDUc$acc == i] > SDUc$CpGbridge_low95CI[SDUc$acc == i] &
-#                                            SDUc$CpGbridge[SDUc$acc == i] < SDUc$CpGbridge_high95CI[SDUc$acc == i])
-#   
-# }
-# p4= ggplot(data = df, aes(x = hosts, y = CpGpos1))+
-#   geom_boxplot()+ theme_bw()+
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-#   ylab("CpG position 1") + xlab("Host") 
-# 
-# p5= ggplot(data = df, aes(x = hosts, y = CpGpos2))+
-#   geom_boxplot()+ theme_bw()+
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-#   ylab("CpG position 2") + xlab("Host") 
-# 
-# p6 = ggplot(data = df, aes(x = hosts, y = CpGbridge))+
-#   geom_boxplot()+ theme_bw()+
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-#   ylab("CpG bridge") + xlab("Host") 
-# 
-# library(ggpubr)
-# ggarrange(p4, p5, p6, labels = c("A", "B", "C"), nrow = 1)

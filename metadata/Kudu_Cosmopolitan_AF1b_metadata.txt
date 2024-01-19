@@ -1,3 +1,0 @@
-sequence.sequenceID	alignment.name	alignment.displayName	sequence.m49_country.id	sequence.m49_country.display_name	sequence.gb_place_sampled	sequence.collection_year	sequence.earliest_collection_year	sequence.latest_collection_year	sequence.gb_length	sequence.gb_create_date	sequence.gb_update_date	sequence.host	sequence.gb_pubmed_id	sequence.isolate
-JX473840	AL_Cosmopolitan_AF1b	Cosmopolitan AF1b	NAM	Namibia	Khomas, Windhoek	2009	2009	2009	11923	20-Oct-2012	20-Oct-2012	Tragelaphus strepsiceros (Namibian kudu)	-	239K09
-JX473841	AL_Cosmopolitan_AF1b	Cosmopolitan AF1b	NAM	Namibia	Otjozondjupa, Grootfontein	2009	2009	2009	11923	20-Oct-2012	20-Oct-2012	Tragelaphus strepsiceros (Namibian kudu)	-	240K09

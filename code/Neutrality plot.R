@@ -1,4 +1,4 @@
-df = as.data.frame(read_excel("Nucleotide_composition_N.xlsx"))
+df = as.data.frame(read_excel("data/Nucleotide_composition_N.xlsx"))
 df$GC3s = df$`%G3+C3`/100
 df$bat = NA
 df$bat[df$Host %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
@@ -32,7 +32,7 @@ ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host,
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
   scale_shape_manual(values = c(16,17), name = "Host group") +
   stat_smooth(method = "lm", col = "black", se = F)+  

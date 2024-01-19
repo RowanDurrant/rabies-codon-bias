@@ -2,21 +2,19 @@ library("readxl")
 library("ggplot2")
 library("ggtext")
 
-df = read.csv("HIVE-CUTS_CAI.csv")
+df = read.csv("data/HIVE-CUTS_CAI.csv")
 
-reference = as.data.frame(read_excel("CAI_N.xlsx"))
+reference = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
+for(i in 3:ncol(reference)){
+  colnames(reference)[i] = paste0(as.character(reference[1,i]),"_",colnames(reference)[i])
+}
+colnames(reference)[2] = "Accession no."
+reference = reference[2:nrow(reference),]
 
-reference$Clade[reference$Clade == "CFB"] = "Chinese ferret badger"
-reference$Clade[reference$Clade == "Dog SEA2a"] = "Dog (SEA2a)"
-reference$Clade[reference$Clade == "VB"] = "Vampire bat"
-reference$Clade[reference$Clade == "Dog AF1b"] = "Dog (AF1b)"
-reference$Clade[reference$Clade == "EF"] = "Big brown bat"
-reference$Clade[reference$Clade == "SCSC"] = "Skunk"
-reference$Clade[reference$Clade == "TB"] = "Free-tailed bat"
-
-
-df$clade = reference$Clade
-
+df$clade = NA
+for(i in 1:nrow(df)){
+  df$clade[i] = reference$Host[reference$`Accession no.` == df$Name[i]]
+}
 
 
 df$clade = factor(df$clade, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
@@ -71,7 +69,7 @@ scale_fill_manual(values = my_pal, labels = c("Cosmo AF1b\n(dog)",
                                                "Bat TB1\n(Mexican free\n-tailed bat)",
                                                "Bat DR\n(vampire bat)",
                                                "Bat EF-E2\n(big brown bat)",
-                                               "RAC-SK SCSC\n(skunk)",
+                                               "RAC-SK SCSK\n(skunk)",
                                                "Bat LC\n(hoary bat)"),
                    name = "Clade")+
 scale_x_discrete(labels=c("Canis familiaris",

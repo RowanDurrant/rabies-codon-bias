@@ -1,5 +1,5 @@
 library(readxl)
-df = as.data.frame(read_excel("Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
@@ -19,7 +19,7 @@ pc <- prcomp(df,
              scale. = TRUE)
 attributes(pc)
 
-df = as.data.frame(read_excel("Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
@@ -70,12 +70,12 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2, colour = Host))+
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
   scale_fill_manual(values = my_pal, name = "Host species") +
   scale_shape_manual(values = c(16,17), name = "Host group") +
-  xlab("PC1 (25.6% explained var.)") + 
-  ylab("PC2 (22.5% explained var.)")+
+  xlab("PC1 (25.8% explained var.)") + 
+  ylab("PC2 (22.6% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
@@ -107,4 +107,4 @@ names(pc2[pc2>5])
 pc1 = var.contrib[,"PC1"]
 barplot(pc1)
 max(pc1)
-names(pc1[pc1>4])
+names(pc1[pc1>4.5])

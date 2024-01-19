@@ -1,17 +1,17 @@
 #Phylogenetic tree
 library(ggtree)
 library(treeio)
-tree = read.tree("trees/rooted_N/all_N_unique.fasta.treefile")
+tree = read.tree("trees/rooted_N/all_seqs.fasta.treefile")
 tipcolours = c()
 
 library("readxl")
-df = as.data.frame(read_excel("Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
 colnames(df)[2] = "Accession no."
 df = df[2:nrow(df),]
-df = rbind(df, c("Gannoruwa bat lyssavirus", "NC_031988_gannoruwa_outgroup"))
+df = rbind(df, c("Gannoruwa bat lyssavirus", "gannoruwa_outgroup"))
 for(i in 1:length(tree$tip.label)){
   tipcolours[i] = df$Host[df$`Accession no.` == tree$tip.label[i]]
 }
@@ -26,7 +26,7 @@ p = ggtree(tree) +
   theme_tree2()
 p = p %<+% d  +  
    theme(legend.position="bottom") +
-  ylim (0,300)+
+  ylim (0,420)+
   geom_tippoint(aes(color=host), size = 2) +
   scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
                                 "#DDCC77","#CC6677","#882255","#AA4499", "black"), name = "Clade", guide = guide_legend(),

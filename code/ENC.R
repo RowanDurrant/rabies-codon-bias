@@ -1,5 +1,5 @@
 library("readxl")
-df = as.data.frame(read_excel("Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
@@ -73,7 +73,7 @@ ggplot(data = df, aes(x = Host, y = ENC))+
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
                               "Cosmo AM2a\n(mongoose)",
@@ -82,6 +82,6 @@ ggplot(data = df, aes(x = Host, y = ENC))+
                               "Bat TB1\n(Mexican free\n-tailed bat)",
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSC\n(skunk)",
+                              "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"))
 

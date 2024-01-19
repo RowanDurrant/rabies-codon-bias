@@ -1,4 +1,4 @@
-tab=read.table('trees/rooted/all_seqs.fasta.state',header=TRUE)
+tab=read.table('trees/rooted_N/all_seqs.fasta.state',header=TRUE)
 
 node = c()
 seqs = c()
@@ -9,6 +9,7 @@ for(i in unique(tab$Node)){
 }
 
 #cpg calcs
+library("stringr")
 
 CpG = function(x){
   x = unname(as.character(x))
@@ -48,8 +49,8 @@ for(j in 1:length(seqs)){
 }
 internal_nodes = data.frame(accessions, cpg, gc, cpg_actual)
 
-
-seqs = readDNAStringSet("trees/rooted/all_seqs.fasta")
+library(Biostrings)
+seqs = readDNAStringSet("sequences/N_gene/all_seqs.fasta")
 for(j in 1:length(seqs)){
   cpg = append(cpg, CpG(seqs[j]))
   gc = append(gc, GCcontent(seqs[j]))
@@ -66,8 +67,9 @@ all = rbind(tips, internal_nodes)
 library(ggtree)
 library(treeio)
 library(viridis)
+library(ggplot2)
 
-tree = read.tree("trees/rooted/all_seqs.fasta.treefile")
+tree = read.tree("trees/rooted_N/all_seqs.fasta.treefile")
 tipcolours = c()
 internal_nodes = internal_nodes[order(match(internal_nodes$accessions,
                                             tree$node.label)),]
@@ -79,6 +81,7 @@ d <- data.frame(node=c(1:(Nnode(tree)+length(tree$tip.label))),
 p = ggtree(tree) + 
   theme_tree2()
 p = p %<+% d  +  
+  ylim (0,420)+
   geom_point(aes(color=cpg), size = 2) +
   scale_color_viridis(name = "Obs/Exp CpG", guide = "colorbar", 
                       breaks =c(0.425, 0.525, 0.625)) +

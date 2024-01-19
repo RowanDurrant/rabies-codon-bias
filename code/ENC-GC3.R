@@ -1,5 +1,5 @@
 library("readxl")
-df = as.data.frame(read_excel("Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
@@ -51,7 +51,7 @@ for(k in 1:nrow(df)){
   df$ENC[k] = ENC
 }
 
-df2 = as.data.frame(read_excel("Nucleotide_composition_N.xlsx"))
+df2 = as.data.frame(read_excel("data/Nucleotide_composition_N.xlsx"))
 df$GC3s = df2$`%G3+C3`/100
 df$bat = NA
 df$bat[df$Host %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
@@ -80,7 +80,7 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC, colour = Host))+
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSC\n(skunk)",
+                                "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
   scale_shape_manual(values = c(16,17), name = "Host group") +
   stat_function(fun=f1, col = "black") +
