@@ -57,7 +57,7 @@ df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese fer
 
 
 library(ggplot2)
-ggplot(data = df, aes(x = Host, y = ENC))+
+p = ggplot(data = df, aes(x = Host, y = ENC))+
   geom_boxplot()+ 
   geom_jitter(aes(color = Host), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
@@ -85,3 +85,8 @@ ggplot(data = df, aes(x = Host, y = ENC))+
                               "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"))
 
+p
+
+png("plots/Figure 2.png", width = 7.5, height = 5, units = 'in', res = 600)
+p
+dev.off()

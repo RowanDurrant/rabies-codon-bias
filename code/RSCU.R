@@ -32,10 +32,16 @@ melt_data$Group.1 = factor(melt_data$Group.1, c("Bat LC\n(hoary bat)",
 library(ggplot2)
 library(RColorBrewer)
 library(colorspace)
-ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) + 
+p = ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) + 
   geom_tile() + xlab("Codon") + ylab("Clade") +
   scale_fill_continuous_divergingx(palette = 'RdBu', rev = T, mid = 1,
                                    l3 = 0, p3 = .8, p4 = .6,
                                    name = "RSCU") +
   theme_bw() + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
   
+
+p
+
+png("plots/Figure 3.png", width = 9, height = 5, units = 'in', res = 600)
+p
+dev.off()

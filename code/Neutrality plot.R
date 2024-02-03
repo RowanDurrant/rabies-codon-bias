@@ -9,6 +9,9 @@ df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese fer
                             "Free-tailed bat",
                             "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
 
+library(ggpubr)
+
+
 f1 = function(x){
   2+x+29/(x^2+(1-x)^2)
 }
@@ -19,7 +22,7 @@ my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
 df$GC12s = (df2$`%G1+C1` + df2$`%G2+C2`)/200
 df$GC3s = df2$`%G3+C3`/100
 
-ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host, 
+p2 = ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host, 
                            group = bat, linetype = bat)) + 
   theme_bw() + geom_point(position = position_jitter(width = .0005, height = 0.0005), 
                           size = 2, 
@@ -42,3 +45,13 @@ ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host,
                           labels = c("Bats", "Carnivores"),
                           values = c("dotted", "solid"))
 
+
+#run ENC-GC3 script to get p1
+ggarrange(p1, p2, labels = c("A", "B"), common.legend = T, legend = "bottom")
+
+
+png("plots/Figure 4.png", width = 9, height = 5, units = 'in', res = 600)
+ggarrange(p1, p2, labels = c("A", "B"), common.legend = T, legend = "bottom")
+
+
+dev.off()

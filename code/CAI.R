@@ -59,7 +59,7 @@ df2$normalised[df2$name == "Canis_familiaris"] = df2$value[df2$name == "Canis_fa
 df2$normalised[df2$name == "Eptesicus_fuscus"] = df2$value[df2$name == "Eptesicus_fuscus"]/eptesicus_fuscus_eCAI
 df2$normalised[df2$name == "Desmodus_rotundus"] = df2$value[df2$name == "Desmodus_rotundus"]/desmodus_rotundus_eCAI
 
-ggplot(data = df2, aes(x = name, y = normalised, fill = clade))+
+p = ggplot(data = df2, aes(x = name, y = normalised, fill = clade))+
   geom_boxplot(alpha = 0.9)+ 
   theme_bw()+ 
 scale_fill_manual(values = my_pal, labels = c("Cosmo AF1b\n(dog)",
@@ -78,3 +78,8 @@ scale_x_discrete(labels=c("Canis familiaris",
   xlab("Reference host") +
   theme(legend.position = "bottom")
 
+p
+
+png("plots/Figure 6.png", width = 7.5, height = 6, units = 'in', res = 600)
+p
+dev.off()

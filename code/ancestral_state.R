@@ -88,3 +88,6 @@ p = p %<+% d  +
   theme(legend.position="bottom")
 p
 
+png("plots/Figure 8.png", width = 7.5, height = 5, units = 'in', res = 600)
+p
+dev.off()

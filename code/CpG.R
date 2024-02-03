@@ -174,3 +174,7 @@ p3 = ggplot(data = df, aes(x = hosts, y = cpg_actual))+
 library(ggpubr)
 ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
 
+png("plots/Figure 7.png", width = 8, height = 5, units = 'in', res = 600)
+ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
+
+dev.off()

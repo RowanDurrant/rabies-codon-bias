@@ -43,3 +43,6 @@ p = p %<+% d  +
                      ))
 p
 
+png("plots/Figure 1.png", width = 7.5, height = 5, units = 'in', res = 600)
+p
+dev.off()

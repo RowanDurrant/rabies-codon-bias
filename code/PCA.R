@@ -82,6 +82,10 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2, colour = Host))+
 
 g1
 
+png("plots/Figure 5.png", width = 7.5, height = 7.5, units = 'in', res = 600)
+g1
+dev.off()
+
 write.csv(df2, "PCA_output.csv")
 
 # Helper function 

@@ -1,4 +1,5 @@
 library("readxl")
+library("ggplot2")
 df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])

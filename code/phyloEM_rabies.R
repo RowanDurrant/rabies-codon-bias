@@ -20,7 +20,7 @@ ultratree =chronos(mytree, lambda=1, model = 'relaxed')
 
 mydata <- read.csv('data/myseqs_RSDUc.tsv', sep='\t', row.names = 1, header= TRUE)
 
-mydata <- mydata[,c(1,4,7)]
+#mydata <- mydata[,c(1,4,7)]
 mydata <- mydata[1:(nrow(mydata)-1),] #remove gannoruwa bat lyssavirus
 mydata <- t(mydata)
 
