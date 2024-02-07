@@ -33,54 +33,37 @@ CpG_actual = function(x){
 
 library("Biostrings")
 
- files = c("sequences/N_gene/Dog_AF1b_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Canis_familiaris_SEA2a_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/CFB_SEA2b_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Desmodus_rotundus_Bats_DR_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Eptesicus fuscus_Bats_EF-E2_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Hoary_bat_Bats_LC_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Mongoose_AM2a_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Skunk-SK_N_nucleotide_alignment.fasta",
-           "sequences/N_gene/Tadarida brasiliensis_Bats_TB1_N_nucleotide_alignment.fasta")
-
- Host = c("Dog (AF1b)","Dog (SEA2a)", "Chinese ferret badger","Vampire bat","Big brown bat",
-          "Hoary bat", "Mongoose", "Skunk", "Free-tailed bat")
+seqs = readDNAStringSet("sequences/N_gene/all_seqs.fasta")
+seqs = seqs[1:length(seqs)-1]
+metadata = read.csv("data/metadata.csv")
 
 cpg = c()
 gc = c()
 cpg_actual = c()
 accessions = c()
-hosts = c()
+clade = c()
+host_group = c()
 
-for(i in 1:length(files)){
-  seqs = readDNAStringSet(files[i])
   for(j in 1:length(seqs)){
        cpg = append(cpg, CpG(seqs[j]))
        gc = append(gc, GCcontent(seqs[j]))
        cpg_actual = append(cpg_actual, CpG_actual(seqs[j]))
        accessions = append(accessions, names(seqs[j]))
-       hosts = append(hosts, Host[i])
-       
+       clade = append(clade, metadata$Clade[metadata$Accession==names(seqs[j])])
+       host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs[j])])
     }
   
-}
-df = data.frame(accessions, hosts, cpg, gc, cpg_actual)
+df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual)
 #write.csv(df, "N_CpG.csv")
-df$hosts = factor(df$hosts, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
-                              "Free-tailed bat",
-                              "Vampire bat", "Big brown bat","Skunk", "Hoary bat" 
-                               ))
-
-df$host_group = NA
-df$host_group[df$hosts %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                              "Vampire bat")] = "Bats"
-df$host_group[df$hosts %in% c("Dog (SEA2a)", "Chinese ferret badger",
-                              "Dog (AF1b)", "Mongoose", "Skunk")] = "Carnivores"
+df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a","Asian SEA2a", 
+                            "Asian SEA2b", 
+                          "Bat TB1",
+                          "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
 
 library(ggplot2)
-p1= ggplot(data = df, aes(x = hosts, y = cpg))+
+p1= ggplot(data = df, aes(x = clade, y = cpg))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = hosts), size = 0.5, 
+  geom_jitter(aes(color = clade), size = 0.5, 
               width = 0.4, height = 0) +
   theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
@@ -103,16 +86,16 @@ p1= ggplot(data = df, aes(x = hosts, y = cpg))+
                               "Cosmo AM2a\n(mongoose)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat TB1\n(Mexican free-tailed bat)",
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"
   ))
 
-p2= ggplot(data = df, aes(x = hosts, y = gc))+
+p2= ggplot(data = df, aes(x = clade, y = gc))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = hosts), size  = 0.5, 
+  geom_jitter(aes(color = clade), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
@@ -141,9 +124,9 @@ p2= ggplot(data = df, aes(x = hosts, y = gc))+
                               "Bat LC\n(hoary bat)"
   )) 
 
-p3 = ggplot(data = df, aes(x = hosts, y = cpg_actual))+
+p3 = ggplot(data = df, aes(x = clade, y = cpg_actual))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = hosts), size  = 0.5, 
+  geom_jitter(aes(color = clade), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
