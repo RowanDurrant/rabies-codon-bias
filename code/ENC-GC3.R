@@ -85,6 +85,6 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC, colour = Host))+
                                 "Bat LC\n(hoary bat)")) +
   scale_shape_manual(values = c(16,17), name = "Host group") +
   stat_function(fun=f1, col = "black") +
-  xlim(0,1) + ylim(0,62)
+  xlim(0.35,0.6) + ylim(48,62)
 p1
 

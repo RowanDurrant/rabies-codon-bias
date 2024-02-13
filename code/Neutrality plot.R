@@ -1,3 +1,7 @@
+###need to run enc-gc3 script first to get df2!
+
+library(readxl)
+
 df = as.data.frame(read_excel("data/Nucleotide_composition_N.xlsx"))
 df$GC3s = df$`%G3+C3`/100
 df$bat = NA
@@ -10,7 +14,7 @@ df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese fer
                             "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
 
 library(ggpubr)
-
+library(ggplot2)
 
 f1 = function(x){
   2+x+29/(x^2+(1-x)^2)
@@ -21,6 +25,10 @@ my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
 
 df$GC12s = (df2$`%G1+C1` + df2$`%G2+C2`)/200
 df$GC3s = df2$`%G3+C3`/100
+
+lm(data=df[df$bat == "Bats",], GC12s ~ GC3s)
+lm(data=df[df$bat == "Carnivores",], GC12s ~ GC3s)
+lm(data=df, GC12s ~ GC3s)
 
 p2 = ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host, 
                            group = bat, linetype = bat)) + 
