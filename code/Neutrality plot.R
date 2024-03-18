@@ -30,11 +30,12 @@ lm(data=df[df$bat == "Bats",], GC12s ~ GC3s)
 lm(data=df[df$bat == "Carnivores",], GC12s ~ GC3s)
 lm(data=df, GC12s ~ GC3s)
 
-p2 = ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host, 
-                           group = bat, linetype = bat)) + 
-  theme_bw() + geom_point(position = position_jitter(width = .0005, height = 0.0005), 
+p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,  
+                           linetype = bat)) + 
+  theme_bw() + 
+  geom_point(position = position_jitter(width = .0005, height = 0.0005), 
                           size = 2, 
-                          alpha = 0.8, aes(shape = bat)) +
+                          alpha = 0.8, aes(col = Host, shape = Host)) +
   scale_color_manual(values = my_pal, name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
@@ -45,7 +46,17 @@ p2 = ggplot(data = df, aes(x = GC3s, y = GC12s, col = Host,
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
-  scale_shape_manual(values = c(16,17), name = "Host group") +
+  scale_shape_manual(name = "Clade",
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)"),
+                     values = c(17,17,17,17,16,16,16,17,16))+
   stat_smooth(method = "lm", col = "black", se = F)+  
   stat_regline_equation(col = "black")+
   scale_linetype_manual(name="", 

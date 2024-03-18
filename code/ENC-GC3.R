@@ -71,8 +71,8 @@ f1 = function(x){
 my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
             "#DDCC77","#CC6677","#882255","#AA4499")
 
-p1 = ggplot(data = df, aes(x = GC3s, y = ENC, colour = Host))+
-  geom_point(size = 2, aes(shape = bat)) + theme_bw() +
+p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
+  geom_point(size = 2, aes(colour = Host, shape = Host)) + theme_bw() +
   scale_color_manual(values = my_pal, name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
@@ -83,7 +83,17 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC, colour = Host))+
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
-  scale_shape_manual(values = c(16,17), name = "Host group") +
+  scale_shape_manual(name = "Clade",
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)"),
+                     values = c(17,17,17,17,16,16,16,17,16))+
   stat_function(fun=f1, col = "black") +
   xlim(0.35,0.6) + ylim(48,62)
 p1

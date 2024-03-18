@@ -59,8 +59,8 @@ my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
 
 library(ggforce)
 
-g1 = ggplot(data = df2, aes(x = PC1, y = PC2, colour = Host))+ 
-  geom_point(size = 2, aes(shape = bat)) +
+g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+ 
+  geom_point(size = 2, aes(col = Host, shape = Host)) +
   geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
   scale_color_manual(values = my_pal, name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
@@ -72,8 +72,17 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2, colour = Host))+
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)")) +
-  scale_fill_manual(values = my_pal, name = "Host species") +
-  scale_shape_manual(values = c(16,17), name = "Host group") +
+  scale_shape_manual(name = "Clade",
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)"),
+                     values = c(17,17,17,17,16,16,16,17,16))+
   xlab("PC1 (25.8% explained var.)") + 
   ylab("PC2 (22.6% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+

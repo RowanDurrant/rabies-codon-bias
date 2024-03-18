@@ -6,7 +6,7 @@ tree = read.tree("trees/rooted_N/all_seqs.fasta.treefile")
 tipcolours = c()
 
 df = read.csv("data/metadata.csv")
-df = rbind(df, c("Gannoruwa bat lyssavirus", "bat", "gannoruwa_outgroup"))
+df = rbind(df, c("gannoruwa_outgroup", NA, "Gannoruwa bat lyssavirus", "bat", "bat"))
 
 for(i in 1:length(tree$tip.label)){
   tipcolours[i] = df$Clade[df$Accession == tree$tip.label[i]]
@@ -23,8 +23,8 @@ p = ggtree(tree) +
   theme_tree2()
 p = p %<+% d  +  
    theme(legend.position="bottom") +
-  ylim(0, 500) +
-  geom_tippoint(aes(color=clade), size = 2) +
+  ylim(0, 420) +
+  geom_tippoint(aes(color=clade), size = 1) +
   scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
                                 "#DDCC77","#CC6677","#882255","#AA4499", "black"), 
                                 name = "Clade", guide = guide_legend(),
@@ -41,6 +41,6 @@ p = p %<+% d  +
                      ))
 p
 
-png("plots/Figure 1.png", width = 7.5, height = 5, units = 'in', res = 600)
+png("plots/Figure 1.png", width = 7.5, height = 7.5, units = 'in', res = 600)
 p
 dev.off()
