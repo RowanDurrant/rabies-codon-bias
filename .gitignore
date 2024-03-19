@@ -49,3 +49,4 @@ po/*~
 rsconnect/
 .DS_Store
 trees/rooted_N/all_seqs_with_dates.trees
+sequence_data/trees/all_seqs_with_dates.trees
