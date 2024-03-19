@@ -1,10 +1,13 @@
-#Rabies codon bias
+# Rabies codon bias
+
 Repo for the manuscript "Selection against CG dinucleotides shapes codon usage biases in species-specific rabies virus clades". 
 
-##Data
+## Data
+
 All genetic data and metadata are stored in the sequence_data folder. Output from CAICal, DinuQ and my scripts are in the output_data folder.
 
-##Code
+## Code
+
 Each script loosely corresponds to one figure:
 
 - Figure 1 is generated using IQTree and phylogeny.R.
