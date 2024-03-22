@@ -4,7 +4,7 @@ library(phytools)
 library("readxl")
 #https://pbastide.github.io/PhylogeneticEM/articles/tutorial.html
 
-mytree <- read.tree('trees/rooted_N/all_seqs_noout.nwk')
+mytree <- read.tree('sequence_data/trees/rooted_N/all_seqs_noout.nwk')
 plot(mytree, show.tip.label = TRUE)
 
 
@@ -18,7 +18,7 @@ ultratree =chronos(mytree, lambda=1, model = 'relaxed')
 #clock: log-Lik = -289.2297, PHIIC = 1276.46 
 
 
-mydata <- read.csv('data/myseqs_RSDUc.tsv', sep='\t', row.names = 1, header= TRUE)
+mydata <- read.csv('output_data/myseqs_RSDUc.tsv', sep='\t', row.names = 1, header= TRUE)
 
 #mydata <- mydata[,c(1,4,7)]
 mydata <- mydata[1:(nrow(mydata)-1),] #remove gannoruwa bat lyssavirus
@@ -46,7 +46,7 @@ myres
 tips = ultratree$tip.label
 colours = c()
 
-df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 df = df[2:nrow(df),]
 for(i in tips){
   if(df$Host[df$CODONS == i] == "Dog (SEA2a)"){colours = append(colours, "#490092")}

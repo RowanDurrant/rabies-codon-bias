@@ -1,5 +1,10 @@
-library("readxl")
-df = as.data.frame(read_excel("data/RSCU_N.xlsx"))
+library(readxl)
+library(reshape2)
+library(ggplot2)
+library(RColorBrewer)
+library(colorspace)
+
+df = as.data.frame(read_excel("output_data/RSCU_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
   df[,i] = as.numeric(df[,i])
@@ -16,7 +21,6 @@ agg$Group.1 = c("Bat EF-E2\n(big brown bat)","Asian SEA2b\n(CFB)",
                 "RAC-SK SCSK\n(skunk)","Bat DR\n(vampire bat)"
 )
 
-library(reshape2)
 melt_data <- melt(agg, na.rm = FALSE, value.name = "rscu", id = "Group.1")
 
 melt_data$Group.1 = factor(melt_data$Group.1, c("Bat LC\n(hoary bat)",
@@ -29,9 +33,7 @@ melt_data$Group.1 = factor(melt_data$Group.1, c("Bat LC\n(hoary bat)",
                                                 "Cosmo AM2a\n(mongoose)",
                                                 "Cosmo AF1b\n(dog)"))
 
-library(ggplot2)
-library(RColorBrewer)
-library(colorspace)
+
 p = ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) + 
   geom_tile() + xlab("Codon") + ylab("Clade") +
   scale_fill_continuous_divergingx(palette = 'RdBu', rev = T, mid = 1,

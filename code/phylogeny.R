@@ -2,10 +2,10 @@
 library(ggtree)
 library(treeio)
 library(ggplot2)
-tree = read.tree("trees/rooted_N/all_seqs.fasta.treefile")
+tree = read.tree("sequence_data/trees/rooted_N/all_seqs.fasta.treefile")
 tipcolours = c()
 
-df = read.csv("data/metadata.csv")
+df = read.csv("sequence_data/metadata.csv")
 df = rbind(df, c("gannoruwa_outgroup", NA, "Gannoruwa bat lyssavirus", "bat", "bat"))
 
 for(i in 1:length(tree$tip.label)){

@@ -69,7 +69,7 @@ library(treeio)
 library(viridis)
 library(ggplot2)
 
-tree = read.tree("trees/rooted_N/all_seqs.fasta.treefile")
+tree = read.tree("sequence_data/trees/rooted_N/all_seqs.fasta.treefile")
 tipcolours = c()
 internal_nodes = internal_nodes[order(match(internal_nodes$accessions,
                                             tree$node.label)),]

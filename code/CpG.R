@@ -33,9 +33,9 @@ CpG_actual = function(x){
 
 library("Biostrings")
 
-seqs = readDNAStringSet("sequences/N_gene/all_seqs.fasta")
+seqs = readDNAStringSet("sequence_data/all_seqs.fasta")
 seqs = seqs[1:length(seqs)-1]
-metadata = read.csv("data/metadata.csv")
+metadata = read.csv("sequence_data/metadata.csv")
 
 cpg = c()
 gc = c()

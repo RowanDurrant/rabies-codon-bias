@@ -1,5 +1,12 @@
 library(readxl)
-df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
+library(ggforce)
+library(janitor)
+library(devtools)
+library(ggbiplot)
+library(ggh4x)
+library(ggplot2)
+
+df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
@@ -11,7 +18,6 @@ df = df[,3:ncol(df)]
 df <- sapply(df, as.numeric )
 rownames(df) = rownames
 
-library(janitor)
 df = remove_constant(df)
 
 pc <- prcomp(df,
@@ -19,15 +25,13 @@ pc <- prcomp(df,
              scale. = TRUE)
 attributes(pc)
 
-df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
+df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
 colnames(df)[2] = "Accession no."
 df = df[2:nrow(df),]
 
-library(devtools)
-library(ggbiplot)
 g <- ggbiplot(pc,
               obs.scale = 1,
               var.scale = 1,
@@ -47,17 +51,10 @@ df2$Accession = df$`Accession no.`
 df2$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
                              "Free-tailed bat",
                              "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
-df2$bat = NA
-df2$bat[df2$Host %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                      "Vampire bat")] = "Bats"
-df2$bat[df2$Host %in% c("Dog (SEA2a)", "Chinese ferret badger",
-                      "Dog (AF1b)", "Mongoose", "Skunk")] = "Carnivores"
-library(ggh4x)
+
 
 my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
             "#DDCC77","#CC6677","#882255","#AA4499")
-
-library(ggforce)
 
 g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+ 
   geom_point(size = 2, aes(col = Host, shape = Host)) +

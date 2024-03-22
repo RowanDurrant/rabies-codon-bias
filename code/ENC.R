@@ -1,5 +1,7 @@
-library("readxl")
-df = as.data.frame(read_excel("data/Codon_usage_N.xlsx"))
+library(ggplot2)
+library(readxl)
+
+df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
@@ -56,7 +58,6 @@ df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese fer
                             "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
 
 
-library(ggplot2)
 p = ggplot(data = df, aes(x = Host, y = ENC))+
   geom_boxplot()+ 
   geom_jitter(aes(color = Host), size  = 0.5, 
