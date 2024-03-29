@@ -6,7 +6,7 @@ df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
-colnames(df)[2] = "Accession no."
+colnames(df)[1] = "Accession no."
 df = df[2:nrow(df),]
 
 F_function = function(codons){
@@ -18,24 +18,24 @@ F_function = function(codons){
 
 df$ENC = NA
 for(k in 1:nrow(df)){
-  F_codons = as.numeric(df[k,3:4])
-  L_codons = as.numeric(df[k,5:10])
-  I_codons = as.numeric(df[k,11:13])
-  V_codons = as.numeric(df[k,14:17])
-  S_codons = as.numeric(df[k,18:23])
-  P_codons = as.numeric(df[k,24:27])
-  T_codons = as.numeric(df[k,28:31])
-  A_codons = as.numeric(df[k,32:35])
-  Y_codons = as.numeric(df[k,36:37])
-  H_codons = as.numeric(df[k,38:39])
-  Q_codons = as.numeric(df[k,40:41])
-  N_codons = as.numeric(df[k,42:43])
-  K_codons = as.numeric(df[k,44:45])
-  D_codons = as.numeric(df[k,46:47])
-  E_codons = as.numeric(df[k,48:49])
-  C_codons = as.numeric(df[k,50:51])
-  R_codons = as.numeric(df[k,52:57])
-  G_codons = as.numeric(df[k,58:61])
+  F_codons = as.numeric(df[k,2:3])
+  L_codons = as.numeric(df[k,4:9])
+  I_codons = as.numeric(df[k,10:12])
+  V_codons = as.numeric(df[k,13:16])
+  S_codons = as.numeric(df[k,17:22])
+  P_codons = as.numeric(df[k,23:26])
+  T_codons = as.numeric(df[k,27:30])
+  A_codons = as.numeric(df[k,31:34])
+  Y_codons = as.numeric(df[k,35:36])
+  H_codons = as.numeric(df[k,37:38])
+  Q_codons = as.numeric(df[k,39:40])
+  N_codons = as.numeric(df[k,41:42])
+  K_codons = as.numeric(df[k,43:44])
+  D_codons = as.numeric(df[k,45:46])
+  E_codons = as.numeric(df[k,47:48])
+  C_codons = as.numeric(df[k,49:50])
+  R_codons = as.numeric(df[k,52:56])
+  G_codons = as.numeric(df[k,57:60])
   
   #F2 = C, D, E, F, H, K, N, Q, Y
   #F3 = I
@@ -56,28 +56,32 @@ for(k in 1:nrow(df)){
 
 df2 = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
 df$GC3s = df2$`%G3+C3`/100
-df$bat = NA
-df$bat[df$Host %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                      "Vampire bat")] = "Bats"
-df$bat[df$Host %in% c("Dog (SEA2a)", "Chinese ferret badger",
-                      "Dog (AF1b)", "Mongoose", "Skunk")] = "Carnivores"
 
-df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
-                              "Free-tailed bat",
-                              "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
+metadata = read.csv("sequence_data/metadata.csv")
+
+df$clade = NA
+for(i in 1:nrow(df)){
+  df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
+}
+
+df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+                              "Asian SEA2b", 
+                              "Bat TB1",
+                              "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
 
 f1 = function(x){
   2+x+29/(x^2+(1-x)^2)
 }
 
-my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
-            "#DDCC77","#CC6677","#882255","#AA4499")
+my_pal <- c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+            "#999933", "#DDCC77","#CC6677","#882255","#AA4499")
 
 p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
-  geom_point(size = 2, aes(colour = Host, shape = Host)) + theme_bw() +
+  geom_point(size = 2, aes(colour = clade, shape = clade)) + theme_bw() +
   scale_color_manual(values = my_pal, name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -88,6 +92,7 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
   scale_shape_manual(name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -95,29 +100,28 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
-                     values = c(17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,17,16))+
   stat_function(fun=f1, col = "black") +
   xlim(0.35,0.6) + ylim(48,62)
 p1
 
 df = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
 df$GC3s = df$`%G3+C3`/100
-df$bat = NA
-df$bat[df$Host %in% c("Big brown bat", "Hoary bat", "Free-tailed bat",
-                      "Vampire bat")] = "Bats"
-df$bat[df$Host %in% c("Dog (SEA2a)", "Chinese ferret badger",
-                      "Dog (AF1b)", "Mongoose", "Skunk")] = "Carnivores"
-df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
-                            "Free-tailed bat",
-                            "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
 
-
-f1 = function(x){
-  2+x+29/(x^2+(1-x)^2)
+df$clade = NA
+for(i in 1:nrow(df)){
+  df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
 }
 
-my_pal <- c("#332288","#88CCEE","#44AA99","#117733","#999933",
-            "#DDCC77","#CC6677","#882255","#AA4499")
+df$bat = NA
+df$bat[df$clade %in% c("Bat TB1",
+                       "Bat DR", "Bat EF-E2","Bat LC")] = "Bats"
+df$bat[df$clade %in% c("Cosmo AF1b", "RAC-SK SCSK", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+                       "Asian SEA2b")] = "Carnivores"
+df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+                              "Asian SEA2b", 
+                              "Bat TB1",
+                              "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
 
 df$GC12s = (df2$`%G1+C1` + df2$`%G2+C2`)/200
 df$GC3s = df2$`%G3+C3`/100
@@ -131,10 +135,11 @@ p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,
   theme_bw() + 
   geom_point(position = position_jitter(width = .0005, height = 0.0005), 
              size = 2, 
-             alpha = 0.8, aes(col = Host, shape = Host)) +
+             alpha = 0.8, aes(col = clade, shape = clade)) +
   scale_color_manual(values = my_pal, name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -145,6 +150,7 @@ p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,
   scale_shape_manual(name = "Clade",
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -152,7 +158,7 @@ p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
-                     values = c(17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,17,16))+
   stat_smooth(method = "lm", col = "black", se = F)+  
   stat_regline_equation(col = "black")+
   scale_linetype_manual(name="", 

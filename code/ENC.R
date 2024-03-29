@@ -2,10 +2,10 @@ library(ggplot2)
 library(readxl)
 
 df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
-for(i in 3:ncol(df)){
+for(i in 2:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
-colnames(df)[2] = "Accession no."
+colnames(df)[1] = "Accession no."
 df = df[2:nrow(df),]
 
 F_function = function(codons){
@@ -17,24 +17,24 @@ F_function = function(codons){
 
 df$ENC = NA
 for(k in 1:nrow(df)){
-  F_codons = as.numeric(df[k,3:4])
-  L_codons = as.numeric(df[k,5:10])
-  I_codons = as.numeric(df[k,11:13])
-  V_codons = as.numeric(df[k,14:17])
-  S_codons = as.numeric(df[k,18:23])
-  P_codons = as.numeric(df[k,24:27])
-  T_codons = as.numeric(df[k,28:31])
-  A_codons = as.numeric(df[k,32:35])
-  Y_codons = as.numeric(df[k,36:37])
-  H_codons = as.numeric(df[k,38:39])
-  Q_codons = as.numeric(df[k,40:41])
-  N_codons = as.numeric(df[k,42:43])
-  K_codons = as.numeric(df[k,44:45])
-  D_codons = as.numeric(df[k,46:47])
-  E_codons = as.numeric(df[k,48:49])
-  C_codons = as.numeric(df[k,50:51])
-  R_codons = as.numeric(df[k,52:57])
-  G_codons = as.numeric(df[k,58:61])
+  F_codons = as.numeric(df[k,2:3])
+  L_codons = as.numeric(df[k,4:9])
+  I_codons = as.numeric(df[k,10:12])
+  V_codons = as.numeric(df[k,13:16])
+  S_codons = as.numeric(df[k,17:22])
+  P_codons = as.numeric(df[k,23:26])
+  T_codons = as.numeric(df[k,27:30])
+  A_codons = as.numeric(df[k,31:34])
+  Y_codons = as.numeric(df[k,35:36])
+  H_codons = as.numeric(df[k,37:38])
+  Q_codons = as.numeric(df[k,39:40])
+  N_codons = as.numeric(df[k,41:42])
+  K_codons = as.numeric(df[k,43:44])
+  D_codons = as.numeric(df[k,45:46])
+  E_codons = as.numeric(df[k,47:48])
+  C_codons = as.numeric(df[k,49:50])
+  R_codons = as.numeric(df[k,52:56])
+  G_codons = as.numeric(df[k,57:60])
   
   #F2 = C, D, E, F, H, K, N, Q, Y
   #F3 = I
@@ -53,22 +53,31 @@ for(k in 1:nrow(df)){
   df$ENC[k] = ENC
 }
 
-df$Host = factor(df$Host, c("Dog (AF1b)", "Mongoose","Dog (SEA2a)", "Chinese ferret badger",
-                            "Free-tailed bat",
-                            "Vampire bat", "Big brown bat","Skunk", "Hoary bat"))
+metadata = read.csv("sequence_data/metadata.csv")
+
+df$clade = NA
+for(i in 1:nrow(df)){
+  df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
+}
+
+df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+                              "Asian SEA2b", 
+                              "Bat TB1",
+                              "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
 
 
-p = ggplot(data = df, aes(x = Host, y = ENC))+
+p = ggplot(data = df, aes(x = clade, y = ENC))+
   geom_boxplot()+ 
-  geom_jitter(aes(color = Host), size  = 0.5, 
+  geom_jitter(aes(color = clade), size  = 0.5, 
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+ 
   xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
-                                "#DDCC77","#CC6677","#882255","#AA4499"), name = "Clade", guide = guide_legend(),
+  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), name = "Clade", guide = guide_legend(),
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -78,6 +87,7 @@ p = ggplot(data = df, aes(x = Host, y = ENC))+
                                 "Bat LC\n(hoary bat)")) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
                               "Cosmo AM2a\n(mongoose)",
+                              "Arctic A\n(arctic fox)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
                               "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -91,3 +101,6 @@ p
 png("plots/Figure 2.png", width = 7.5, height = 5, units = 'in', res = 600)
 p
 dev.off()
+
+mean(df$ENC)
+sd(df$ENC)

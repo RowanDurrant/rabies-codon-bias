@@ -54,8 +54,8 @@ host_group = c()
     }
   
 df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual)
-#write.csv(df, "N_CpG.csv")
-df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a","Asian SEA2a", 
+write.csv(df, "N_CpG.csv")
+df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
                           "Bat TB1",
                           "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
@@ -69,11 +69,12 @@ p1= ggplot(data = df, aes(x = clade, y = cpg))+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("Obs/Exp CpG") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
-                                "#DDCC77","#CC6677","#882255","#AA4499"), 
+  scale_color_manual(values =  c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                 "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
                      name = "Clade", guide = guide_legend(),
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free-tailed bat)",
@@ -84,9 +85,10 @@ p1= ggplot(data = df, aes(x = clade, y = cpg))+
                                 )) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
                               "Cosmo AM2a\n(mongoose)",
+                              "Arctic A\n(arctic fox)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free-tailed bat)",
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSK\n(skunk)",
@@ -100,11 +102,12 @@ p2= ggplot(data = df, aes(x = clade, y = gc))+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("GC content") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
-                                "#DDCC77","#CC6677","#882255","#AA4499"), 
+  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
                      name = "Clade", guide = guide_legend(),
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
                                 "Bat TB1\n(Mexican free-tailed bat)",
@@ -115,6 +118,7 @@ p2= ggplot(data = df, aes(x = clade, y = gc))+
                      )) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
                               "Cosmo AM2a\n(mongoose)",
+                              "Arctic A\n(arctic fox)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
                               "Bat TB1\n(Mexican free\n-tailed bat)",
@@ -131,14 +135,15 @@ p3 = ggplot(data = df, aes(x = clade, y = cpg_actual))+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("No. CpGs") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733","#999933",
-                                "#DDCC77","#CC6677","#882255","#AA4499"), 
+  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
                      name = "Clade", guide = guide_legend(),
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
                                 "Bat DR\n(vampire bat)",
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
@@ -146,6 +151,7 @@ p3 = ggplot(data = df, aes(x = clade, y = cpg_actual))+
                      )) +
   scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
                               "Cosmo AM2a\n(mongoose)",
+                              "Arctic A\n(arctic fox)",
                               "Asian SEA2a\n(dog)",
                               "Asian SEA2b\n(CFB)",
                               "Bat TB1\n(Mexican free\n-tailed bat)",

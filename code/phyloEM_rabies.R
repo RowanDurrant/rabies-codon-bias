@@ -4,7 +4,7 @@ library(phytools)
 library("readxl")
 #https://pbastide.github.io/PhylogeneticEM/articles/tutorial.html
 
-mytree <- read.tree('sequence_data/trees/rooted_N/all_seqs_noout.nwk')
+mytree <- read.tree('sequence_data/trees/all_seqs_noout.nwk')
 plot(mytree, show.tip.label = TRUE)
 
 
@@ -37,7 +37,7 @@ myres <- PhyloEM(phylo = ultratree,
              random.root = TRUE,                 ## Root is stationary (true model)
              stationary.root = TRUE,
              alpha = tail(alphas), #get the 5 highest alpha values of the vector
-             K_max = 30,                         ## Maximal number of shifts
+             K_max = 20,                         ## Maximal number of shifts
              parallel_alpha = TRUE,              
              Ncores = 5)
   
@@ -45,19 +45,19 @@ myres
   
 tips = ultratree$tip.label
 colours = c()
+metadata = read.csv("sequence_data/metadata.csv")
 
-df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
-df = df[2:nrow(df),]
 for(i in tips){
-  if(df$Host[df$CODONS == i] == "Dog (SEA2a)"){colours = append(colours, "#490092")}
-  if(df$Host[df$CODONS == i] == "Dog (AF1b)"){colours = append(colours, "#b66dff")}
-  if(df$Host[df$CODONS == i] == "Chinese ferret badger"){colours = append(colours, "#006ddb")}
-  if(df$Host[df$CODONS == i] == "Mongoose"){colours = append(colours, "#6db6ff")}
-  if(df$Host[df$CODONS == i] == "Vampire bat"){colours = append(colours, "#ffb6db")}
-  if(df$Host[df$CODONS == i] == "Free-tailed bat"){colours = append(colours, "#ff6db6")}
-  if(df$Host[df$CODONS == i] == "Big brown bat"){colours = append(colours, "#004949")}
-  if(df$Host[df$CODONS == i] == "Skunk"){colours = append(colours, "#b6dbff")}
-  if(df$Host[df$CODONS == i] == "Hoary bat"){colours = append(colours, "#009292")}
+  if(metadata$Clade[metadata$Accession == i] == "Asian SEA2a"){colours = append(colours, "#490092")}
+  if(metadata$Clade[metadata$Accession == i] == "Cosmo AF1b"){colours = append(colours, "#b66dff")}
+  if(metadata$Clade[metadata$Accession == i] == "Arctic A"){colours = append(colours, "red")}
+  if(metadata$Clade[metadata$Accession == i] == "Asian SEA2b"){colours = append(colours, "#006ddb")}
+  if(metadata$Clade[metadata$Accession == i] == "Cosmo AM2a"){colours = append(colours, "#6db6ff")}
+  if(metadata$Clade[metadata$Accession == i] == "Bat DR"){colours = append(colours, "#ffb6db")}
+  if(metadata$Clade[metadata$Accession == i] == "Bat TB1"){colours = append(colours, "#ff6db6")}
+  if(metadata$Clade[metadata$Accession == i] == "Bat EF-E2"){colours = append(colours, "#004949")}
+  if(metadata$Clade[metadata$Accession == i] == "RAC-SK SCSK"){colours = append(colours, "#b6dbff")}
+  if(metadata$Clade[metadata$Accession == i] == "Bat LC"){colours = append(colours, "#009292")}
 }
 
 plot(myres)

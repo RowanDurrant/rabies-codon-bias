@@ -5,20 +5,31 @@ library(RColorBrewer)
 library(colorspace)
 
 df = as.data.frame(read_excel("output_data/RSCU_N.xlsx"))
-for(i in 3:ncol(df)){
+for(i in 2:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
   df[,i] = as.numeric(df[,i])
 }
-colnames(df)[2] = "Accession no."
+colnames(df)[1] = "Accession no."
 df = df[2:nrow(df),]
 
-agg = aggregate(df[, 3:61], list(df$Host), mean)
+metadata = read.csv("sequence_data/metadata.csv")
+df$clade = NA
+for(i in 1:nrow(df)){
+  df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
+}
 
-agg$Group.1 = c("Bat EF-E2\n(big brown bat)","Asian SEA2b\n(CFB)",
-                "Cosmo AF1b\n(dog)","Asian SEA2a\n(dog)",
-                "Bat TB1\n(Mexican free-tailed bat)","Bat LC\n(hoary bat)",
+agg = aggregate(df[, 2:60], list(df$clade), mean)
+
+agg$Group.1 = c("Arctic A\n(arctic fox)",
+                "Asian SEA2a\n(dog)",
+                "Asian SEA2b\n(CFB)",
+                "Bat DR\n(vampire bat)",
+                "Bat EF-E2\n(big brown bat)",
+                "Bat LC\n(hoary bat)",
+                "Bat TB1\n(Mexican free\n-tailed bat)",
+                "Cosmo AF1b\n(dog)",
                 "Cosmo AM2a\n(mongoose)",
-                "RAC-SK SCSK\n(skunk)","Bat DR\n(vampire bat)"
+                "RAC-SK SCSK\n(skunk)"
 )
 
 melt_data <- melt(agg, na.rm = FALSE, value.name = "rscu", id = "Group.1")
@@ -27,9 +38,10 @@ melt_data$Group.1 = factor(melt_data$Group.1, c("Bat LC\n(hoary bat)",
                                                 "RAC-SK SCSK\n(skunk)",
                                                 "Bat EF-E2\n(big brown bat)",
                                                 "Bat DR\n(vampire bat)",
-                                                "Bat TB1\n(Mexican free-tailed bat)",
+                                                "Bat TB1\n(Mexican free\n-tailed bat)",
                                                 "Asian SEA2b\n(CFB)",
                                                 "Asian SEA2a\n(dog)",
+                                                "Arctic A\n(arctic fox)",
                                                 "Cosmo AM2a\n(mongoose)",
                                                 "Cosmo AF1b\n(dog)"))
 

@@ -4,8 +4,8 @@ Heiko Schmidt, Dominik Schrempf, Michael Woodhams.
 
 Host:    Rowans-MacBook-Pro.local (SSE4.2, 18 GB RAM)
 Command: bin/iqtree -s all_seqs.fasta -o gannoruwa_outgroup -asr
-Seed:    222497 (Using SPRNG - Scalable Parallel Random Number Generator)
-Time:    Thu Jan 18 15:16:31 2024
+Seed:    812463 (Using SPRNG - Scalable Parallel Random Number Generator)
+Time:    Fri Mar 29 15:13:10 2024
 Kernel:  SSE2 - 1 threads (11 CPU cores detected)
 
 HINT: Use -nt option to specify number of threads because your CPU has 11 cores!
@@ -13,768 +13,695 @@ HINT: -nt AUTO will automatically determine the best number of threads to use.
 
 Reading alignment file all_seqs.fasta ... Fasta format detected
 Alignment most likely contains DNA/RNA sequences
-Alignment has 414 sequences with 1353 columns, 641 distinct patterns
-537 parsimony-informative, 116 singleton sites, 700 constant sites
+Alignment has 426 sequences with 1353 columns, 649 distinct patterns
+545 parsimony-informative, 114 singleton sites, 694 constant sites
                     Gap/Ambiguity  Composition  p-value
-   1  DQ666289              0.00%    passed     94.54%
-   2  DQ666290              0.00%    passed     90.32%
-   3  DQ866105              0.00%    passed     96.15%
-   4  DQ866106              0.00%    passed     88.67%
-   5  DQ866108              0.00%    passed     89.58%
-   6  DQ866109              0.00%    passed     88.08%
-   7  DQ866110              0.00%    passed     96.73%
-   8  DQ866112              0.00%    passed     93.10%
-   9  DQ866116              0.00%    passed     97.34%
-  10  DQ866119              0.00%    passed     93.96%
-  11  EU086182              0.00%    passed     91.37%
-  12  EU086183              0.00%    passed     88.08%
-  13  EU159386              0.00%    passed     91.37%
-  14  EU828653              0.00%    passed     92.01%
-  15  FJ561726              0.00%    passed     96.74%
-  16  FJ561727              0.00%    passed     95.75%
-  17  FJ561728              0.00%    passed     94.92%
-  18  FJ866829              0.00%    passed     90.07%
-  19  FJ866830              0.00%    passed     95.55%
-  20  FJ866831              0.00%    passed     94.52%
-  21  GQ472468              0.00%    passed     91.69%
-  22  GQ472470              0.00%    passed     84.46%
-  23  GQ472473              0.00%    passed     89.01%
-  24  GQ472477              0.00%    passed     91.70%
-  25  GU358653              0.00%    passed     86.57%
-  26  HM486355              0.00%    passed     99.66%
-  27  HM486356              0.00%    passed     99.57%
-  28  HM486357              0.00%    passed     99.66%
-  29  HM486358              0.00%    passed     99.66%
-  30  HM486359              0.00%    passed     99.66%
-  31  HM486361              0.00%    passed     99.66%
-  32  HM486362              0.00%    passed     99.66%
-  33  HM486364              0.00%    passed     99.66%
-  34  HM486365              0.00%    passed     99.66%
-  35  HM486366              0.00%    passed     99.66%
-  36  HM486367              0.00%    passed     99.66%
-  37  HM486368              0.00%    passed     94.71%
-  38  HM486369              0.00%    passed     99.61%
-  39  HM486370              0.00%    passed     99.66%
-  40  HM486371              0.00%    passed     99.66%
-  41  HM486372              0.00%    passed     99.66%
-  42  HM486373              0.00%    passed     99.66%
-  43  HM486374              0.00%    passed     99.59%
-  44  HM486375              0.00%    passed     99.59%
-  45  HM486379              0.00%    passed     99.29%
-  46  HM486380              0.00%    passed     99.29%
-  47  HM486381              0.00%    passed     95.55%
-  48  JF819605              0.00%    passed     96.85%
-  49  JF819615              0.00%    passed     99.61%
-  50  JF819622              0.00%    passed     99.66%
-  51  JN974823              0.00%    passed     97.04%
-  52  JN974824              0.00%    passed     96.98%
-  53  JN974828              0.00%    passed     89.15%
-  54  JN974829              0.00%    passed     89.15%
-  55  JN974838              0.00%    passed     97.28%
-  56  JN974842              0.00%    passed     94.74%
-  57  JN974845              0.00%    passed     97.31%
-  58  JN974854              0.00%    passed     99.66%
+   1  DQ666289              0.00%    passed     94.46%
+   2  DQ666290              0.00%    passed     89.77%
+   3  DQ866105              0.00%    passed     96.06%
+   4  DQ866106              0.00%    passed     87.89%
+   5  DQ866108              0.00%    passed     88.72%
+   6  DQ866109              0.00%    passed     87.23%
+   7  DQ866110              0.00%    passed     96.27%
+   8  DQ866112              0.00%    passed     92.49%
+   9  DQ866116              0.00%    passed     96.99%
+  10  DQ866119              0.00%    passed     93.46%
+  11  EU086182              0.00%    passed     90.70%
+  12  EU086183              0.00%    passed     87.23%
+  13  EU159386              0.00%    passed     90.70%
+  14  EU828653              0.00%    passed     91.13%
+  15  FJ561726              0.00%    passed     96.48%
+  16  FJ561727              0.00%    passed     95.45%
+  17  FJ561728              0.00%    passed     95.06%
+  18  FJ866829              0.00%    passed     90.34%
+  19  FJ866830              0.00%    passed     95.54%
+  20  FJ866831              0.00%    passed     94.39%
+  21  GQ472468              0.00%    passed     91.09%
+  22  GQ472470              0.00%    passed     83.78%
+  23  GQ472473              0.00%    passed     88.08%
+  24  GQ472477              0.00%    passed     91.09%
+  25  GU358653              0.00%    passed     85.80%
+  26  HM486355              0.00%    passed     99.75%
+  27  HM486356              0.00%    passed     99.71%
+  28  HM486357              0.00%    passed     99.75%
+  29  HM486358              0.00%    passed     99.75%
+  30  HM486359              0.00%    passed     99.75%
+  31  HM486361              0.00%    passed     99.75%
+  32  HM486362              0.00%    passed     99.75%
+  33  HM486364              0.00%    passed     99.75%
+  34  HM486365              0.00%    passed     99.75%
+  35  HM486366              0.00%    passed     99.75%
+  36  HM486367              0.00%    passed     99.75%
+  37  HM486368              0.00%    passed     94.15%
+  38  HM486369              0.00%    passed     99.70%
+  39  HM486370              0.00%    passed     99.75%
+  40  HM486371              0.00%    passed     99.75%
+  41  HM486372              0.00%    passed     99.75%
+  42  HM486373              0.00%    passed     99.75%
+  43  HM486374              0.00%    passed     99.71%
+  44  HM486375              0.00%    passed     99.71%
+  45  HM486379              0.00%    passed     99.47%
+  46  HM486380              0.00%    passed     99.47%
+  47  HM486381              0.00%    passed     95.60%
+  48  JF819605              0.00%    passed     97.30%
+  49  JF819615              0.00%    passed     99.70%
+  50  JF819622              0.00%    passed     99.75%
+  51  JN974823              0.00%    passed     97.06%
+  52  JN974824              0.00%    passed     96.64%
+  53  JN974828              0.00%    passed     88.43%
+  54  JN974829              0.00%    passed     88.43%
+  55  JN974838              0.00%    passed     97.04%
+  56  JN974842              0.00%    passed     94.51%
+  57  JN974845              0.00%    passed     97.25%
+  58  JN974854              0.00%    passed     99.75%
   59  JN974870              0.00%    passed     99.93%
-  60  JN974871              0.00%    passed     99.77%
-  61  JN974872              0.00%    passed     99.31%
-  62  JN974873              0.00%    passed     99.06%
-  63  JQ970480              0.00%    passed     97.04%
-  64  KT221107              0.00%    passed     98.33%
-  65  KT894558              0.00%    passed     93.84%
-  66  KT894572              0.00%    passed     96.14%
-  67  KT894573              0.00%    passed     99.49%
-  68  KT894577              0.00%    passed     87.39%
-  69  KT894578              0.00%    passed     84.35%
-  70  KX148264              0.00%    passed     86.57%
-  71  KY451767              0.00%    passed     94.86%
-  72  MG201879              0.00%    passed     89.36%
-  73  MG201880              0.00%    passed     89.01%
-  74  MG201884              0.00%    passed     89.15%
-  75  MG201919              0.00%    passed     87.40%
-  76  MG201921              0.00%    passed     86.72%
-  77  FJ598135              0.00%    passed     97.85%
-  78  FJ712195              0.00%    passed     97.56%
-  79  FJ712196              0.00%    passed     96.88%
-  80  GU647092              0.00%    passed     98.35%
-  81  KF726852              0.00%    passed     89.96%
-  82  KP319184              0.00%    passed     89.96%
-  83  KP319185              0.00%    passed     97.56%
-  84  KP319186              0.00%    passed     98.79%
-  85  KP319187              0.00%    passed     97.67%
-  86  KP319188              0.00%    passed     98.23%
-  87  KP319189              0.00%    passed     97.67%
-  88  KP319190              0.00%    passed     98.70%
-  89  KP319191              0.00%    passed     97.56%
-  90  KP319192              0.00%    passed     98.35%
-  91  KP319193              0.00%    passed     97.37%
-  92  KP319194              0.00%    passed     94.45%
-  93  KP319195              0.00%    passed     92.67%
-  94  KP319196              0.00%    passed     95.71%
-  95  KP319197              0.00%    passed     95.71%
-  96  KP319198              0.00%    passed     95.71%
-  97  KP319199              0.00%    passed     98.77%
-  98  KP319200              0.00%    passed     95.71%
-  99  KP319201              0.00%    passed     98.88%
- 100  KP319202              0.00%    passed     95.71%
- 101  KP319203              0.00%    passed     90.95%
- 102  KP319204              0.00%    passed     93.36%
- 103  KP319205              0.00%    passed     96.81%
- 104  KP319206              0.00%    passed     99.55%
- 105  KP319207              0.00%    passed     99.55%
- 106  KP319208              0.00%    passed     95.71%
- 107  KP319209              0.00%    passed     95.71%
- 108  KP319210              0.00%    passed     95.71%
- 109  KP319211              0.00%    passed     95.71%
- 110  KP319212              0.00%    passed     93.36%
- 111  KP319213              0.00%    passed     95.71%
+  60  JN974871              0.00%    passed     99.72%
+  61  JN974872              0.00%    passed     99.46%
+  62  JN974873              0.00%    passed     99.14%
+  63  JQ970480              0.00%    passed     97.06%
+  64  KT221107              0.00%    passed     98.25%
+  65  KT894558              0.00%    passed     93.87%
+  66  KT894572              0.00%    passed     95.99%
+  67  KT894573              0.00%    passed     99.41%
+  68  KT894577              0.00%    passed     86.61%
+  69  KT894578              0.00%    passed     83.53%
+  70  KX148264              0.00%    passed     85.80%
+  71  KY451767              0.00%    passed     95.01%
+  72  MG201879              0.00%    passed     88.70%
+  73  MG201880              0.00%    passed     88.08%
+  74  MG201884              0.00%    passed     88.43%
+  75  MG201919              0.00%    passed     86.75%
+  76  MG201921              0.00%    passed     85.75%
+  77  FJ598135              0.00%    passed     97.49%
+  78  FJ712195              0.00%    passed     97.71%
+  79  FJ712196              0.00%    passed     96.37%
+  80  GU647092              0.00%    passed     97.96%
+  81  KF726852              0.00%    passed     89.36%
+  82  KP319184              0.00%    passed     89.36%
+  83  KP319185              0.00%    passed     97.19%
+  84  KP319186              0.00%    passed     98.70%
+  85  KP319187              0.00%    passed     97.28%
+  86  KP319188              0.00%    passed     98.11%
+  87  KP319189              0.00%    passed     97.28%
+  88  KP319190              0.00%    passed     98.36%
+  89  KP319191              0.00%    passed     97.05%
+  90  KP319192              0.00%    passed     97.96%
+  91  KP319193              0.00%    passed     96.91%
+  92  KP319194              0.00%    passed     94.06%
+  93  KP319195              0.00%    passed     92.23%
+  94  KP319196              0.00%    passed     95.15%
+  95  KP319197              0.00%    passed     95.15%
+  96  KP319198              0.00%    passed     95.15%
+  97  KP319199              0.00%    passed     98.72%
+  98  KP319200              0.00%    passed     95.15%
+  99  KP319201              0.00%    passed     98.85%
+ 100  KP319202              0.00%    passed     95.15%
+ 101  KP319203              0.00%    passed     90.07%
+ 102  KP319204              0.00%    passed     92.61%
+ 103  KP319205              0.00%    passed     96.43%
+ 104  KP319206              0.00%    passed     99.48%
+ 105  KP319207              0.00%    passed     99.53%
+ 106  KP319208              0.00%    passed     95.15%
+ 107  KP319209              0.00%    passed     95.15%
+ 108  KP319210              0.00%    passed     95.15%
+ 109  KP319211              0.00%    passed     95.15%
+ 110  KP319212              0.00%    passed     92.61%
+ 111  KP319213              0.00%    passed     95.15%
  112  AB519642              0.00%    passed     91.64%
- 113  AF070449              0.00%    passed     85.68%
- 114  AF351847              0.00%    passed     96.18%
- 115  AF351852              0.00%    passed     82.57%
- 116  AY854587              0.00%    passed     80.73%
- 117  AY854592              0.00%    passed     97.69%
- 118  AY854594              0.00%    passed     98.58%
- 119  AY877433              0.00%    passed     89.27%
- 120  AY877434              0.00%    passed     91.95%
- 121  AY877435              0.00%    passed     92.17%
- 122  GU592648              0.00%    passed     85.41%
- 123  KF656696              0.00%    passed     96.66%
- 124  KF656697              0.00%    passed     96.66%
- 125  KF864234              0.00%    passed     87.42%
- 126  KF864322              0.00%    passed     87.67%
- 127  KF864397              0.00%    passed     77.53%
- 128  KM594040              0.00%    passed     88.33%
- 129  KM594041              0.00%    passed     65.65%
- 130  KM594042              0.00%    passed     94.93%
- 131  KP202393              0.00%    passed     89.19%
- 132  KT023101              0.00%    passed     58.15%
- 133  KU523255              0.00%    passed     58.15%
- 134  MN968374              0.00%    passed     99.92%
- 135  MN968375              0.00%    passed     99.81%
- 136  MN968376              0.00%    passed     99.81%
- 137  MN968377              0.00%    passed     99.79%
- 138  MN968378              0.00%    passed     99.79%
- 139  MN968379              0.00%    passed     99.79%
- 140  MN968380              0.00%    passed     99.79%
- 141  MN968381              0.00%    passed     99.79%
- 142  MN968382              0.00%    passed     99.79%
- 143  MN968383              0.00%    passed     99.79%
- 144  MN968384              0.00%    passed     99.79%
- 145  MN968385              0.00%    passed     99.79%
- 146  MN968386              0.00%    passed     99.60%
- 147  MN968387              0.00%    passed     99.81%
- 148  MT891038              0.00%    passed     86.34%
- 149  MW249020              0.00%    passed     97.51%
- 150  MW249021              0.00%    passed     86.34%
- 151  AB284509              0.00%    passed     96.77%
- 152  AB284510              0.00%    passed     96.77%
- 153  AB284511              0.00%    passed     97.44%
- 154  AB284512              0.00%    passed     97.49%
- 155  AB284513              0.00%    passed     96.54%
- 156  AB284514              0.00%    passed     97.49%
- 157  AB285215              0.00%    passed     96.77%
- 158  EU853582              0.00%    passed     98.83%
- 159  EU853584              0.00%    passed     96.04%
- 160  EU853585              0.00%    passed     96.04%
- 161  EU853586              0.00%    passed     95.37%
- 162  EU853587              0.00%    passed     99.15%
- 163  EU853588              0.00%    passed     99.15%
- 164  EU853589              0.00%    passed     99.15%
- 165  EU853590              0.00%    passed     98.71%
- 166  HM179504              0.00%    passed     89.51%
- 167  HM179505              0.00%    passed     91.12%
- 168  HM179506              0.00%    passed     96.22%
- 169  KF155002              0.00%    passed     96.30%
- 170  KR534217              0.00%    passed     95.90%
- 171  KR534218              0.00%    passed     95.94%
- 172  KR534219              0.00%    passed     98.46%
- 173  KR534220              0.00%    passed     95.94%
- 174  KR534228              0.00%    passed     98.73%
- 175  KR534229              0.00%    passed     97.16%
- 176  KR534230              0.00%    passed     99.87%
- 177  KR534231              0.00%    passed     98.73%
- 178  KR534233              0.00%    passed     96.25%
- 179  KR534238              0.00%    passed     97.81%
- 180  KR534244              0.00%    passed     96.11%
- 181  KR534247              0.00%    passed     96.11%
- 182  KR534249              0.00%    passed     96.11%
- 183  KR534250              0.00%    passed     92.46%
- 184  KR534251              0.00%    passed     98.79%
- 185  KR534252              0.00%    passed     99.29%
- 186  KR534253              0.00%    passed     97.18%
- 187  KR906734              0.00%    passed     98.46%
- 188  KR906735              0.00%    passed     97.44%
- 189  KR906736              0.00%    passed     97.89%
- 190  KR906739              0.00%    passed     99.27%
- 191  KR906741              0.00%    passed     99.35%
- 192  KR906742              0.00%    passed     96.89%
- 193  KR906743              0.00%    passed     98.73%
- 194  KR906744              0.00%    passed     99.21%
- 195  KR906745              0.00%    passed     98.22%
- 196  KR906746              0.00%    passed     96.27%
- 197  KR906747              0.00%    passed     96.69%
- 198  KR906748              0.00%    passed     92.08%
- 199  KR906749              0.00%    passed     98.77%
- 200  KR906750              0.00%    passed     96.89%
- 201  KR906751              0.00%    passed     94.49%
- 202  KR906752              0.00%    passed     92.08%
- 203  KR906754              0.00%    passed     96.89%
- 204  KR906755              0.00%    passed     96.11%
- 205  KR906756              0.00%    passed     95.75%
- 206  KR906757              0.00%    passed     94.49%
- 207  KR906759              0.00%    passed     97.93%
- 208  KR906760              0.00%    passed     96.25%
- 209  KR906762              0.00%    passed     97.44%
- 210  KR906763              0.00%    passed     97.08%
- 211  KR906765              0.00%    passed     96.77%
- 212  KR906766              0.00%    passed     96.79%
- 213  KR906767              0.00%    passed     98.22%
- 214  KR906768              0.00%    passed     96.89%
- 215  KR906770              0.00%    passed     99.76%
- 216  KR906771              0.00%    passed     96.11%
- 217  KR906772              0.00%    passed     96.25%
- 218  KR906773              0.00%    passed     95.90%
- 219  KR906774              0.00%    passed     98.79%
- 220  KR906776              0.00%    passed     99.76%
- 221  KR906780              0.00%    passed     95.90%
- 222  KR906782              0.00%    passed     96.11%
- 223  KR906784              0.00%    passed     99.77%
- 224  KR906789              0.00%    passed     99.76%
- 225  KR906790              0.00%    passed     99.68%
- 226  KR906792              0.00%    passed     87.20%
- 227  KT336432              0.00%    passed     95.90%
- 228  KT336433              0.00%    passed     97.37%
- 229  KT336434              0.00%    passed     78.80%
- 230  KT336435              0.00%    passed     92.31%
- 231  KT336436              0.00%    passed     96.80%
- 232  KT336437              0.00%    passed     95.38%
- 233  KX148203              0.00%    passed     94.39%
- 234  KX148204              0.00%    passed     98.04%
- 235  KX148205              0.00%    passed     98.83%
- 236  KX148206              0.00%    passed     99.28%
- 237  KX148208              0.00%    passed     99.85%
- 238  KY210222              0.00%    passed     95.90%
- 239  KY210223              0.00%    passed     98.79%
- 240  KY210224              0.00%    passed     90.03%
- 241  KY210226              0.00%    passed     92.46%
- 242  KY210227              0.00%    passed     99.76%
- 243  KY210229              0.00%    passed     96.11%
- 244  KY210231              0.00%    passed     96.11%
- 245  KY210232              0.00%    passed     96.11%
- 246  KY210234              0.00%    passed     96.11%
- 247  KY210235              0.00%    passed     96.11%
- 248  KY210238              0.00%    passed     96.11%
- 249  KY210239              0.00%    passed     96.11%
- 250  KY210243              0.00%    passed     96.11%
- 251  KY210244              0.00%    passed     90.03%
- 252  KY210245              0.00%    passed     99.68%
- 253  KY210247              0.00%    passed     96.11%
- 254  KY210248              0.00%    passed     90.03%
- 255  KY210249              0.00%    passed     94.48%
- 256  KY210250              0.00%    passed     96.11%
- 257  KY210251              0.00%    passed     96.11%
- 258  KY210252              0.00%    passed     99.68%
- 259  KY210253              0.00%    passed     98.29%
- 260  KY210254              0.00%    passed     98.29%
- 261  KY210255              0.00%    passed     98.29%
- 262  KY210256              0.00%    passed     98.29%
- 263  KY210257              0.00%    passed     99.76%
- 264  KY210258              0.00%    passed     96.11%
- 265  KY210260              0.00%    passed     96.11%
+ 113  AF070449              0.00%    passed     86.55%
+ 114  AF351847              0.00%    passed     95.96%
+ 115  AF351852              0.00%    passed     83.02%
+ 116  AY854587              0.00%    passed     81.51%
+ 117  AY854592              0.00%    passed     97.97%
+ 118  AY854594              0.00%    passed     98.77%
+ 119  AY877433              0.00%    passed     90.40%
+ 120  AY877434              0.00%    passed     92.06%
+ 121  AY877435              0.00%    passed     92.36%
+ 122  GU592648              0.00%    passed     85.32%
+ 123  KF656696              0.00%    passed     96.76%
+ 124  KF656697              0.00%    passed     96.76%
+ 125  KF864234              0.00%    passed     88.53%
+ 126  KF864322              0.00%    passed     88.71%
+ 127  KF864397              0.00%    passed     78.25%
+ 128  KM594040              0.00%    passed     88.75%
+ 129  KM594041              0.00%    passed     66.47%
+ 130  KM594042              0.00%    passed     95.32%
+ 131  KP202393              0.00%    passed     89.38%
+ 132  KT023101              0.00%    passed     58.98%
+ 133  KU523255              0.00%    passed     58.98%
+ 134  MN968374              0.00%    passed     99.95%
+ 135  MN968375              0.00%    passed     99.85%
+ 136  MN968376              0.00%    passed     99.85%
+ 137  MN968377              0.00%    passed     99.86%
+ 138  MN968378              0.00%    passed     99.86%
+ 139  MN968379              0.00%    passed     99.86%
+ 140  MN968380              0.00%    passed     99.86%
+ 141  MN968381              0.00%    passed     99.86%
+ 142  MN968382              0.00%    passed     99.86%
+ 143  MN968383              0.00%    passed     99.86%
+ 144  MN968384              0.00%    passed     99.86%
+ 145  MN968385              0.00%    passed     99.86%
+ 146  MN968386              0.00%    passed     99.67%
+ 147  MN968387              0.00%    passed     99.85%
+ 148  MT891038              0.00%    passed     86.73%
+ 149  MW249020              0.00%    passed     97.63%
+ 150  MW249021              0.00%    passed     86.73%
+ 151  AB284509              0.00%    passed     97.04%
+ 152  AB284510              0.00%    passed     97.04%
+ 153  AB284511              0.00%    passed     97.60%
+ 154  AB284512              0.00%    passed     97.85%
+ 155  AB284513              0.00%    passed     96.75%
+ 156  AB284514              0.00%    passed     97.85%
+ 157  AB285215              0.00%    passed     97.04%
+ 158  EU853582              0.00%    passed     98.99%
+ 159  EU853584              0.00%    passed     95.66%
+ 160  EU853585              0.00%    passed     95.66%
+ 161  EU853586              0.00%    passed     94.87%
+ 162  EU853587              0.00%    passed     98.98%
+ 163  EU853588              0.00%    passed     98.98%
+ 164  EU853589              0.00%    passed     98.98%
+ 165  EU853590              0.00%    passed     98.45%
+ 166  HM179504              0.00%    passed     88.61%
+ 167  HM179505              0.00%    passed     90.51%
+ 168  HM179506              0.00%    passed     95.82%
+ 169  KF155002              0.00%    passed     96.46%
+ 170  KR534217              0.00%    passed     95.64%
+ 171  KR534218              0.00%    passed     95.66%
+ 172  KR534219              0.00%    passed     98.32%
+ 173  KR534220              0.00%    passed     95.66%
+ 174  KR534228              0.00%    passed     98.71%
+ 175  KR534229              0.00%    passed     97.05%
+ 176  KR534230              0.00%    passed     99.83%
+ 177  KR534231              0.00%    passed     98.71%
+ 178  KR534233              0.00%    passed     96.06%
+ 179  KR534238              0.00%    passed     97.80%
+ 180  KR534244              0.00%    passed     95.95%
+ 181  KR534247              0.00%    passed     95.95%
+ 182  KR534249              0.00%    passed     95.95%
+ 183  KR534250              0.00%    passed     92.22%
+ 184  KR534251              0.00%    passed     98.74%
+ 185  KR534252              0.00%    passed     99.11%
+ 186  KR534253              0.00%    passed     96.96%
+ 187  KR906734              0.00%    passed     98.32%
+ 188  KR906735              0.00%    passed     97.60%
+ 189  KR906736              0.00%    passed     97.96%
+ 190  KR906739              0.00%    passed     99.04%
+ 191  KR906741              0.00%    passed     99.26%
+ 192  KR906742              0.00%    passed     97.08%
+ 193  KR906743              0.00%    passed     98.71%
+ 194  KR906744              0.00%    passed     98.99%
+ 195  KR906745              0.00%    passed     98.14%
+ 196  KR906746              0.00%    passed     95.64%
+ 197  KR906747              0.00%    passed     96.16%
+ 198  KR906748              0.00%    passed     91.08%
+ 199  KR906749              0.00%    passed     98.63%
+ 200  KR906750              0.00%    passed     97.08%
+ 201  KR906751              0.00%    passed     93.76%
+ 202  KR906752              0.00%    passed     91.08%
+ 203  KR906754              0.00%    passed     97.08%
+ 204  KR906755              0.00%    passed     95.95%
+ 205  KR906756              0.00%    passed     95.60%
+ 206  KR906757              0.00%    passed     93.76%
+ 207  KR906759              0.00%    passed     98.00%
+ 208  KR906760              0.00%    passed     96.06%
+ 209  KR906762              0.00%    passed     97.54%
+ 210  KR906763              0.00%    passed     97.05%
+ 211  KR906765              0.00%    passed     97.04%
+ 212  KR906766              0.00%    passed     96.86%
+ 213  KR906767              0.00%    passed     98.14%
+ 214  KR906768              0.00%    passed     97.08%
+ 215  KR906770              0.00%    passed     99.75%
+ 216  KR906771              0.00%    passed     95.95%
+ 217  KR906772              0.00%    passed     96.06%
+ 218  KR906773              0.00%    passed     95.64%
+ 219  KR906774              0.00%    passed     98.74%
+ 220  KR906776              0.00%    passed     99.75%
+ 221  KR906780              0.00%    passed     95.64%
+ 222  KR906782              0.00%    passed     95.95%
+ 223  KR906784              0.00%    passed     99.80%
+ 224  KR906789              0.00%    passed     99.75%
+ 225  KR906790              0.00%    passed     99.66%
+ 226  KR906792              0.00%    passed     86.89%
+ 227  KT336432              0.00%    passed     95.64%
+ 228  KT336433              0.00%    passed     97.02%
+ 229  KT336434              0.00%    passed     78.06%
+ 230  KT336435              0.00%    passed     91.59%
+ 231  KT336436              0.00%    passed     96.53%
+ 232  KT336437              0.00%    passed     94.88%
+ 233  KX148203              0.00%    passed     94.04%
+ 234  KX148204              0.00%    passed     97.64%
+ 235  KX148205              0.00%    passed     98.99%
+ 236  KX148206              0.00%    passed     99.14%
+ 237  KX148208              0.00%    passed     99.89%
+ 238  KY210222              0.00%    passed     95.64%
+ 239  KY210223              0.00%    passed     98.74%
+ 240  KY210224              0.00%    passed     89.76%
+ 241  KY210226              0.00%    passed     92.22%
+ 242  KY210227              0.00%    passed     99.75%
+ 243  KY210229              0.00%    passed     95.95%
+ 244  KY210231              0.00%    passed     95.95%
+ 245  KY210232              0.00%    passed     95.95%
+ 246  KY210234              0.00%    passed     95.95%
+ 247  KY210235              0.00%    passed     95.95%
+ 248  KY210238              0.00%    passed     95.95%
+ 249  KY210239              0.00%    passed     95.95%
+ 250  KY210243              0.00%    passed     96.05%
+ 251  KY210244              0.00%    passed     89.76%
+ 252  KY210245              0.00%    passed     99.66%
+ 253  KY210247              0.00%    passed     96.05%
+ 254  KY210248              0.00%    passed     89.76%
+ 255  KY210249              0.00%    passed     94.28%
+ 256  KY210250              0.00%    passed     95.95%
+ 257  KY210251              0.00%    passed     95.95%
+ 258  KY210252              0.00%    passed     99.66%
+ 259  KY210253              0.00%    passed     98.12%
+ 260  KY210254              0.00%    passed     98.12%
+ 261  KY210255              0.00%    passed     98.12%
+ 262  KY210256              0.00%    passed     98.12%
+ 263  KY210257              0.00%    passed     99.75%
+ 264  KY210258              0.00%    passed     95.95%
+ 265  KY210260              0.00%    passed     95.95%
  266  KY210263              0.00%    passed     99.79%
- 267  KY210264              0.00%    passed     99.48%
- 268  KY210265              0.00%    passed     90.03%
- 269  KY210266              0.00%    passed     98.29%
- 270  KY210267              0.00%    passed     95.75%
- 271  KY210269              0.00%    passed     99.76%
- 272  KY210270              0.00%    passed     99.76%
- 273  KY210271              0.00%    passed     96.11%
- 274  KY210272              0.00%    passed     96.11%
- 275  KY210273              0.00%    passed     90.03%
- 276  KY210278              0.00%    passed     95.90%
- 277  KY210279              0.00%    passed     99.77%
- 278  KY210280              0.00%    passed     98.79%
- 279  KY210281              0.00%    passed     98.79%
- 280  KY210282              0.00%    passed     98.79%
- 281  KY210286              0.00%    passed     95.90%
- 282  KY210287              0.00%    passed     95.47%
- 283  KY210288              0.00%    passed     95.47%
- 284  KY210289              0.00%    passed     96.11%
- 285  KY210290              0.00%    passed     96.11%
- 286  KY210292              0.00%    passed     96.11%
- 287  KY210293              0.00%    passed     96.11%
- 288  KY210294              0.00%    passed     99.76%
- 289  KY210295              0.00%    passed     95.47%
- 290  KY210296              0.00%    passed     95.47%
- 291  KY210299              0.00%    passed     96.11%
- 292  KY210300              0.00%    passed     96.11%
- 293  KY210303              0.00%    passed     90.03%
- 294  KY210304              0.00%    passed     99.89%
- 295  KY210307              0.00%    passed     96.11%
+ 267  KY210264              0.00%    passed     99.53%
+ 268  KY210265              0.00%    passed     89.76%
+ 269  KY210266              0.00%    passed     98.12%
+ 270  KY210267              0.00%    passed     95.60%
+ 271  KY210269              0.00%    passed     99.75%
+ 272  KY210270              0.00%    passed     99.75%
+ 273  KY210271              0.00%    passed     95.95%
+ 274  KY210272              0.00%    passed     95.95%
+ 275  KY210273              0.00%    passed     89.76%
+ 276  KY210278              0.00%    passed     95.64%
+ 277  KY210279              0.00%    passed     99.80%
+ 278  KY210280              0.00%    passed     98.74%
+ 279  KY210281              0.00%    passed     98.74%
+ 280  KY210282              0.00%    passed     98.74%
+ 281  KY210286              0.00%    passed     95.64%
+ 282  KY210287              0.00%    passed     95.10%
+ 283  KY210288              0.00%    passed     95.10%
+ 284  KY210289              0.00%    passed     95.95%
+ 285  KY210290              0.00%    passed     95.95%
+ 286  KY210292              0.00%    passed     95.95%
+ 287  KY210293              0.00%    passed     95.95%
+ 288  KY210294              0.00%    passed     99.75%
+ 289  KY210295              0.00%    passed     95.10%
+ 290  KY210296              0.00%    passed     95.10%
+ 291  KY210299              0.00%    passed     95.95%
+ 292  KY210300              0.00%    passed     95.95%
+ 293  KY210303              0.00%    passed     89.76%
+ 294  KY210304              0.00%    passed     99.87%
+ 295  KY210307              0.00%    passed     95.95%
  296  KY210311              0.00%    passed     99.79%
- 297  KY563717              0.00%    passed     77.66%
- 298  LC029890              0.00%    passed     99.89%
- 299  MN726804              0.00%    passed     97.44%
- 300  MN726826              0.00%    passed     97.79%
- 301  MN726827              0.00%    passed     97.22%
- 302  MT454631              0.00%    passed     94.25%
- 303  MT454634              0.00%    passed     95.90%
- 304  MT454635              0.00%    passed     97.37%
- 305  MT454636              0.00%    passed     95.90%
- 306  MT454637              0.00%    passed     92.21%
- 307  MT454639              0.00%    passed     95.90%
- 308  MT454641              0.00%    passed     97.18%
- 309  MT454643              0.00%    passed     99.34%
- 310  MT454644              0.00%    passed     94.90%
- 311  MT454645              0.00%    passed     99.56%
- 312  AF351828              0.00%    passed     86.65%
- 313  AF351831              0.00%    passed     85.78%
- 314  AF351832              0.00%    passed     81.18%
- 315  AF351833              0.00%    passed     87.08%
- 316  AF351855              0.00%    passed     75.04%
- 317  AF351861              0.00%    passed     97.19%
- 318  AF351862              0.00%    passed     87.36%
- 319  AY039227              0.00%    passed     81.31%
- 320  AY039228              0.00%    passed     87.22%
- 321  AY039229              0.00%    passed     83.54%
- 322  GU644652              0.00%    passed     92.97%
- 323  GU644654              0.00%    passed     82.94%
- 324  GU644655              0.00%    passed     87.22%
- 325  GU644656              0.00%    passed     83.21%
- 326  GU644657              0.00%    passed     86.00%
- 327  GU644658              0.00%    passed     77.40%
- 328  GU644659              0.00%    passed     82.02%
- 329  GU644660              0.00%    passed     93.80%
- 330  GU644661              0.00%    passed     86.43%
- 331  GU644662              0.00%    passed     89.98%
- 332  GU644663              0.00%    passed     91.34%
- 333  GU644664              0.00%    passed     93.17%
- 334  GU644665              0.00%    passed     84.56%
- 335  GU644666              0.00%    passed     90.99%
- 336  GU644667              0.00%    passed     84.37%
- 337  GU644668              0.00%    passed     87.45%
- 338  GU644669              0.00%    passed     89.79%
- 339  GU644670              0.00%    passed     92.13%
- 340  GU644671              0.00%    passed     84.02%
- 341  GU644676              0.00%    passed     87.71%
- 342  GU644677              0.00%    passed     85.44%
- 343  GU644684              0.00%    passed     86.45%
- 344  GU644689              0.00%    passed     86.45%
- 345  GU644690              0.00%    passed     86.34%
- 346  GU644695              0.00%    passed     86.34%
- 347  JQ685925              0.00%    passed     86.45%
- 348  AF351845              0.00%    passed     98.44%
- 349  AF351846              0.00%    passed     91.58%
- 350  AF351858              0.00%    passed     89.12%
- 351  AF394883              0.00%    passed     97.24%
- 352  AF394884              0.00%    passed     97.75%
- 353  GU644712              0.00%    passed     92.70%
- 354  GU644713              0.00%    passed     92.04%
- 355  GU644714              0.00%    passed     93.77%
- 356  GU644715              0.00%    passed     94.96%
- 357  GU644716              0.00%    passed     92.70%
- 358  GU644717              0.00%    passed     95.00%
- 359  GU644718              0.00%    passed     94.96%
- 360  GU644719              0.00%    passed     94.09%
- 361  GU644720              0.00%    passed     95.72%
- 362  GU644721              0.00%    passed     95.86%
- 363  JQ685947              0.00%    passed     95.00%
- 364  AY854505              0.00%    passed     91.15%
- 365  AY854525              0.00%    passed     92.92%
- 366  AY854531              0.00%    passed     99.39%
- 367  AY854544              0.00%    passed     99.68%
- 368  AY854546              0.00%    passed     99.72%
- 369  AY854558              0.00%    passed     95.75%
- 370  AY854567              0.00%    passed     98.38%
+ 297  KY563717              0.00%    passed     76.94%
+ 298  LC029890              0.00%    passed     99.81%
+ 299  MN726804              0.00%    passed     97.54%
+ 300  MN726826              0.00%    passed     97.81%
+ 301  MN726827              0.00%    passed     97.26%
+ 302  MT454631              0.00%    passed     93.95%
+ 303  MT454634              0.00%    passed     95.64%
+ 304  MT454635              0.00%    passed     97.24%
+ 305  MT454636              0.00%    passed     95.64%
+ 306  MT454637              0.00%    passed     91.86%
+ 307  MT454639              0.00%    passed     95.64%
+ 308  MT454641              0.00%    passed     96.96%
+ 309  MT454643              0.00%    passed     99.16%
+ 310  MT454644              0.00%    passed     94.18%
+ 311  MT454645              0.00%    passed     99.41%
+ 312  AF351828              0.00%    passed     87.93%
+ 313  AF351831              0.00%    passed     86.84%
+ 314  AF351832              0.00%    passed     82.32%
+ 315  AF351833              0.00%    passed     87.73%
+ 316  AF351855              0.00%    passed     76.15%
+ 317  AF351861              0.00%    passed     97.42%
+ 318  AF351862              0.00%    passed     87.94%
+ 319  AY039227              0.00%    passed     82.17%
+ 320  AY039228              0.00%    passed     87.56%
+ 321  AY039229              0.00%    passed     84.22%
+ 322  GU644652              0.00%    passed     93.41%
+ 323  GU644654              0.00%    passed     83.12%
+ 324  GU644655              0.00%    passed     87.56%
+ 325  GU644656              0.00%    passed     83.82%
+ 326  GU644657              0.00%    passed     86.93%
+ 327  GU644658              0.00%    passed     78.30%
+ 328  GU644659              0.00%    passed     82.43%
+ 329  GU644660              0.00%    passed     94.24%
+ 330  GU644661              0.00%    passed     87.01%
+ 331  GU644662              0.00%    passed     90.71%
+ 332  GU644663              0.00%    passed     91.95%
+ 333  GU644664              0.00%    passed     93.85%
+ 334  GU644665              0.00%    passed     85.38%
+ 335  GU644666              0.00%    passed     91.60%
+ 336  GU644667              0.00%    passed     85.13%
+ 337  GU644668              0.00%    passed     88.23%
+ 338  GU644669              0.00%    passed     90.21%
+ 339  GU644670              0.00%    passed     92.80%
+ 340  GU644671              0.00%    passed     84.39%
+ 341  GU644676              0.00%    passed     88.11%
+ 342  GU644677              0.00%    passed     86.27%
+ 343  GU644684              0.00%    passed     86.72%
+ 344  GU644689              0.00%    passed     86.72%
+ 345  GU644690              0.00%    passed     86.73%
+ 346  GU644695              0.00%    passed     86.73%
+ 347  JQ685925              0.00%    passed     86.72%
+ 348  AF351845              0.00%    passed     98.75%
+ 349  AF351846              0.00%    passed     92.61%
+ 350  AF351858              0.00%    passed     90.10%
+ 351  AF394883              0.00%    passed     97.72%
+ 352  AF394884              0.00%    passed     98.19%
+ 353  GU644712              0.00%    passed     93.60%
+ 354  GU644713              0.00%    passed     93.00%
+ 355  GU644714              0.00%    passed     94.40%
+ 356  GU644715              0.00%    passed     95.70%
+ 357  GU644716              0.00%    passed     93.60%
+ 358  GU644717              0.00%    passed     95.77%
+ 359  GU644718              0.00%    passed     95.70%
+ 360  GU644719              0.00%    passed     94.82%
+ 361  GU644720              0.00%    passed     96.30%
+ 362  GU644721              0.00%    passed     96.50%
+ 363  JQ685947              0.00%    passed     95.77%
+ 364  AY854505              0.00%    passed     90.06%
+ 365  AY854525              0.00%    passed     92.00%
+ 366  AY854531              0.00%    passed     99.16%
+ 367  AY854544              0.00%    passed     99.64%
+ 368  AY854546              0.00%    passed     99.71%
+ 369  AY854558              0.00%    passed     95.60%
+ 370  AY854567              0.00%    passed     98.48%
  371  AY854573              0.00%    passed     99.97%
- 372  AY854576              0.00%    passed     96.99%
- 373  EU345002              0.00%    passed     99.06%
- 374  EU345003              0.00%    passed     99.55%
- 375  EU345004              0.00%    passed     98.18%
- 376  JQ685938              0.00%    passed     99.64%
- 377  JQ685968              0.00%    passed     96.18%
- 378  MW055084              0.00%    passed     99.22%
- 379  MW055085              0.00%    passed     98.71%
- 380  MW055086              0.00%    passed     96.81%
- 381  MW055087              0.00%    passed     98.26%
- 382  AF351849              0.00%    passed     67.00%
- 383  AF394876              0.00%    passed     80.01%
- 384  GU644760              0.00%    passed     64.18%
- 385  GU644761              0.00%    passed     74.21%
- 386  GU644762              0.00%    passed     69.42%
- 387  GU644763              0.00%    passed     71.18%
- 388  GU644764              0.00%    passed     64.18%
- 389  GU644765              0.00%    passed     58.23%
- 390  GU644766              0.00%    passed     61.95%
- 391  GU644767              0.00%    passed     63.76%
- 392  GU644768              0.00%    passed     62.75%
- 393  GU644769              0.00%    passed     52.49%
- 394  GU644770              0.00%    passed     71.51%
- 395  GU644771              0.00%    passed     78.04%
- 396  GU644772              0.00%    passed     63.95%
- 397  GU644773              0.00%    passed     63.76%
- 398  GU644774              0.00%    passed     62.75%
- 399  GU644775              0.00%    passed     59.75%
- 400  GU644776              0.00%    passed     57.96%
- 401  GU644777              0.00%    passed     67.22%
- 402  GU644778              0.00%    passed     67.22%
- 403  GU644779              0.00%    passed     62.75%
- 404  GU644780              0.00%    passed     74.21%
- 405  GU644781              0.00%    passed     69.83%
- 406  GU644782              0.00%    passed     78.04%
- 407  GU644783              0.00%    passed     78.04%
- 408  GU644784              0.00%    passed     69.42%
- 409  GU644785              0.00%    passed     59.91%
- 410  GU644786              0.00%    passed     73.71%
- 411  GU644787              0.00%    passed     66.90%
- 412  GU644788              0.00%    passed     71.18%
- 413  JQ685905              0.00%    passed     71.48%
- 414  gannoruwa_outgroup    0.00%    passed     85.92%
+ 372  AY854576              0.00%    passed     96.44%
+ 373  EU345002              0.00%    passed     98.92%
+ 374  EU345003              0.00%    passed     99.51%
+ 375  EU345004              0.00%    passed     97.78%
+ 376  JQ685938              0.00%    passed     99.58%
+ 377  JQ685968              0.00%    passed     96.21%
+ 378  MW055084              0.00%    passed     99.11%
+ 379  MW055085              0.00%    passed     98.54%
+ 380  MW055086              0.00%    passed     97.05%
+ 381  MW055087              0.00%    passed     98.30%
+ 382  AF351849              0.00%    passed     67.45%
+ 383  AF394876              0.00%    passed     80.43%
+ 384  GU644760              0.00%    passed     64.34%
+ 385  GU644761              0.00%    passed     74.48%
+ 386  GU644762              0.00%    passed     69.48%
+ 387  GU644763              0.00%    passed     71.27%
+ 388  GU644764              0.00%    passed     64.34%
+ 389  GU644765              0.00%    passed     58.48%
+ 390  GU644766              0.00%    passed     61.97%
+ 391  GU644767              0.00%    passed     63.81%
+ 392  GU644768              0.00%    passed     63.00%
+ 393  GU644769              0.00%    passed     52.81%
+ 394  GU644770              0.00%    passed     71.84%
+ 395  GU644771              0.00%    passed     78.17%
+ 396  GU644772              0.00%    passed     64.44%
+ 397  GU644773              0.00%    passed     63.81%
+ 398  GU644774              0.00%    passed     63.00%
+ 399  GU644775              0.00%    passed     59.92%
+ 400  GU644776              0.00%    passed     58.11%
+ 401  GU644777              0.00%    passed     67.56%
+ 402  GU644778              0.00%    passed     67.56%
+ 403  GU644779              0.00%    passed     63.00%
+ 404  GU644780              0.00%    passed     74.48%
+ 405  GU644781              0.00%    passed     70.01%
+ 406  GU644782              0.00%    passed     78.17%
+ 407  GU644783              0.00%    passed     78.17%
+ 408  GU644784              0.00%    passed     69.48%
+ 409  GU644785              0.00%    passed     60.20%
+ 410  GU644786              0.00%    passed     74.22%
+ 411  GU644787              0.00%    passed     67.01%
+ 412  GU644788              0.00%    passed     71.27%
+ 413  JQ685905              0.00%    passed     71.68%
+ 414  AY352488              0.00%    passed     57.32%
+ 415  AY352501              0.00%    passed     66.69%
+ 416  KX954123              0.00%    passed     63.89%
+ 417  LT598537              0.00%    passed     68.11%
+ 418  LT598538              0.00%    passed     73.38%
+ 419  LT598539              0.00%    passed     65.63%
+ 420  LT598540              0.00%    passed     66.30%
+ 421  LT598541              0.00%    passed     74.04%
+ 422  LT598542              0.00%    passed     66.30%
+ 423  LT598543              0.00%    passed     75.99%
+ 424  LT909550              0.00%    passed     58.29%
+ 425  MN384717              0.00%    passed     68.11%
+ 426  gannoruwa_outgroup    0.00%    passed     87.28%
 ****  TOTAL                 0.00%  0 sequences failed composition chi2 test (p-value<5%; df=3)
 
 
 Create initial parsimony tree by phylogenetic likelihood library (PLL)... 0.033 seconds
-NOTE: ModelFinder requires 86 MB RAM!
+NOTE: ModelFinder requires 90 MB RAM!
 ModelFinder will test 286 DNA models (sample size: 1353) ...
  No. Model         -LnL         df  AIC          AICc         BIC
-  1  JC            20128.541    825 41907.081    44493.229    46205.397
-  2  JC+I          18938.113    826 39528.226    42125.572    43831.751
-  3  JC+G4         18761.530    826 39175.060    41772.406    43478.586
-  4  JC+I+G4       18765.363    827 39184.727    41793.321    43493.463
-  5  JC+R2         18845.859    827 39345.717    41954.312    43654.453
-  6  JC+R3         18785.159    829 39228.319    41859.562    43547.475
-  7  JC+R4         18750.176    831 39162.353    41816.449    43491.929
-  8  JC+R5         18749.108    833 39164.215    41841.371    43504.211
- 14  F81+F         20145.106    828 41946.213    44566.106    46260.158
- 15  F81+F+I       18952.415    829 39562.830    42194.073    43881.986
- 16  F81+F+G4      18781.707    829 39221.414    41852.657    43540.570
- 17  F81+F+I+G4    18777.072    830 39214.144    41856.788    43538.510
- 18  F81+F+R2      18834.824    830 39329.648    41972.291    43654.014
- 19  F81+F+R3      18780.326    832 39224.653    41890.253    43559.439
- 20  F81+F+R4      18768.020    834 39204.040    41892.804    43549.246
- 21  F81+F+R5      18767.892    836 39207.784    41919.924    43563.411
- 27  K2P           18839.281    826 39330.561    41927.907    43634.087
- 28  K2P+I         17604.916    827 36863.832    39472.426    41172.568
- 29  K2P+G4        17405.068    827 36464.135    39072.730    40772.871
- 30  K2P+I+G4      17399.289    828 36454.578    39074.471    40768.524
- 31  K2P+R2        17452.692    828 36561.384    39181.277    40875.330
- 32  K2P+R3        17391.841    830 36443.681    39086.325    40768.047
- 33  K2P+R4        17391.008    832 36446.016    39111.616    40780.803
- 40  HKY+F         18849.423    829 39356.846    41988.089    43676.002
- 41  HKY+F+I       17604.793    830 36869.587    39512.230    41193.953
- 42  HKY+F+G4      17393.489    830 36446.979    39089.622    40771.345
- 43  HKY+F+I+G4    17386.507    831 36435.014    39089.110    40764.590
- 44  HKY+F+R2      17432.207    831 36526.413    39180.509    40855.989
- 45  HKY+F+R3      17379.223    833 36424.447    39101.603    40764.443
- 46  HKY+F+R4      17379.123    835 36428.247    39128.672    40778.663
- 53  TNe           18811.414    827 39276.828    41885.422    43585.563
- 54  TNe+I         17581.814    828 36819.629    39439.522    41133.575
- 55  TNe+G4        17400.610    828 36457.220    39077.113    40771.166
- 56  TNe+I+G4      17390.033    829 36438.067    39069.309    40757.223
- 57  TNe+R2        17427.458    829 36512.916    39144.159    40832.072
- 58  TNe+R3        17382.389    831 36426.778    39080.874    40756.354
- 59  TNe+R4        17382.240    833 36430.479    39107.635    40770.476
- 66  TN+F          18793.262    830 39246.525    41889.169    43570.891
- 67  TN+F+I        17558.326    831 36778.651    39432.747    41108.227
- 68  TN+F+G4       17377.952    831 36417.905    39072.001    40747.481
- 69  TN+F+I+G4     17363.407    832 36390.814    39056.414    40725.600
- 70  TN+F+R2       17402.643    832 36469.285    39134.885    40804.072
- 71  TN+F+R3       17357.795    834 36383.590    39072.355    40728.797
- 72  TN+F+R4       17357.745    836 36387.491    39099.631    40743.118
- 79  K3P           18823.842    827 39301.684    41910.279    43610.420
- 80  K3P+I         17587.005    828 36830.009    39449.902    41143.955
- 81  K3P+G4        17386.304    828 36428.609    39048.502    40742.555
- 82  K3P+I+G4      17380.313    829 36418.627    39049.869    40737.783
- 83  K3P+R2        17407.594    829 36473.188    39104.431    40792.344
- 84  K3P+R3        17371.000    831 36404.001    39058.097    40733.577
- 85  K3P+R4        17370.957    833 36407.914    39085.070    40747.910
- 92  K3Pu+F        18831.462    830 39322.925    41965.568    43647.291
- 93  K3Pu+F+I      17584.361    831 36830.721    39484.817    41160.298
- 94  K3Pu+F+G4     17372.009    831 36406.019    39060.115    40735.595
- 95  K3Pu+F+I+G4   17364.564    832 36393.129    39058.729    40727.915
- 96  K3Pu+F+R2     17395.628    832 36455.255    39120.855    40790.041
- 97  K3Pu+F+R3     17357.526    834 36383.052    39071.817    40728.259
- 98  K3Pu+F+R4     17357.498    836 36386.995    39099.135    40742.622
-105  TPM2+F        18827.855    830 39315.710    41958.354    43640.076
-106  TPM2+F+I      17588.827    831 36839.654    39493.750    41169.230
-107  TPM2+F+G4     17379.516    831 36421.031    39075.127    40750.608
-108  TPM2+F+I+G4   17372.959    832 36409.918    39075.518    40744.704
-109  TPM2+F+R2     17401.962    832 36467.924    39133.524    40802.710
-110  TPM2+F+R3     17364.896    834 36397.793    39086.557    40742.999
-111  TPM2+F+R4     17364.867    836 36401.734    39113.874    40757.361
-118  TPM2u+F       18827.907    830 39315.815    41958.458    43640.181
-119  TPM2u+F+I     17588.878    831 36839.757    39493.853    41169.333
-120  TPM2u+F+G4    17379.571    831 36421.142    39075.238    40750.718
-121  TPM2u+F+I+G4  17373.016    832 36410.032    39075.632    40744.818
-122  TPM2u+F+R2    17401.911    832 36467.822    39133.422    40802.608
-123  TPM2u+F+R3    17364.852    834 36397.704    39086.468    40742.910
-124  TPM2u+F+R4    17364.831    836 36401.661    39113.801    40757.288
-131  TPM3+F        18849.271    830 39358.541    42001.185    43682.908
-132  TPM3+F+I      17604.562    831 36871.123    39525.219    41200.699
-133  TPM3+F+G4     17393.315    831 36448.629    39102.725    40778.206
-134  TPM3+F+I+G4   17386.405    832 36436.811    39102.411    40771.597
-135  TPM3+F+R2     17415.276    832 36494.553    39160.153    40829.339
-136  TPM3+F+R3     17378.279    834 36424.557    39113.322    40769.764
-137  TPM3+F+R4     17378.261    836 36428.523    39140.662    40784.149
-144  TPM3u+F       18849.309    830 39358.617    42001.261    43682.983
-145  TPM3u+F+I     17604.599    831 36871.197    39525.293    41200.773
-146  TPM3u+F+G4    17393.355    831 36448.710    39102.806    40778.287
-147  TPM3u+F+I+G4  17386.449    832 36436.899    39102.499    40771.685
-148  TPM3u+F+R2    17415.240    832 36494.479    39160.079    40829.266
-149  TPM3u+F+R3    17378.250    834 36424.501    39113.265    40769.707
-150  TPM3u+F+R4    17378.237    836 36428.474    39140.613    40784.101
-157  TIMe          18795.953    828 39247.907    41867.800    43561.853
-158  TIMe+I        17563.895    829 36785.789    39417.032    41104.945
-159  TIMe+G4       17381.774    829 36421.548    39052.790    40740.704
-160  TIMe+I+G4     17371.117    830 36402.235    39044.878    40726.601
-161  TIMe+R2       17398.920    830 36457.839    39100.483    40782.205
-162  TIMe+R3       17362.892    832 36389.784    39055.384    40724.571
-163  TIMe+R4       17362.891    834 36393.782    39082.546    40738.988
-170  TIM+F         18775.797    831 39213.595    41867.691    43543.171
-171  TIM+F+I       17538.464    832 36740.927    39406.527    41075.713
-172  TIM+F+G4      17356.802    832 36377.605    39043.205    40712.391
-173  TIM+F+I+G4    17342.037    833 36350.073    39027.229    40690.070
-174  TIM+F+R2      17376.601    833 36419.203    39096.359    40759.199
-175  TIM+F+R3      17336.211    835 36342.421    39042.847    40692.838
-176  TIM+F+R4      17336.191    837 36346.381    39070.288    40707.218
-183  TIM2e         18780.806    828 39217.611    41837.504    43531.557
-184  TIM2e+I       17557.750    829 36773.499    39404.742    41092.655
-185  TIM2e+G4      17376.006    829 36410.013    39041.256    40729.169
-186  TIM2e+I+G4    17365.550    830 36391.099    39033.743    40715.466
-187  TIM2e+R2      17391.877    830 36443.754    39086.398    40768.120
-188  TIM2e+R3      17356.604    832 36377.209    39042.809    40711.995
-189  TIM2e+R4      17356.590    834 36381.180    39069.945    40726.387
-196  TIM2+F        18771.851    831 39205.702    41859.798    43535.279
-197  TIM2+F+I      17542.233    832 36748.466    39414.066    41083.252
-198  TIM2+F+G4     17363.873    832 36391.747    39057.347    40726.533
-199  TIM2+F+I+G4   17349.464    833 36364.927    39042.083    40704.923
-200  TIM2+F+R2     17381.806    833 36429.612    39106.768    40769.609
-201  TIM2+F+R3     17342.740    835 36355.480    39055.905    40705.896
-202  TIM2+F+R4     17342.701    837 36359.402    39083.309    40720.239
-209  TIM3e         18810.290    828 39276.580    41896.473    43590.526
-210  TIM3e+I       17580.523    829 36819.047    39450.290    41138.203
-211  TIM3e+G4      17399.414    829 36456.827    39088.070    40775.983
-212  TIM3e+I+G4    17388.876    830 36437.753    39080.396    40762.119
-213  TIM3e+R2      17414.696    830 36489.391    39132.035    40813.757
-214  TIM3e+R3      17379.857    832 36423.715    39089.315    40758.501
-215  TIM3e+R4      17379.847    834 36427.694    39116.459    40772.901
-222  TIM3+F        18793.444    831 39248.889    41902.985    43578.465
-223  TIM3+F+I      17558.412    832 36780.823    39446.423    41115.609
-224  TIM3+F+G4     17378.176    832 36420.351    39085.951    40755.137
-225  TIM3+F+I+G4   17363.613    833 36393.226    39070.382    40733.222
-226  TIM3+F+R2     17395.975    833 36457.950    39135.106    40797.946
-227  TIM3+F+R3     17356.804    835 36383.608    39084.034    40734.025
-228  TIM3+F+R4     17356.281    837 36386.562    39110.469    40747.399
-235  TVMe          18779.014    829 39216.027    41847.270    43535.183
-236  TVMe+I        17549.881    830 36759.762    39402.406    41084.128
-237  TVMe+G4       17349.539    830 36359.077    39001.721    40683.444
-238  TVMe+I+G4     17344.122    831 36350.244    39004.340    40679.820
-239  TVMe+R2       17368.555    831 36399.111    39053.207    40728.687
-240  TVMe+R3       17334.453    833 36334.906    39012.062    40674.903
-241  TVMe+R4       17334.402    835 36338.804    39039.230    40689.221
-248  TVM+F         18798.982    832 39261.965    41927.565    43596.751
-249  TVM+F+I       17558.012    833 36782.025    39459.181    41122.021
-250  TVM+F+G4      17349.490    833 36364.980    39042.136    40704.977
-251  TVM+F+I+G4    17342.933    834 36353.865    39042.630    40699.072
-252  TVM+F+R2      17372.256    834 36412.513    39101.277    40757.719
-253  TVM+F+R3      17334.942    836 36341.885    39054.024    40697.511
-254  TVM+F+R4      17334.911    838 36345.822    39081.549    40711.868
-261  SYM           18750.963    830 39161.927    41804.570    43486.293
-262  SYM+I         17526.158    831 36714.315    39368.411    41043.891
-263  SYM+G4        17344.919    831 36351.837    39005.933    40681.414
-264  SYM+I+G4      17334.693    832 36333.386    38998.986    40668.172
-265  SYM+R2        17361.080    832 36386.160    39051.760    40720.946
-266  SYM+R3        17325.933    834 36319.867    39008.631    40665.073
-267  SYM+R4        17325.933    836 36323.865    39036.005    40679.492
-274  GTR+F         18742.675    833 39151.351    41828.507    43491.347
-275  GTR+F+I       17511.141    834 36690.282    39379.047    41035.489
-276  GTR+F+G4      17333.350    834 36334.699    39023.463    40679.905
-277  GTR+F+I+G4    17319.103    835 36308.206    39008.632    40658.623
-278  GTR+F+R2      17352.163    835 36374.325    39074.751    40724.742
-279  GTR+F+R3      17312.819    837 36299.638    39023.545    40660.475
-280  GTR+F+R4      17312.790    839 36303.580    39051.182    40674.836
+  1  JC            21112.368    849 43922.735    46792.119    48346.093
+  2  JC+I          19834.939    850 41369.878    44251.750    45798.445
+  3  JC+G4         19618.291    850 40936.583    43818.455    45365.151
+  4  JC+I+G4       19620.256    851 40942.511    43836.930    45376.289
+  5  JC+R2         19713.147    851 41128.294    44022.713    45562.072
+  6  JC+R3         19632.824    853 40971.648    43891.336    45415.846
+  7  JC+R4         19605.632    855 40921.264    43866.455    45375.882
+  8  JC+R5         19604.293    857 40922.586    43893.520    45387.625
+ 14  F81+F         21130.684    852 43965.369    46872.393    48404.357
+ 15  F81+F+I       19851.582    853 41409.164    44328.851    45853.362
+ 16  F81+F+G4      19640.899    853 40987.798    43907.485    45431.996
+ 17  F81+F+I+G4    19635.951    854 40979.903    43912.313    45429.311
+ 18  F81+F+R2      19702.484    854 41112.967    44045.377    45562.375
+ 19  F81+F+R3      19631.219    856 40974.438    43932.471    45434.267
+ 20  F81+F+R4      19625.988    858 40967.975    43951.870    45438.223
+ 27  K2P           19731.311    850 41162.623    44044.495    45591.190
+ 28  K2P+I         18408.372    851 38518.745    41413.164    42952.522
+ 29  K2P+G4        18165.029    851 38032.057    40926.476    42465.835
+ 30  K2P+I+G4      18157.697    852 38019.394    40926.418    42458.382
+ 31  K2P+R2        18220.747    852 38145.493    41052.517    42584.481
+ 32  K2P+R3        18148.359    854 38004.718    40937.128    42454.126
+ 33  K2P+R4        18148.346    856 38008.692    40966.725    42468.521
+ 40  HKY+F         19743.330    853 41192.660    44112.347    45636.858
+ 41  HKY+F+I       18411.411    854 38530.822    41463.231    42980.230
+ 42  HKY+F+G4      18153.377    854 38014.755    40947.165    42464.163
+ 43  HKY+F+I+G4    18143.971    855 37997.943    40943.134    42452.561
+ 44  HKY+F+R2      18198.318    855 38106.637    41051.828    42561.255
+ 45  HKY+F+R3      18135.425    857 37984.849    40955.783    42449.888
+ 46  HKY+F+R4      18135.337    859 37988.674    40985.591    42464.133
+ 53  TNe           19700.952    851 41103.904    43998.323    45537.682
+ 54  TNe+I         18381.921    852 38467.842    41374.866    42906.830
+ 55  TNe+G4        18159.394    852 38022.789    40929.813    42461.777
+ 56  TNe+I+G4      18147.543    853 38001.086    40920.773    42445.284
+ 57  TNe+R2        18194.816    853 38095.632    41015.319    42539.830
+ 58  TNe+R3        18140.557    855 37991.114    40936.305    42445.732
+ 59  TNe+R4        18140.491    857 37994.982    40965.915    42460.020
+ 66  TN+F          19682.642    854 41073.283    44005.693    45522.691
+ 67  TN+F+I        18359.594    855 38429.187    41374.379    42883.805
+ 68  TN+F+G4       18135.083    855 37980.166    40925.357    42434.784
+ 69  TN+F+I+G4     18118.985    856 37949.970    40908.002    42409.798
+ 70  TN+F+R2       18168.788    856 38049.577    41007.609    42509.405
+ 71  TN+F+R3       18114.628    858 37945.256    40929.151    42415.504
+ 72  TN+F+R4       18114.558    860 37949.116    40959.116    42429.785
+ 79  K3P           19711.015    851 41124.031    44018.450    45557.809
+ 80  K3P+I         18385.542    852 38475.083    41382.107    42914.071
+ 81  K3P+G4        18141.581    852 37987.162    40894.186    42426.149
+ 82  K3P+I+G4      18134.348    853 37974.696    40894.383    42418.894
+ 83  K3P+R2        18168.777    853 38043.554    40963.242    42487.752
+ 84  K3P+R3        18124.240    855 37958.479    40903.670    42413.097
+ 85  K3P+R4        18124.230    857 37962.460    40933.394    42427.499
+ 92  K3Pu+F        19720.321    854 41148.642    44081.051    45598.050
+ 93  K3Pu+F+I      18385.944    855 38481.887    41427.078    42936.505
+ 94  K3Pu+F+G4     18126.934    855 37963.867    40909.058    42418.485
+ 95  K3Pu+F+I+G4   18117.401    856 37946.803    40904.835    42406.631
+ 96  K3Pu+F+R2     18155.223    856 38022.445    40980.477    42482.273
+ 97  K3Pu+F+R3     18109.280    858 37934.559    40918.454    42404.807
+ 98  K3Pu+F+R4     18109.275    860 37938.549    40948.549    42419.218
+105  TPM2+F        19723.795    854 41155.590    44088.000    45604.998
+106  TPM2+F+I      18396.966    855 38503.933    41449.124    42958.551
+107  TPM2+F+G4     18140.362    855 37990.723    40935.914    42445.341
+108  TPM2+F+I+G4   18131.582    856 37975.164    40933.196    42434.992
+109  TPM2+F+R2     18167.890    856 38047.780    41005.812    42507.608
+110  TPM2+F+R3     18122.496    858 37960.993    40944.887    42431.241
+111  TPM2+F+R4     18122.477    860 37964.954    40974.954    42445.623
+118  TPM2u+F       19723.842    854 41155.684    44088.094    45605.092
+119  TPM2u+F+I     18397.012    855 38504.024    41449.215    42958.642
+120  TPM2u+F+G4    18140.410    855 37990.821    40936.012    42445.439
+121  TPM2u+F+I+G4  18131.629    856 37975.259    40933.291    42435.087
+122  TPM2u+F+R2    18167.842    856 38047.684    41005.716    42507.512
+123  TPM2u+F+R3    18122.461    858 37960.922    40944.817    42431.170
+124  TPM2u+F+R4    18122.442    860 37964.884    40974.884    42445.553
+131  TPM3+F        19742.933    854 41193.866    44126.276    45643.274
+132  TPM3+F+I      18410.796    855 38531.592    41476.783    42986.210
+133  TPM3+F+G4     18153.097    855 38016.195    40961.386    42470.813
+134  TPM3+F+I+G4   18143.776    856 37999.551    40957.583    42459.379
+135  TPM3+F+R2     18179.627    856 38071.254    41029.287    42531.083
+136  TPM3+F+R3     18134.587    858 37985.173    40969.068    42455.422
+137  TPM3+F+R4     18134.571    860 37989.142    40999.142    42469.811
+144  TPM3u+F       19742.973    854 41193.945    44126.355    45643.353
+145  TPM3u+F+I     18410.832    855 38531.664    41476.855    42986.282
+146  TPM3u+F+G4    18153.136    855 38016.272    40961.464    42470.891
+147  TPM3u+F+I+G4  18143.819    856 37999.637    40957.669    42459.465
+148  TPM3u+F+R2    18179.591    856 38071.183    41029.215    42531.011
+149  TPM3u+F+R3    18134.561    858 37985.122    40969.016    42455.370
+150  TPM3u+F+R4    18134.548    860 37989.096    40999.096    42469.765
+157  TIMe          19680.713    852 41065.425    43972.449    45504.413
+158  TIMe+I        18359.156    853 38424.312    41344.000    42868.510
+159  TIMe+G4       18135.998    853 37977.995    40897.683    42422.193
+160  TIMe+I+G4     18124.409    854 37956.818    40889.228    42406.226
+161  TIMe+R2       18162.201    854 38032.402    40964.811    42481.810
+162  TIMe+R3       18116.755    856 37945.510    40903.542    42405.338
+163  TIMe+R4       18116.744    858 37949.489    40933.383    42419.737
+170  TIM+F         19660.048    855 41030.097    43975.288    45484.715
+171  TIM+F+I       18334.614    856 38381.228    41339.261    42841.056
+172  TIM+F+G4      18108.968    856 37929.937    40887.969    42389.765
+173  TIM+F+I+G4    18092.989    857 37899.978    40870.912    42365.017
+174  TIM+F+R2      18138.743    857 37991.486    40962.419    42456.524
+175  TIM+F+R3      18088.273    859 37894.547    40891.463    42370.005
+176  TIM+F+R4      18088.236    861 37898.472    40921.617    42384.351
+183  TIM2e         19672.726    852 41049.453    43956.477    45488.440
+184  TIM2e+I       18359.804    853 38425.609    41345.296    42869.807
+185  TIM2e+G4      18136.298    853 37978.596    40898.283    42422.794
+186  TIM2e+I+G4    18124.632    854 37957.264    40889.674    42406.672
+187  TIM2e+R2      18161.705    854 38031.411    40963.820    42480.819
+188  TIM2e+R3      18116.280    856 37944.560    40902.592    42404.388
+189  TIM2e+R4      18116.249    858 37948.498    40932.393    42418.746
+196  TIM2+F        19663.381    855 41036.761    43981.952    45491.379
+197  TIM2+F+I      18345.134    856 38402.268    41360.300    42862.096
+198  TIM2+F+G4     18122.067    856 37956.134    40914.167    42415.962
+199  TIM2+F+I+G4   18106.351    857 37926.701    40897.634    42391.739
+200  TIM2+F+R2     18150.638    857 38015.277    40986.210    42480.315
+201  TIM2+F+R3     18100.778    859 37919.555    40916.472    42395.014
+202  TIM2+F+R4     18100.750    861 37923.500    40946.645    42409.379
+209  TIM3e         19699.018    852 41102.036    44009.060    45541.024
+210  TIM3e+I       18379.638    853 38465.276    41384.964    42909.474
+211  TIM3e+G4      18157.841    853 38021.683    40941.370    42465.881
+212  TIM3e+I+G4    18145.986    854 37999.973    40932.382    42449.381
+213  TIM3e+R2      18182.198    854 38072.395    41004.805    42521.803
+214  TIM3e+R3      18137.578    856 37987.155    40945.188    42446.984
+215  TIM3e+R4      18137.572    858 37991.145    40975.039    42461.393
+222  TIM3+F        19682.643    855 41075.287    44020.478    45529.905
+223  TIM3+F+I      18359.357    856 38430.713    41388.745    42890.541
+224  TIM3+F+G4     18135.274    856 37982.548    40940.580    42442.376
+225  TIM3+F+I+G4   18119.183    857 37952.367    40923.300    42417.405
+226  TIM3+F+R2     18163.091    857 38040.183    41011.116    42505.221
+227  TIM3+F+R3     18113.496    859 37944.992    40941.909    42420.451
+228  TIM3+F+R4     18113.487    861 37948.974    40972.118    42434.852
+235  TVMe          19665.847    853 41037.693    43957.381    45481.891
+236  TVMe+I        18347.563    854 38403.125    41335.535    42852.533
+237  TVMe+G4       18104.545    854 37917.090    40849.500    42366.498
+238  TVMe+I+G4     18098.026    855 37906.051    40851.242    42360.669
+239  TVMe+R2       18129.515    855 37969.031    40914.222    42423.649
+240  TVMe+R3       18086.910    857 37887.821    40858.754    42352.859
+241  TVMe+R4       18086.905    859 37891.809    40888.726    42367.268
+248  TVM+F         19687.382    856 41086.764    44044.796    45546.592
+249  TVM+F+I       18358.583    857 38431.166    41402.099    42896.204
+250  TVM+F+G4      18103.741    857 37921.481    40892.415    42386.520
+251  TVM+F+I+G4    18095.426    858 37906.852    40890.747    42377.101
+252  TVM+F+R2      18131.505    858 37979.010    40962.905    42449.259
+253  TVM+F+R3      18086.355    860 37892.711    40902.711    42373.379
+254  TVM+F+R4      18086.339    862 37896.678    40933.029    42387.767
+261  SYM           19634.941    854 40977.881    43910.291    45427.289
+262  SYM+I         18320.144    855 38350.288    41295.479    42804.906
+263  SYM+G4        18098.470    855 37906.939    40852.130    42361.557
+264  SYM+I+G4      18087.347    856 37886.693    40844.726    42346.522
+265  SYM+R2        18124.169    856 37960.339    40918.371    42420.167
+266  SYM+R3        18079.070    858 37874.140    40858.035    42344.389
+267  SYM+R4        18079.082    860 37878.165    40888.165    42358.833
+274  GTR+F         19626.564    857 40967.127    43938.060    45432.165
+275  GTR+F+I       18306.355    858 38328.710    41312.604    42798.958
+276  GTR+F+G4      18084.898    858 37885.796    40869.691    42356.044
+277  GTR+F+I+G4    18069.791    859 37857.581    40854.498    42333.040
+278  GTR+F+R2      18114.363    859 37946.727    40943.644    42422.185
+279  GTR+F+R3      18064.597    861 37851.194    40874.339    42337.073
+280  GTR+F+R4      18064.575    863 37855.150    40904.770    42351.449
 Akaike Information Criterion:           GTR+F+R3
 Corrected Akaike Information Criterion: SYM+I+G4
 Bayesian Information Criterion:         GTR+F+I+G4
 Best-fit model: GTR+F+I+G4 chosen according to BIC
 
 All model information printed to all_seqs.fasta.model.gz
-CPU time for ModelFinder: 128.474 seconds (0h:2m:8s)
-Wall-clock time for ModelFinder: 128.724 seconds (0h:2m:8s)
+CPU time for ModelFinder: 151.391 seconds (0h:2m:31s)
+Wall-clock time for ModelFinder: 152.060 seconds (0h:2m:32s)
 
-NOTE: 34 MB RAM (0 GB) is required!
+NOTE: 36 MB RAM (0 GB) is required!
 Estimate model parameters (epsilon = 0.100)
 Thoroughly optimizing +I+G parameters from 10 start values...
-Init pinv, alpha: 0.000, 1.000 / Estimate: 0.000, 0.290 / LogL: -17333.346
-Init pinv, alpha: 0.057, 1.000 / Estimate: 0.069, 0.334 / LogL: -17333.369
-Init pinv, alpha: 0.115, 1.000 / Estimate: 0.139, 0.394 / LogL: -17333.050
-Init pinv, alpha: 0.172, 1.000 / Estimate: 0.209, 0.478 / LogL: -17332.015
-Init pinv, alpha: 0.230, 1.000 / Estimate: 0.440, 1.318 / LogL: -17318.863
-Init pinv, alpha: 0.287, 1.000 / Estimate: 0.440, 1.315 / LogL: -17318.936
-Init pinv, alpha: 0.345, 1.000 / Estimate: 0.440, 1.312 / LogL: -17319.026
-Init pinv, alpha: 0.402, 1.000 / Estimate: 0.442, 1.331 / LogL: -17319.062
-Init pinv, alpha: 0.460, 1.000 / Estimate: 0.446, 1.373 / LogL: -17319.094
-Init pinv, alpha: 0.517, 1.000 / Estimate: 0.454, 1.464 / LogL: -17319.285
-Optimal pinv,alpha: 0.440, 1.318 / LogL: -17318.863
+Init pinv, alpha: 0.000, 1.000 / Estimate: 0.000, 0.290 / LogL: -18084.901
+Init pinv, alpha: 0.057, 1.000 / Estimate: 0.070, 0.333 / LogL: -18084.014
+Init pinv, alpha: 0.114, 1.000 / Estimate: 0.143, 0.393 / LogL: -18082.977
+Init pinv, alpha: 0.171, 1.000 / Estimate: 0.214, 0.476 / LogL: -18081.431
+Init pinv, alpha: 0.228, 1.000 / Estimate: 0.429, 1.188 / LogL: -18069.622
+Init pinv, alpha: 0.285, 1.000 / Estimate: 0.431, 1.199 / LogL: -18069.643
+Init pinv, alpha: 0.342, 1.000 / Estimate: 0.430, 1.194 / LogL: -18069.741
+Init pinv, alpha: 0.399, 1.000 / Estimate: 0.431, 1.199 / LogL: -18069.813
+Init pinv, alpha: 0.456, 1.000 / Estimate: 0.439, 1.270 / LogL: -18069.780
+Init pinv, alpha: 0.513, 1.000 / Estimate: 0.446, 1.336 / LogL: -18069.974
+Optimal pinv,alpha: 0.429, 1.188 / LogL: -18069.622
 
-Parameters optimization took 30.647 sec
-Computing ML distances based on estimated model parameters... 0.949 sec
+Parameters optimization took 35.537 sec
+Computing ML distances based on estimated model parameters... 1.090 sec
 Computing BIONJ tree...
-0.072 seconds
-Log-likelihood of BIONJ tree: -17542.513
+0.088 seconds
+Log-likelihood of BIONJ tree: -18300.015
 --------------------------------------------------------------------
 |             INITIALIZING CANDIDATE TREE SET                      |
 --------------------------------------------------------------------
-Generating 98 parsimony trees... 3.095 second
-Computing log-likelihood of 98 initial trees ... 8.673 seconds
-Current best score: -17312.945
+Generating 98 parsimony trees... 3.498 second
+Computing log-likelihood of 98 initial trees ... 9.592 seconds
+Current best score: -18055.907
 
 Do NNI search on 20 best initial trees
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 1: -17302.958
+BETTER TREE FOUND at iteration 1: -18052.523
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 4: -17300.694
+BETTER TREE FOUND at iteration 7: -18050.735
+Iteration 10 / LogL: -18058.376 / Time: 0h:1m:0s
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 6: -17300.310
-Iteration 10 / LogL: -17306.306 / Time: 0h:0m:53s
-Iteration 20 / LogL: -17309.027 / Time: 0h:1m:2s
+BETTER TREE FOUND at iteration 13: -18048.934
+Iteration 20 / LogL: -18056.054 / Time: 0h:1m:9s
 Finish initializing candidate tree set (20)
-Current best tree score: -17300.310 / CPU time: 30.471
+Current best tree score: -18048.934 / CPU time: 32.972
 Number of iterations: 20
 --------------------------------------------------------------------
 |               OPTIMIZING CANDIDATE TREE SET                      |
 --------------------------------------------------------------------
-Iteration 30 / LogL: -17316.499 / Time: 0h:1m:17s (0h:3m:22s left)
+Iteration 30 / LogL: -18135.288 / Time: 0h:1m:26s (0h:4m:7s left)
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 31: -17299.860
-Iteration 40 / LogL: -17305.664 / Time: 0h:1m:32s (0h:3m:36s left)
-BETTER TREE FOUND at iteration 44: -17299.858
-Iteration 50 / LogL: -17314.803 / Time: 0h:1m:47s (0h:3m:25s left)
-Iteration 60 / LogL: -17304.401 / Time: 0h:2m:1s (0h:2m:52s left)
+BETTER TREE FOUND at iteration 32: -18048.457
+Iteration 40 / LogL: -18061.208 / Time: 0h:1m:42s (0h:4m:1s left)
+Iteration 50 / LogL: -18093.406 / Time: 0h:2m:0s (0h:3m:21s left)
+BETTER TREE FOUND at iteration 51: -18048.456
+BETTER TREE FOUND at iteration 54: -18048.451
+Iteration 60 / LogL: -18053.497 / Time: 0h:2m:16s (0h:3m:37s left)
+Iteration 70 / LogL: -18049.541 / Time: 0h:2m:33s (0h:3m:6s left)
 Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 63: -17299.574
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 64: -17298.211
-BETTER TREE FOUND at iteration 68: -17298.209
-Iteration 70 / LogL: -17301.293 / Time: 0h:2m:16s (0h:3m:13s left)
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 77: -17298.160
-Iteration 80 / LogL: -17300.052 / Time: 0h:2m:31s (0h:3m:5s left)
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 85: -17298.129
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 88: -17298.032
-Iteration 90 / LogL: -17318.449 / Time: 0h:2m:45s (0h:3m:2s left)
-Iteration 100 / LogL: -17321.030 / Time: 0h:2m:59s (0h:2m:39s left)
-Iteration 110 / LogL: -17300.326 / Time: 0h:3m:14s (0h:2m:18s left)
-BETTER TREE FOUND at iteration 112: -17298.030
-BETTER TREE FOUND at iteration 117: -17298.029
-BETTER TREE FOUND at iteration 120: -17298.024
-Iteration 120 / LogL: -17298.024 / Time: 0h:3m:28s (0h:2m:55s left)
-Iteration 130 / LogL: -17298.030 / Time: 0h:3m:42s (0h:2m:35s left)
-Estimate model parameters (epsilon = 0.100)
-BETTER TREE FOUND at iteration 134: -17297.837
-BETTER TREE FOUND at iteration 140: -17297.832
-Iteration 140 / LogL: -17297.832 / Time: 0h:3m:57s (0h:2m:50s left)
-Iteration 150 / LogL: -17377.056 / Time: 0h:4m:11s (0h:2m:32s left)
-Iteration 160 / LogL: -17298.065 / Time: 0h:4m:26s (0h:2m:13s left)
-Iteration 170 / LogL: -17314.583 / Time: 0h:4m:40s (0h:1m:56s left)
-Iteration 180 / LogL: -17298.556 / Time: 0h:4m:54s (0h:1m:38s left)
-Iteration 190 / LogL: -17330.007 / Time: 0h:5m:8s (0h:1m:21s left)
-Iteration 200 / LogL: -17298.430 / Time: 0h:5m:23s (0h:1m:4s left)
-BETTER TREE FOUND at iteration 204: -17297.832
-Iteration 210 / LogL: -17300.734 / Time: 0h:5m:37s (0h:2m:32s left)
-Iteration 220 / LogL: -17337.043 / Time: 0h:5m:51s (0h:2m:15s left)
-Iteration 230 / LogL: -17311.569 / Time: 0h:6m:6s (0h:1m:58s left)
-Iteration 240 / LogL: -17306.966 / Time: 0h:6m:21s (0h:1m:42s left)
-Iteration 250 / LogL: -17300.192 / Time: 0h:6m:36s (0h:1m:25s left)
-Iteration 260 / LogL: -17298.227 / Time: 0h:6m:50s (0h:1m:9s left)
-BETTER TREE FOUND at iteration 261: -17297.829
-Iteration 270 / LogL: -17298.016 / Time: 0h:7m:5s (0h:2m:23s left)
-Iteration 280 / LogL: -17302.700 / Time: 0h:7m:19s (0h:2m:7s left)
-Iteration 290 / LogL: -17297.830 / Time: 0h:7m:35s (0h:1m:51s left)
-Iteration 300 / LogL: -17417.365 / Time: 0h:7m:49s (0h:1m:35s left)
-Iteration 310 / LogL: -17299.215 / Time: 0h:8m:4s (0h:1m:19s left)
-BETTER TREE FOUND at iteration 313: -17297.829
-Iteration 320 / LogL: -17313.160 / Time: 0h:8m:18s (0h:2m:25s left)
-BETTER TREE FOUND at iteration 321: -17297.828
-Iteration 330 / LogL: -17340.745 / Time: 0h:8m:32s (0h:2m:21s left)
-Iteration 340 / LogL: -17503.970 / Time: 0h:8m:47s (0h:2m:5s left)
-Iteration 350 / LogL: -17297.828 / Time: 0h:9m:1s (0h:1m:50s left)
-Iteration 360 / LogL: -17298.554 / Time: 0h:9m:15s (0h:1m:34s left)
-BETTER TREE FOUND at iteration 364: -17297.827
-Iteration 370 / LogL: -17323.132 / Time: 0h:9m:30s (0h:2m:25s left)
-BETTER TREE FOUND at iteration 377: -17297.827
-Iteration 380 / LogL: -17297.830 / Time: 0h:9m:44s (0h:2m:29s left)
-BETTER TREE FOUND at iteration 383: -17297.826
-BETTER TREE FOUND at iteration 386: -17297.824
-Iteration 390 / LogL: -17306.141 / Time: 0h:9m:59s (0h:2m:27s left)
-Iteration 400 / LogL: -17339.337 / Time: 0h:10m:13s (0h:2m:12s left)
-Iteration 410 / LogL: -17299.040 / Time: 0h:10m:28s (0h:1m:56s left)
-Iteration 420 / LogL: -17297.827 / Time: 0h:10m:42s (0h:1m:41s left)
-BETTER TREE FOUND at iteration 430: -17297.821
-Iteration 430 / LogL: -17297.821 / Time: 0h:10m:57s (0h:2m:33s left)
-Iteration 440 / LogL: -17310.382 / Time: 0h:11m:12s (0h:2m:17s left)
-Iteration 450 / LogL: -17297.921 / Time: 0h:11m:27s (0h:2m:2s left)
-BETTER TREE FOUND at iteration 454: -17297.821
-Iteration 460 / LogL: -17303.620 / Time: 0h:11m:42s (0h:2m:23s left)
-BETTER TREE FOUND at iteration 467: -17297.821
-Iteration 470 / LogL: -17304.151 / Time: 0h:11m:56s (0h:2m:28s left)
-Iteration 480 / LogL: -17297.822 / Time: 0h:12m:10s (0h:2m:12s left)
-Iteration 490 / LogL: -17319.077 / Time: 0h:12m:25s (0h:1m:57s left)
-BETTER TREE FOUND at iteration 496: -17297.819
-Iteration 500 / LogL: -17297.825 / Time: 0h:12m:41s (0h:2m:26s left)
-Iteration 510 / LogL: -17316.489 / Time: 0h:12m:54s (0h:2m:10s left)
-BETTER TREE FOUND at iteration 520: -17297.818
-Iteration 520 / LogL: -17297.818 / Time: 0h:13m:9s (0h:2m:32s left)
-Iteration 530 / LogL: -17330.235 / Time: 0h:13m:24s (0h:2m:16s left)
-Iteration 540 / LogL: -17297.818 / Time: 0h:13m:39s (0h:2m:1s left)
-Iteration 550 / LogL: -17297.820 / Time: 0h:13m:53s (0h:1m:46s left)
-Iteration 560 / LogL: -17335.446 / Time: 0h:14m:7s (0h:1m:31s left)
-Iteration 570 / LogL: -17299.917 / Time: 0h:14m:23s (0h:1m:15s left)
-Iteration 580 / LogL: -17315.903 / Time: 0h:14m:37s (0h:1m:0s left)
-Iteration 590 / LogL: -17300.583 / Time: 0h:14m:51s (0h:0m:45s left)
-Iteration 600 / LogL: -17303.038 / Time: 0h:15m:6s (0h:0m:30s left)
-BETTER TREE FOUND at iteration 603: -17297.817
-Iteration 610 / LogL: -17302.757 / Time: 0h:15m:22s (0h:2m:20s left)
-Iteration 620 / LogL: -17402.198 / Time: 0h:15m:37s (0h:2m:5s left)
-Iteration 630 / LogL: -17298.213 / Time: 0h:15m:52s (0h:1m:50s left)
-Iteration 640 / LogL: -17303.044 / Time: 0h:16m:6s (0h:1m:35s left)
-Iteration 650 / LogL: -17301.276 / Time: 0h:16m:21s (0h:1m:20s left)
-BETTER TREE FOUND at iteration 653: -17297.817
-Iteration 660 / LogL: -17310.347 / Time: 0h:16m:36s (0h:2m:20s left)
-Iteration 670 / LogL: -17297.817 / Time: 0h:16m:52s (0h:2m:5s left)
-Iteration 680 / LogL: -17303.827 / Time: 0h:17m:5s (0h:1m:50s left)
-Iteration 690 / LogL: -17303.820 / Time: 0h:17m:20s (0h:1m:35s left)
-Iteration 700 / LogL: -17301.335 / Time: 0h:17m:34s (0h:1m:19s left)
-Iteration 710 / LogL: -17309.514 / Time: 0h:17m:49s (0h:1m:4s left)
-Iteration 720 / LogL: -17398.476 / Time: 0h:18m:3s (0h:0m:49s left)
-Iteration 730 / LogL: -17302.143 / Time: 0h:18m:18s (0h:0m:34s left)
-Iteration 740 / LogL: -17383.051 / Time: 0h:18m:33s (0h:0m:19s left)
-Iteration 750 / LogL: -17330.812 / Time: 0h:18m:48s (0h:0m:4s left)
-TREE SEARCH COMPLETED AFTER 754 ITERATIONS / Time: 0h:18m:53s
+BETTER TREE FOUND at iteration 80: -18048.237
+Iteration 80 / LogL: -18048.237 / Time: 0h:2m:49s (0h:3m:34s left)
+Iteration 90 / LogL: -18079.077 / Time: 0h:3m:5s (0h:3m:7s left)
+BETTER TREE FOUND at iteration 97: -18048.233
+Iteration 100 / LogL: -18048.456 / Time: 0h:3m:21s (0h:3m:17s left)
+Iteration 110 / LogL: -18052.089 / Time: 0h:3m:37s (0h:2m:53s left)
+Iteration 120 / LogL: -18068.044 / Time: 0h:3m:53s (0h:2m:31s left)
+Iteration 130 / LogL: -18049.914 / Time: 0h:4m:9s (0h:2m:9s left)
+Iteration 140 / LogL: -18078.501 / Time: 0h:4m:26s (0h:1m:49s left)
+Iteration 150 / LogL: -18052.501 / Time: 0h:4m:42s (0h:1m:29s left)
+Iteration 160 / LogL: -18082.489 / Time: 0h:4m:58s (0h:1m:9s left)
+Iteration 170 / LogL: -18081.320 / Time: 0h:5m:14s (0h:0m:50s left)
+Iteration 180 / LogL: -18055.527 / Time: 0h:5m:30s (0h:0m:31s left)
+Iteration 190 / LogL: -18057.732 / Time: 0h:5m:47s (0h:0m:12s left)
+TREE SEARCH COMPLETED AFTER 198 ITERATIONS / Time: 0h:6m:0s
 
 --------------------------------------------------------------------
 |                    FINALIZING TREE SEARCH                        |
 --------------------------------------------------------------------
 Performs final model parameters optimization
 Estimate model parameters (epsilon = 0.010)
-1. Initial log-likelihood: -17297.817
-Optimal log-likelihood: -17297.813
-Rate parameters:  A-C: 1.48072  A-G: 7.19256  A-T: 0.82665  C-G: 0.23068  C-T: 11.13417  G-T: 1.00000
+1. Initial log-likelihood: -18048.233
+Optimal log-likelihood: -18048.231
+Rate parameters:  A-C: 1.43111  A-G: 6.97710  A-T: 0.77044  C-G: 0.21516  C-T: 10.94511  G-T: 1.00000
 Base frequencies:  A: 0.297  C: 0.207  G: 0.236  T: 0.260
-Proportion of invariable sites: 0.442
-Gamma shape alpha: 1.308
-Parameters optimization took 1 rounds (0.221 sec)
-BEST SCORE FOUND : -17297.813
+Proportion of invariable sites: 0.440
+Gamma shape alpha: 1.275
+Parameters optimization took 1 rounds (0.254 sec)
+BEST SCORE FOUND : -18048.231
 Ancestral state probabilities printed to all_seqs.fasta.state
-Total tree length: 2.502
+Total tree length: 2.641
 
-Total number of iterations: 754
-CPU time used for tree search: 1099.843 sec (0h:18m:19s)
-Wall-clock time used for tree search: 1101.850 sec (0h:18m:21s)
-Total CPU time used: 1132.692 sec (0h:18m:52s)
-Total wall-clock time used: 1135.341 sec (0h:18m:55s)
+Total number of iterations: 198
+CPU time used for tree search: 322.938 sec (0h:5m:22s)
+Wall-clock time used for tree search: 323.308 sec (0h:5m:23s)
+Total CPU time used: 360.834 sec (0h:6m:0s)
+Total wall-clock time used: 362.107 sec (0h:6m:2s)
 
 Analysis results written to: 
   IQ-TREE report:                all_seqs.fasta.iqtree
@@ -783,4 +710,4 @@ Analysis results written to:
   Ancestral state:               all_seqs.fasta.state
   Screen log file:               all_seqs.fasta.log
 
-Date and Time: Thu Jan 18 15:37:35 2024
+Date and Time: Fri Mar 29 15:21:45 2024
