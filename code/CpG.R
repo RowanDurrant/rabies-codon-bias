@@ -191,6 +191,7 @@ p4 = ggplot(data = df, aes(x = clade, y = ZAP_optimal_motifs))+
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
+  ylim(0,6)+
   ylab("No. ZAP optimal motifs (C(n7)G(n)CG)") + xlab("Clade") +
   scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
                                 "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
@@ -224,6 +225,7 @@ p5 = ggplot(data = df, aes(x = clade, y = ZAP_suboptimal_motifs))+
               width = 0.4, height = 0) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
+  ylim(0,6)+
   ylab("No. ZAP suboptimal motifs (C(n7)C(n)CG)") + xlab("Clade") +
   scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
                                 "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
