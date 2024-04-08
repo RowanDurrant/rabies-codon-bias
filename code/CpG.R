@@ -31,6 +31,18 @@ CpG_actual = function(x){
   return(nCpG)
 }
 
+ZAP_optimal = function(x){
+  x = unname(as.character(x))
+  n_optimal = str_count(x, pattern = "C.......G.CG")
+  return(n_optimal)
+}
+
+ZAP_suboptimal = function(x){
+  x = unname(as.character(x))
+  n_optimal = str_count(x, pattern = "C.......C.CG")
+  return(n_optimal)
+}
+
 library("Biostrings")
 
 seqs = readDNAStringSet("sequence_data/all_seqs.fasta")
@@ -43,6 +55,8 @@ cpg_actual = c()
 accessions = c()
 clade = c()
 host_group = c()
+ZAP_optimal_motifs = c()
+ZAP_suboptimal_motifs = c()
 
   for(j in 1:length(seqs)){
        cpg = append(cpg, CpG(seqs[j]))
@@ -51,9 +65,12 @@ host_group = c()
        accessions = append(accessions, names(seqs[j]))
        clade = append(clade, metadata$Clade[metadata$Accession==names(seqs[j])])
        host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs[j])])
+       ZAP_optimal_motifs = append(ZAP_optimal_motifs, ZAP_optimal(seqs[j]))
+       ZAP_suboptimal_motifs = append(ZAP_suboptimal_motifs, ZAP_suboptimal(seqs[j]))
     }
   
-df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual)
+df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual, 
+                ZAP_optimal_motifs, ZAP_suboptimal_motifs)
 write.csv(df, "N_CpG.csv")
 df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
@@ -167,3 +184,73 @@ png("plots/Figure 7.png", width = 8, height = 5, units = 'in', res = 600)
 ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
 
 dev.off()
+
+
+p4 = ggplot(data = df, aes(x = clade, y = ZAP_optimal_motifs))+
+  geom_jitter(aes(color = clade), size  = 0.5, 
+              width = 0.4, height = 0) + theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        legend.position = "none")+
+  ylab("No. ZAP optimal motifs (C(n7)G(n)CG)") + xlab("Clade") +
+  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
+                     name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)"
+                     )) +
+  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
+                              "Cosmo AM2a\n(mongoose)",
+                              "Arctic A\n(arctic fox)",
+                              "Asian SEA2a\n(dog)",
+                              "Asian SEA2b\n(CFB)",
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat DR\n(vampire bat)",
+                              "Bat EF-E2\n(big brown bat)",
+                              "RAC-SK SCSK\n(skunk)",
+                              "Bat LC\n(hoary bat)"
+  ))
+p4
+
+p5 = ggplot(data = df, aes(x = clade, y = ZAP_suboptimal_motifs))+
+  geom_jitter(aes(color = clade), size  = 0.5, 
+              width = 0.4, height = 0) + theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        legend.position = "none")+
+  ylab("No. ZAP suboptimal motifs (C(n7)C(n)CG)") + xlab("Clade") +
+  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
+                     name = "Clade", guide = guide_legend(),
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)"
+                     )) +
+  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
+                              "Cosmo AM2a\n(mongoose)",
+                              "Arctic A\n(arctic fox)",
+                              "Asian SEA2a\n(dog)",
+                              "Asian SEA2b\n(CFB)",
+                              "Bat TB1\n(Mexican free\n-tailed bat)",
+                              "Bat DR\n(vampire bat)",
+                              "Bat EF-E2\n(big brown bat)",
+                              "RAC-SK SCSK\n(skunk)",
+                              "Bat LC\n(hoary bat)"
+  ))
+p5
+
+ggarrange(p4,p5)
+

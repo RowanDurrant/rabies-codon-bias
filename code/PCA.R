@@ -5,6 +5,8 @@ library(devtools)
 library(ggbiplot)
 library(ggh4x)
 library(ggplot2)
+library(stringr)
+library(ggpubr)
 
 df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 2:ncol(df)){
@@ -101,19 +103,58 @@ var_coord_func <- function(loadings, comp.sdev){
 # Compute Coordinates
 #::::::::::::::::::::::::::::::::::::::::
 loadings <- pc$rotation
-sdev <- pc$sdev
-var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
-var.cos2 <- var.coord^2
-comp.cos2 <- apply(var.cos2, 2, sum)
-contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
-var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
+# sdev <- pc$sdev
+# var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
+# var.cos2 <- var.coord^2
+# comp.cos2 <- apply(var.cos2, 2, sum)
+# contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
+# var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
+# 
+# pc2 = var.contrib[,"PC2"]
+# barplot(pc2)
+# max(pc2)
+# names(pc2[pc2>5])
+# 
+# pc1 = var.contrib[,"PC1"]
+# barplot(pc1)
+# max(pc1)
+# names(pc1[pc1>4.4])
 
-pc2 = var.contrib[,"PC2"]
-barplot(pc2)
-max(pc2)
-names(pc2[pc2>5])
+loadings = as.data.frame(loadings)
+loadings = loadings[,1:2]
 
-pc1 = var.contrib[,"PC1"]
-barplot(pc1)
-max(pc1)
-names(pc1[pc1>4.4])
+loadings$contains_cpg = F
+loadings$contains_cpg[grep(pattern = "CG", x = rownames(loadings))] = T
+
+loadings$starts_G = F
+loadings$starts_G[str_sub(rownames(loadings), -3,-3) == "G"] = T
+
+loadings$ends_C = F
+loadings$ends_C[str_sub(rownames(loadings), -1,-1) == "C"] = T
+
+
+p1 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = contains_cpg))+
+  geom_point()+
+  ggtitle("Contains CG dinucleotide") +
+  scale_color_manual(values = c("grey80", "grey30"),
+                       labels = c(F, T),
+                     name = "")+
+  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
+
+p2 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = starts_G))+
+  geom_point()+
+  ggtitle("G in position 1") +
+  scale_color_manual(values = c("grey80", "grey30"),
+                     labels = c(F, T),
+                     name = "")+
+  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
+
+p3 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = ends_C))+
+  geom_point()+
+  ggtitle("C in position 3") +
+  scale_color_manual(values = c("grey80", "grey30"),
+                     labels = c(F, T),
+                     name = "")+
+  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
+
+ggarrange(p1,p2,p3, nrow = 1, common.legend = T, legend = "bottom")
