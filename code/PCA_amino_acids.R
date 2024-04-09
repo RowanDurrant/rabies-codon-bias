@@ -128,3 +128,4 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
   theme(legend.position = "bottom", legend.box = "vertical")
 
 g1
+loadings <- pc$rotation
