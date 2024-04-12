@@ -8,7 +8,7 @@ All genetic data and metadata are stored in the sequence_data folder. Output fro
 
 ## Code
 
-Each script loosely corresponds to one figure:
+This code has been written and run on R version 4.3.2. Each script loosely corresponds to one figure:
 
 - Figure 1 is generated using IQTree and phylogeny.R.
 - Figure 2 uses ENC.R.
