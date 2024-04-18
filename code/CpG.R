@@ -71,7 +71,7 @@ ZAP_suboptimal_motifs = c()
   
 df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual, 
                 ZAP_optimal_motifs, ZAP_suboptimal_motifs)
-write.csv(df, "N_CpG.csv")
+write.csv(df, "output_data/N_CpG.csv")
 df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
                           "Bat TB1",
@@ -187,10 +187,8 @@ dev.off()
 
 
 p4 = ggplot(data = df, aes(x = clade, y = ZAP_optimal_motifs))+
-  geom_jitter(aes(color = clade), size  = 0.5, 
-              width = 0.4, height = 0) + theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "none")+
+  geom_count(aes(color = clade)) + theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   ylim(0,6)+
   ylab("No. ZAP optimal motifs (C(n7)G(n)CG)") + xlab("Clade") +
   scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
@@ -217,14 +215,14 @@ p4 = ggplot(data = df, aes(x = clade, y = ZAP_optimal_motifs))+
                               "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"
-  ))
+  ))+ 
+  guides(colour="none")+
+  scale_size_continuous(breaks = c(1,25,100), name = "no. sequences")
 p4
 
 p5 = ggplot(data = df, aes(x = clade, y = ZAP_suboptimal_motifs))+
-  geom_jitter(aes(color = clade), size  = 0.5, 
-              width = 0.4, height = 0) + theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "none")+
+  geom_count(aes(color = clade)) + theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   ylim(0,6)+
   ylab("No. ZAP suboptimal motifs (C(n7)C(n)CG)") + xlab("Clade") +
   scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
@@ -251,8 +249,11 @@ p5 = ggplot(data = df, aes(x = clade, y = ZAP_suboptimal_motifs))+
                               "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSK\n(skunk)",
                               "Bat LC\n(hoary bat)"
-  ))
+  ))+ 
+  guides(colour="none") +
+  scale_size_continuous(breaks = c(1,25,100), name = "no. sequences")
 p5
 
-ggarrange(p4,p5)
+ggarrange(p4,p5, common.legend = T,
+          legend = "bottom")
 
