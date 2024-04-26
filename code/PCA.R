@@ -81,8 +81,8 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
                      values = c(17,17,17,17,17,16,16,16,17,16))+
-  xlab("PC1 (24.6% explained var.)") + 
-  ylab("PC2 (22.0% explained var.)")+
+  xlab("PC1 (24.2% explained var.)") + 
+  ylab("PC2 (21.8% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
@@ -103,22 +103,22 @@ var_coord_func <- function(loadings, comp.sdev){
 # Compute Coordinates
 #::::::::::::::::::::::::::::::::::::::::
 loadings <- pc$rotation
-# sdev <- pc$sdev
-# var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
-# var.cos2 <- var.coord^2
-# comp.cos2 <- apply(var.cos2, 2, sum)
-# contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
-# var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
-# 
-# pc2 = var.contrib[,"PC2"]
-# barplot(pc2)
-# max(pc2)
-# names(pc2[pc2>5])
-# 
-# pc1 = var.contrib[,"PC1"]
-# barplot(pc1)
-# max(pc1)
-# names(pc1[pc1>4.4])
+sdev <- pc$sdev
+var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
+var.cos2 <- var.coord^2
+comp.cos2 <- apply(var.cos2, 2, sum)
+contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
+var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
+
+pc2 = var.contrib[,"PC2"]
+barplot(pc2)
+max(pc2)
+names(pc2[pc2>5])
+
+pc1 = var.contrib[,"PC1"]
+barplot(pc1)
+max(pc1)
+names(pc1[pc1>4])
 
 loadings = as.data.frame(loadings)
 loadings = loadings[,1:2]

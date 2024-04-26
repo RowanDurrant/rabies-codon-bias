@@ -121,8 +121,8 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
                      values = c(17,17,17,17,17,16,16,16,17,16))+
-  xlab("PC1 (33.1% explained var.)") + 
-  ylab("PC2 (15.0% explained var.)")+
+  xlab("PC1 (32.8% explained var.)") + 
+  ylab("PC2 (14.9% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
