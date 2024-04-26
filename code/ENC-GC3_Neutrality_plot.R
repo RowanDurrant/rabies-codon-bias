@@ -110,7 +110,7 @@ df$GC3s = df$`%G3+C3`/100
 
 df$clade = NA
 for(i in 1:nrow(df)){
-  df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
+  df$clade[i] = metadata$Clade[metadata$Accession==df$Accession[i]]
 }
 
 df$bat = NA

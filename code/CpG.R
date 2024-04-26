@@ -257,3 +257,7 @@ p5
 ggarrange(p4,p5, common.legend = T,
           legend = "bottom")
 
+png("plots/Figure 10.png", width = 8, height = 5, units = 'in', res = 600)
+ggarrange(p4,p5, common.legend = T,
+          legend = "bottom")
+dev.off()
