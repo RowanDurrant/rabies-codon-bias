@@ -81,13 +81,13 @@ d <- data.frame(node=c(1:(Nnode(tree)+length(tree$tip.label))),
 p = ggtree(tree) + 
   theme_tree2()
 p = p %<+% d  +  
-  ylim (0,427)+
+  ylim (0,440)+
   geom_point(aes(color=cpg), size = 2) +
   scale_color_viridis(name = "Obs/Exp CpG", guide = "colorbar", 
                       breaks =c(0.425, 0.525, 0.625)) +
   theme(legend.position="bottom")
 p
 
-png("plots/Figure 8.png", width = 7, height = 7.5, units = 'in', res = 600)
+png("plots/Figure 8.png", width = 7, height = 7, units = 'in', res = 600)
 p
 dev.off()
