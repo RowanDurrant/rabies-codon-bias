@@ -37,7 +37,7 @@ myres <- PhyloEM(phylo = ultratree,
              random.root = TRUE,                 ## Root is stationary (true model)
              stationary.root = TRUE,
              alpha = tail(alphas), #get the 5 highest alpha values of the vector
-             K_max = 20,                         ## Maximal number of shifts
+             K_max = 30,                         ## Maximal number of shifts
              parallel_alpha = TRUE,              
              Ncores = 5)
   

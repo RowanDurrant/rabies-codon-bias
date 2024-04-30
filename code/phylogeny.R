@@ -23,7 +23,7 @@ p = ggtree(tree) +
   theme_tree2()
 p = p %<+% d  +  
    theme(legend.position="bottom") +
-  ylim(0, 427) +
+  ylim(0, 440) +
   geom_tippoint(aes(color=clade), size = 1) +
   scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733", "#CCDDAA", 
                                 "#999933", "#DDCC77","#CC6677","#882255","#AA4499", "black"), 

@@ -49,3 +49,5 @@ po/*~
 rsconnect/
 .DS_Store
 ._*
+plots/~$annotations.pptx
+plots/._annotations.pptx
