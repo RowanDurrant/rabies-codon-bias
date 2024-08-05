@@ -19,4 +19,5 @@ This code has been written and run on R version 4.3.2. Each script loosely corre
 - Figure 7 uses CpG.R.
 - Figure 8 is generated using the ancestral sequence reconstruction capability of IQtree and plotted in ancestral_state.R.
 - The RSDUc values for Figure 9 are calculated using DinuQ in SDUc.ipynb and phylogeneticEM analysis is caried out in phyloEM_rabies.R.
+- Figure 10 also used CpG.R.
 
