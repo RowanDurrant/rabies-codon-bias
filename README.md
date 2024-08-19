@@ -1,6 +1,6 @@
 # Rabies codon bias
 
-Repo for the manuscript "Selection against CG dinucleotides shapes codon usage biases in species-specific rabies virus clades". 
+Repo for the manuscript "Differences in codon usage and CpG content between host species-specific rabies clades". 
 
 ## Data
 
