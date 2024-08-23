@@ -102,7 +102,7 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
                                 "Bat LC\n(hoary bat)"),
                      values = c(17,17,17,17,17,16,16,16,17,16))+
   stat_function(fun=f1, col = "black") +
-  xlim(0.35,0.6) + ylim(48,62)
+  xlim(0.35,0.6) + ylim(48,62) +xlab("GC3 content")
 p1
 
 df = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
@@ -164,7 +164,8 @@ p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,
   scale_linetype_manual(name="", 
                         breaks=c("Bats", "Carnivores"), 
                         labels = c("Bats", "Carnivores"),
-                        values = c("dotted", "solid"))
+                        values = c("dotted", "solid")) +
+  xlab("GC3 content") + ylab("GC1+2 content")
 
 
 #run ENC-GC3 script to get p1

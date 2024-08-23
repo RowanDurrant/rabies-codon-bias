@@ -104,3 +104,6 @@ dev.off()
 
 mean(df$ENC)
 sd(df$ENC)
+
+mean(df$ENC[df$clade == "Cosmo AF1b"])
+mean(df$ENC[df$clade == "Asian SEA2b"])
