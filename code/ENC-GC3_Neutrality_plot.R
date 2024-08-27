@@ -106,7 +106,6 @@ p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
 p1
 
 df = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
-df$GC3s = df$`%G3+C3`/100
 
 df$clade = NA
 for(i in 1:nrow(df)){
