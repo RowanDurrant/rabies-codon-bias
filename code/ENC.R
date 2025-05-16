@@ -94,7 +94,8 @@ p = ggplot(data = df, aes(x = clade, y = ENC))+
                               "Bat DR\n(vampire bat)",
                               "Bat EF-E2\n(big brown bat)",
                               "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"))
+                              "Bat LC\n(hoary bat)"))+
+  coord_flip()
 
 p
 
