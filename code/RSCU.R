@@ -34,11 +34,11 @@ agg$Group.1 = c("Arctic A\n(arctic fox)",
 
 melt_data <- melt(agg, na.rm = FALSE, value.name = "rscu", id = "Group.1")
 
-melt_data$Group.1 = factor(melt_data$Group.1, c("Bat LC\n(hoary bat)",
-                                                "RAC-SK SCSK\n(skunk)",
+melt_data$Group.1 = factor(melt_data$Group.1, c("RAC-SK SCSK\n(skunk)",
                                                 "Bat EF-E2\n(big brown bat)",
-                                                "Bat DR\n(vampire bat)",
+                                                "Bat LC\n(hoary bat)",
                                                 "Bat TB1\n(Mexican free\n-tailed bat)",
+                                                "Bat DR\n(vampire bat)",
                                                 "Asian SEA2b\n(CFB)",
                                                 "Asian SEA2a\n(dog)",
                                                 "Arctic A\n(arctic fox)",

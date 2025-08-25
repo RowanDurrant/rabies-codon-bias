@@ -7,7 +7,7 @@ for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
 colnames(df)[1] = "Accession no."
-df = df[2:nrow(df),]
+df = df[2:(nrow(df)-1),]
 
 F_function = function(codons){
   n = sum(codons)
@@ -66,112 +66,88 @@ for(i in 1:nrow(df)){
 
 df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
-                              "Bat TB1",
-                              "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
+                              "Bat DR","Bat TB1", "Bat LC",
+                              "Bat EF-E2","RAC-SK SCSK"))
 
 f1 = function(x){
-  2+x+29/(x^2+(1-x)^2)
+  2+x+(29/(x^2+(1-x)^2))
 }
 
-my_pal <- c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-            "#999933", "#DDCC77","#CC6677","#882255","#AA4499")
+my_pal = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+          "#DDCC77","#999933", "#AA4499","#CC6677","#882255")
+mylabels = c("Cosmo AF1b\n(dog)",
+             "Cosmo AM2a\n(mongoose)",
+             "Arctic A\n(arctic fox)",
+             "Asian SEA2a\n(dog)",
+             "Asian SEA2b\n(CFB)",
+             "Bat DR\n(vampire bat)",
+             "Bat TB1\n(Mexican free\n-tailed bat)",
+             "Bat LC\n(hoary bat)",
+             "Bat EF-E2\n(big brown bat)",
+             "RAC-SK SCSK\n(skunk)")
 
-p1 = ggplot(data = df, aes(x = GC3s, y = ENC))+
+p = ggplot(data = df, aes(x = GC3s, y = ENC))+
   geom_point(size = 2, aes(colour = clade, shape = clade)) + theme_bw() +
   scale_color_manual(values = my_pal, name = "Clade",
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)")) +
+                     labels = mylabels) +
   scale_shape_manual(name = "Clade",
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"),
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     labels = mylabels,
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   stat_function(fun=f1, col = "black") +
-  xlim(0.35,0.6) + ylim(48,62) +xlab("GC3 content")
-p1
+  xlab("GC3 content")+
+  xlim(0,1)+ ylim(20,65)+ theme(legend.position = "none")
+p
 
-df = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
-
-df$clade = NA
-for(i in 1:nrow(df)){
-  df$clade[i] = metadata$Clade[metadata$Accession==df$Accession[i]]
-}
-
-df$bat = NA
-df$bat[df$clade %in% c("Bat TB1",
-                       "Bat DR", "Bat EF-E2","Bat LC")] = "Bats"
-df$bat[df$clade %in% c("Cosmo AF1b", "RAC-SK SCSK", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
-                       "Asian SEA2b")] = "Carnivores"
-df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
-                              "Asian SEA2b", 
-                              "Bat TB1",
-                              "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
-
-df$GC12s = (df2$`%G1+C1` + df2$`%G2+C2`)/200
-df$GC3s = df2$`%G3+C3`/100
-
-lm(data=df[df$bat == "Bats",], GC12s ~ GC3s)
-lm(data=df[df$bat == "Carnivores",], GC12s ~ GC3s)
-lm(data=df, GC12s ~ GC3s)
-
-p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,  
-                           linetype = bat)) + 
-  theme_bw() + 
-  geom_point(position = position_jitter(width = .0005, height = 0.0005), 
-             size = 2, 
-             alpha = 0.8, aes(col = clade, shape = clade)) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)")) +
-  scale_shape_manual(name = "Clade",
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"),
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  stat_smooth(method = "lm", col = "black", se = F)+  
-  stat_regline_equation(col = "black")+
-  scale_linetype_manual(name="", 
-                        breaks=c("Bats", "Carnivores"), 
-                        labels = c("Bats", "Carnivores"),
-                        values = c("dotted", "solid")) +
-  xlab("GC3 content") + ylab("GC1+2 content")
+# df = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
+# 
+# df$clade = NA
+# for(i in 1:nrow(df)){
+#   df$clade[i] = metadata$Clade[metadata$Accession==df$Accession[i]]
+# }
+# 
+# df$bat = NA
+# df$bat[df$clade %in% c("Bat TB1",
+#                        "Bat DR", "Bat EF-E2","Bat LC")] = "Bats"
+# df$bat[df$clade %in% c("Cosmo AF1b", "RAC-SK SCSK", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+#                        "Asian SEA2b")] = "Carnivores"
+# df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+#                               "Asian SEA2b", 
+#                               "Bat DR","Bat TB1", "Bat LC",
+#                               "Bat EF-E2","RAC-SK SCSK"))
+# 
+# 
+# df$GC12s = (df2$`%G1+C1` + df2$`%G2+C2`)/200
+# df$GC3s = df2$`%G3+C3`/100
+# 
+# lm(data=df[df$bat == "Bats",], GC12s ~ GC3s)
+# lm(data=df[df$bat == "Carnivores",], GC12s ~ GC3s)
+# lm(data=df, GC12s ~ GC3s)
+# 
+# p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,  
+#                            linetype = bat)) + 
+#   theme_bw() + 
+#   geom_point(position = position_jitter(width = .0005, height = 0.0005), 
+#              size = 2, 
+#              alpha = 0.8, aes(col = clade, shape = clade)) +
+#   scale_color_manual(values = my_pal, name = "Clade",
+#                      labels = mylabels) +
+#   scale_shape_manual(name = "Clade",
+#                      labels = mylabels,
+#                      values = c(17,17,17,17,17,16,16,16,16,17))+
+#   stat_smooth(method = "lm", col = "black", se = F)+  
+#   stat_regline_equation(col = "black")+
+#   scale_linetype_manual(name="", 
+#                         breaks=c("Bats", "Carnivores"), 
+#                         labels = c("Bats", "Carnivores"),
+#                         values = c("dotted", "solid")) +
+#   xlab("GC3 content") + ylab("GC1+2 content")
 
 
 #run ENC-GC3 script to get p1
-ggarrange(p1, p2, labels = c("A", "B"), common.legend = T, legend = "bottom")
-
-
-png("plots/Figure 4.png", width = 9, height = 5, units = 'in', res = 600)
-ggarrange(p1, p2, labels = c("A", "B"), common.legend = T, legend = "bottom")
-dev.off()
+# ggarrange(p1, p2, labels = c("A", "B"), common.legend = T, legend = "bottom")
+# 
+# 
+# png("plots/Figure 4.png", width = 6.5, height = 6, units = 'in', res = 600)
+# p
+# dev.off()
 

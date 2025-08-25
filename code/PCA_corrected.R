@@ -8,6 +8,8 @@ library(ggplot2)
 library(stringr)
 library(ggpubr)
 
+source("code/codon_means.R")
+
 df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 2:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
@@ -28,6 +30,11 @@ df = df[rownames(df) %in% metadata$Accession,]
 
 #remove amino acids with only one codon (M + W)
 df = df[,1:(ncol(df)-2)]
+
+for(i in 1:nrow(df)){
+  df[i,] = codon_mean(df[i,])
+  
+}
 
 pc <- prcomp(df,
              center = TRUE,
@@ -60,9 +67,9 @@ df2$clade = metadata$Clade
 df2$Accession = metadata$Accession
 
 df2$clade = factor(df2$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
-                               "Asian SEA2b", 
-                               "Bat TB1",
-                               "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
+                                "Asian SEA2b", 
+                                "Bat TB1",
+                                "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
 
 
 my_pal <- c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
@@ -94,80 +101,12 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
                      values = c(17,17,17,17,17,16,16,16,17,16))+
-  xlab("PC1 (24.2% explained var.)") + 
-  ylab("PC2 (21.8% explained var.)")+
+  xlab("PC1 (24.0% explained var.)") + 
+  ylab("PC2 (21.7% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
 
 g1
 
-png("plots/Figure 5.png", width = 7.5, height = 7.5, units = 'in', res = 600)
-g1
-dev.off()
-
-write.csv(df2, "output_data/PCA_output.csv")
-
-# Helper function 
-#::::::::::::::::::::::::::::::::::::::::
-var_coord_func <- function(loadings, comp.sdev){
-  loadings*comp.sdev
-}
-# Compute Coordinates
-#::::::::::::::::::::::::::::::::::::::::
-loadings <- pc$rotation
-sdev <- pc$sdev
-var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
-var.cos2 <- var.coord^2
-comp.cos2 <- apply(var.cos2, 2, sum)
-contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
-var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
-
-pc2 = var.contrib[,"PC2"]
-barplot(pc2)
-max(pc2)
-names(pc2[pc2>5])
-
-pc1 = var.contrib[,"PC1"]
-barplot(pc1)
-max(pc1)
-names(pc1[pc1>4])
-
-loadings = as.data.frame(loadings)
-loadings = loadings[,1:2]
-
-loadings$contains_cpg = F
-loadings$contains_cpg[grep(pattern = "CG", x = rownames(loadings))] = T
-
-loadings$starts_G = F
-loadings$starts_G[str_sub(rownames(loadings), -3,-3) == "G"] = T
-
-loadings$ends_C = F
-loadings$ends_C[str_sub(rownames(loadings), -1,-1) == "C"] = T
-
-
-p1 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = contains_cpg))+
-  geom_point()+
-  ggtitle("Contains CG dinucleotide") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                       labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-p2 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = starts_G))+
-  geom_point()+
-  ggtitle("G in position 1") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-p3 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = ends_C))+
-  geom_point()+
-  ggtitle("C in position 3") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-ggarrange(p1,p2,p3, nrow = 1, common.legend = T, legend = "bottom")
+write.csv(df2, "output_data/PCA_output_corrected.csv")

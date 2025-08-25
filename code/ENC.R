@@ -6,7 +6,7 @@ for(i in 2:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
 colnames(df)[1] = "Accession no."
-df = df[2:nrow(df),]
+df = df[2:(nrow(df)-1),]
 
 F_function = function(codons){
   n = sum(codons)
@@ -60,42 +60,33 @@ for(i in 1:nrow(df)){
   df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
 }
 
-df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+df$clade = factor(df$clade, rev(c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
-                              "Bat TB1",
-                              "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
+                              "Bat DR","Bat TB1", "Bat LC",
+                              "Bat EF-E2","RAC-SK SCSK")))
 
+mypal = rev(c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+          "#DDCC77","#999933", "#AA4499","#CC6677","#882255"))
+mylabels = c("RAC-SK SCSK\n(skunk)",
+             "Bat EF-E2\n(big brown bat)",
+             "Bat LC\n(hoary bat)",
+             "Bat TB1\n(Mexican free\n-tailed bat)",
+             "Bat DR\n(vampire bat)",
+             "Asian SEA2b\n(CFB)",
+             "Asian SEA2a\n(dog)",
+             "Arctic A\n(arctic fox)",
+             "Cosmo AM2a\n(mongoose)",
+             "Cosmo AF1b\n(dog)")
 
-p = ggplot(data = df, aes(x = clade, y = ENC))+
-  geom_boxplot()+ 
-  geom_jitter(aes(color = clade), size  = 0.5, 
-              width = 0.4, height = 0) + theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "none")+ 
+p = ggplot(data = df, aes(x = clade, y = ENC, fill = clade))+
+  geom_boxplot(outlier.size = 0.1, width = 0.5)+ 
+  geom_jitter(colour = "black", size  = 1, 
+              width = 0.4, height = 0, alpha = 0.6) + theme_bw()+
+  theme(legend.position = "none")+
   xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), name = "Clade", guide = guide_legend(),
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)")) +
-  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "Arctic A\n(arctic fox)",
-                              "Asian SEA2a\n(dog)",
-                              "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
-                              "Bat DR\n(vampire bat)",
-                              "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"))+
-  coord_flip()
+  scale_fill_manual(values = mypal, name = "Clade", guide = guide_legend(),
+                     labels = mylabels) +
+  scale_x_discrete(labels = mylabels) + coord_flip()
 
 p
 

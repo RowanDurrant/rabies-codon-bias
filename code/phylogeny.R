@@ -13,10 +13,10 @@ for(i in 1:length(tree$tip.label)){
 }
 d <- data.frame(node=c(1:(Nnode(tree)+length(tree$tip.label))), 
                 clade = c(tipcolours, rep("black", Nnode(tree))))
-d$clade = factor(d$clade, c("Cosmo AF1b", "Cosmo AM2a", "Asian SEA2a", 
-                            "Asian SEA2b", "Arctic A",
-                          "Bat TB1",
-                          "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC",
+d$clade = factor(d$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+                            "Asian SEA2b", 
+                            "Bat DR","Bat TB1", "Bat LC",
+                            "Bat EF-E2","RAC-SK SCSK",
                           "Gannoruwa bat lyssavirus"
 ))
 p = ggtree(tree) +
@@ -25,19 +25,19 @@ p = p %<+% d  +
    theme(legend.position="bottom") +
   ylim(0, 440) +
   geom_tippoint(aes(color=clade), size = 1) +
-  scale_color_manual(values = c("#332288","#88CCEE","#44AA99","#117733", "#CCDDAA", 
-                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499", "black"), 
+  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+                                "#DDCC77","#999933", "#AA4499","#CC6677","#882255", "black"), 
                                 name = "Clade", guide = guide_legend(),
                      labels = c("Cosmo AF1b\n(dog)",
                                 "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
                                 "Asian SEA2a\n(dog)",
                                 "Asian SEA2b\n(CFB)",
-                                "Arctic A\n(arctic fox)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
                                 "Bat DR\n(vampire bat)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat LC\n(hoary bat)",
                                 "Bat EF-E2\n(big brown bat)",
                                 "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)",
                                 "Gannoruwa bat\nlyssavirus"
                      ))
 p

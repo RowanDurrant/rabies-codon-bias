@@ -4,6 +4,10 @@
 # where N = length of sequence.
 
 library(stringr)
+library(ggpubr)
+library("Biostrings")
+library(ggplot2)
+library(egg)
 
 CpG = function(x){
   x = unname(as.character(x))
@@ -43,7 +47,31 @@ ZAP_suboptimal = function(x){
   return(n_optimal)
 }
 
-library("Biostrings")
+TpA = function(x){
+  x = unname(as.character(x))
+  nT = str_count(x, "T")
+  nA = str_count(x, "A")
+  nTpA = str_count(x, "TA")
+  N = nchar(x)
+  ObsExpTpA = (nTpA/(nT * nA))*N
+  return(ObsExpTpA)
+}
+
+TAcontent = function(x){
+  x = unname(as.character(x))
+  nT = str_count(x, "T")
+  nA = str_count(x, "A")
+  N = nchar(x)
+  tacont = (nT + nA)/N
+  return(tacont)
+  
+}
+
+TpA_actual = function(x){
+  x = unname(as.character(x))
+  nTpA = str_count(x, "TA")
+  return(nTpA)
+}
 
 seqs = readDNAStringSet("sequence_data/all_seqs.fasta")
 seqs = seqs[1:length(seqs)-1]
@@ -57,11 +85,17 @@ clade = c()
 host_group = c()
 ZAP_optimal_motifs = c()
 ZAP_suboptimal_motifs = c()
+tpa = c()
+ta = c()
+tpa_actual = c()
 
   for(j in 1:length(seqs)){
        cpg = append(cpg, CpG(seqs[j]))
+       tpa = append(tpa, TpA(seqs[j]))
        gc = append(gc, GCcontent(seqs[j]))
+       ta = append(ta, TAcontent(seqs[j]))
        cpg_actual = append(cpg_actual, CpG_actual(seqs[j]))
+       tpa_actual= append(tpa_actual, TpA_actual(seqs[j]))
        accessions = append(accessions, names(seqs[j]))
        clade = append(clade, metadata$Clade[metadata$Accession==names(seqs[j])])
        host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs[j])])
@@ -70,194 +104,150 @@ ZAP_suboptimal_motifs = c()
     }
   
 df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual, 
-                ZAP_optimal_motifs, ZAP_suboptimal_motifs)
+                ZAP_optimal_motifs, ZAP_suboptimal_motifs, tpa, ta, tpa_actual)
 write.csv(df, "output_data/N_CpG.csv")
 df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
-                          "Bat TB1",
-                          "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
+                            "Bat DR","Bat TB1", "Bat LC",
+                           "Bat EF-E2","RAC-SK SCSK"))
 
-library(ggplot2)
-p1= ggplot(data = df, aes(x = clade, y = cpg))+
-  geom_boxplot()+ 
-  geom_jitter(aes(color = clade), size = 0.5, 
-              width = 0.4, height = 0) +
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "none")+
+mypal = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
+          "#DDCC77","#999933", "#AA4499","#CC6677","#882255")
+mylabels = c("Cosmo AF1b\n(dog)",
+             "Cosmo AM2a\n(mongoose)",
+             "Arctic A\n(arctic fox)",
+             "Asian SEA2a\n(dog)",
+             "Asian SEA2b\n(CFB)",
+             "Bat DR\n(vampire bat)",
+             "Bat TB1\n(Mexican free\n-tailed bat)",
+             "Bat LC\n(hoary bat)",
+             "Bat EF-E2\n(big brown bat)",
+             "RAC-SK SCSK\n(skunk)")
+
+p1= ggplot(data = df, aes(x = clade, y = cpg, fill = clade))+
+  geom_boxplot(outlier.size = 0.1, width = 0.5)+
+  geom_jitter(colour = "black", size = 0.5,
+              width = 0.25, height = 0, alpha= 0.6) + theme_bw()+
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),axis.text.x=element_blank(),
+        axis.ticks.x = element_blank())+
   ylab("Obs/Exp CpG") + xlab("Clade") +
-  scale_color_manual(values =  c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-                                 "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
-                     name = "Clade", guide = guide_legend(),
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"
-                                )) +
-  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "Arctic A\n(arctic fox)",
-                              "Asian SEA2a\n(dog)",
-                              "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
-                              "Bat DR\n(vampire bat)",
-                              "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"
-  ))
+  scale_fill_manual(values = mypal,
+                    name = "Clade", guide = guide_legend(),
+                    labels = mylabels)
 
-p2= ggplot(data = df, aes(x = clade, y = gc))+
-  geom_boxplot()+ 
-  geom_jitter(aes(color = clade), size  = 0.5, 
-              width = 0.4, height = 0) + theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
-        legend.position = "none")+
-  ylab("GC content") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
-                     name = "Clade", guide = guide_legend(),
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"
-                     )) +
-  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "Arctic A\n(arctic fox)",
-                              "Asian SEA2a\n(dog)",
-                              "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
-                              "Bat DR\n(vampire bat)",
-                              "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"
-  )) 
+# p2= ggplot(data = df, aes(x = clade, y = gc, fill = clade))+
+#   geom_boxplot()+ 
+#   geom_jitter(aes(color = clade), size = 1,
+#               width = 0.4, height = 0, alpha= 0.6) + theme_bw()+
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+#         legend.position = "none")+
+#   ylab("GC content") + xlab("Clade") +
+#   scale_fill_manual(values = mypal, 
+#                      name = "Clade", guide = guide_legend(),
+#                      labels = mylabels) +
+#   scale_x_discrete(labels = mylabels) 
 
-p3 = ggplot(data = df, aes(x = clade, y = cpg_actual))+
-  geom_boxplot()+ 
-  geom_jitter(aes(color = clade), size  = 0.5, 
-              width = 0.4, height = 0) + theme_bw()+
+p3 = ggplot(data = df, aes(x = clade, y = cpg_actual, fill = clade))+
+  geom_boxplot(outlier.size = 0.1, width = 0.5)+
+  geom_jitter(colour = "black", size = 0.5,
+              width = 0.25, height = 0, alpha= 0.6) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
         legend.position = "none")+
   ylab("No. CpGs") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
+  scale_fill_manual(values = mypal,
+                    name = "Clade", guide = guide_legend(),
+                    labels = mylabels) +
+  scale_x_discrete(labels = mylabels)
+
+# ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
+# 
+# png("plots/Figure 7.png", width = 8, height = 5, units = 'in', res = 600)
+# ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
+# 
+# dev.off()
+
+p6 = ggplot(data = df, aes(x = clade, y = tpa, fill = clade))+
+  geom_boxplot(outlier.size = 0.1, width = 0.5)+
+  geom_jitter(colour = "black", size = 0.5,
+              width = 0.25, height = 0, alpha= 0.6) + theme_bw()+
+  theme(legend.position = "none",
+        axis.title.x = element_blank(),axis.text.x=element_blank(),
+        axis.ticks.x = element_blank())+
+  ylab("Obs/Exp UpA") + xlab("Clade") +
+  scale_fill_manual(values = mypal,
+                    name = "Clade", guide = guide_legend(),
+                    labels = mylabels)
+
+
+# p7= ggplot(data = df, aes(x = clade, y = ta))+
+#   geom_boxplot()+
+#   geom_jitter(aes(color = clade), size = 1,
+#               width = 0.4, height = 0, alpha= 0.6) + theme_bw()+
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+#         legend.position = "none")+
+#   ylab("UA content") + xlab("Clade") +
+#   scale_color_manual(values = mypal,
+#                      name = "Clade", guide = guide_legend(),
+#                      labels = mylabels) +
+#   scale_x_discrete(labels = mylabels)
+
+p8 = ggplot(data = df, aes(x = clade, y = tpa_actual, fill = clade))+
+  geom_boxplot(outlier.size = 0.1, width = 0.5)+
+  geom_jitter(colour = "black", size = 0.5,
+              width = 0.25, height = 0, alpha= 0.6) + theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+        legend.position = "none")+
+  ylab("No. UpAs") + xlab("Clade") +
+  scale_fill_manual(values = mypal,
                      name = "Clade", guide = guide_legend(),
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"
-                     )) +
-  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "Arctic A\n(arctic fox)",
-                              "Asian SEA2a\n(dog)",
-                              "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
-                              "Bat DR\n(vampire bat)",
-                              "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"
-  ))
-library(ggpubr)
-ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
+                     labels = mylabels) +
+  scale_x_discrete(labels = mylabels)
+#ggarrange(p6, ggarrange(p7, p8, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
 
-png("plots/Figure 7.png", width = 8, height = 5, units = 'in', res = 600)
-ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
+# png("plots/tpa_fig_7.png", width = 8, height = 5, units = 'in', res = 600)
+# ggarrange(p6, ggarrange(p7, p8, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
+# 
+# dev.off()
 
+egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
+
+png("plots/cpg_tpa_fig_7.png", width = 8, height = 8, units = 'in', res = 600)
+egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
 dev.off()
 
 
-p4 = ggplot(data = df, aes(x = clade, y = ZAP_optimal_motifs))+
-  geom_count(aes(color = clade)) + theme_bw()+
+library(tidyr)
+df$ratio = df$ZAP_optimal_motifs/df$ZAP_suboptimal_motifs
+
+p4 = ggplot(data = df, aes(x = clade, y = ratio, colour = clade))+
+  geom_hline(yintercept = 1, colour = "black", linetype = "dashed")+
+  geom_jitter(width = 0.3, height = 0.02, alpha = 0.6) + theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  ylim(0,6)+
-  ylab("No. ZAP optimal motifs (C(n7)G(n)CG)") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
+  ylab("Ratio optimal:suboptimal motifs") + xlab("Clade") +
+  ylim(-0.02,8)+
+  scale_color_manual(values = mypal, 
                      name = "Clade", guide = guide_legend(),
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"
-                     )) +
-  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "Arctic A\n(arctic fox)",
-                              "Asian SEA2a\n(dog)",
-                              "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
-                              "Bat DR\n(vampire bat)",
-                              "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"
-  ))+ 
-  guides(colour="none")+
-  scale_size_continuous(breaks = c(1,25,100), name = "no. sequences")
+                     labels = mylabels) +
+  scale_x_discrete(labels = mylabels) +
+  geom_segment(x = "Cosmo AF1b", xend = "Cosmo AF1b", y = 7, yend = 8,
+               linetype = "solid", arrow = arrow(), colour = "black")+
+  geom_segment(x = "RAC-SK SCSK", xend = "RAC-SK SCSK", y = 7, yend = 8,
+               linetype = "solid", arrow = arrow(), colour = "black")+
+  guides(colour = "none")
 p4
 
-p5 = ggplot(data = df, aes(x = clade, y = ZAP_suboptimal_motifs))+
-  geom_count(aes(color = clade)) + theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  ylim(0,6)+
-  ylab("No. ZAP suboptimal motifs (C(n7)C(n)CG)") + xlab("Clade") +
-  scale_color_manual(values = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
-                                "#999933", "#DDCC77","#CC6677","#882255","#AA4499"), 
-                     name = "Clade", guide = guide_legend(),
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"
-                     )) +
-  scale_x_discrete(labels = c("Cosmo AF1b\n(dog)",
-                              "Cosmo AM2a\n(mongoose)",
-                              "Arctic A\n(arctic fox)",
-                              "Asian SEA2a\n(dog)",
-                              "Asian SEA2b\n(CFB)",
-                              "Bat TB1\n(Mexican free\n-tailed bat)",
-                              "Bat DR\n(vampire bat)",
-                              "Bat EF-E2\n(big brown bat)",
-                              "RAC-SK SCSK\n(skunk)",
-                              "Bat LC\n(hoary bat)"
-  ))+ 
-  guides(colour="none") +
-  scale_size_continuous(breaks = c(1,25,100), name = "no. sequences")
-p5
 
-ggarrange(p4,p5, common.legend = T,
-          legend = "bottom")
 
-png("plots/Figure 10.png", width = 8, height = 5, units = 'in', res = 600)
-ggarrange(p4,p5, common.legend = T,
-          legend = "bottom")
+png("plots/Figure 10.png", width = 5, height = 5.5, units = 'in', res = 600)
+p4
 dev.off()
+
+mean(df$cpg[df$host_group == "Carnivore"])
+mean(df$cpg[df$host_group == "Bat"])
+
+mean(df$tpa[df$host_group == "Carnivore"])
+mean(df$tpa[df$host_group == "Bat"])
+
+t.test(data = df, cpg ~ host_group)
+t.test(data = df, tpa ~ host_group)
