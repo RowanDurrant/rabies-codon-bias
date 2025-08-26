@@ -48,8 +48,13 @@ for(k in 1:nrow(df)){
   F4s = c(F_function(A_codons), F_function(G_codons), F_function(P_codons), F_function(T_codons),
           F_function(V_codons))
   F6s = c(F_function(L_codons), F_function(S_codons), F_function(R_codons))
-
-  ENC = 2 + (9/mean(F2s)) + (1/mean(F3s) + (5/mean(F4s)) + (3/mean(F6s)))
+  
+  F2s = F2s[is.na(F2s)==F]
+  F3s = F3s[is.na(F3s)==F]
+  F4s = F4s[is.na(F4s)==F]
+  F6s = F6s[is.na(F6s)==F]
+  
+  ENC = 2 + (9/mean(F2s)) + (1/mean(F3s)) + (5/mean(F4s)) + (3/mean(F6s))
   df$ENC[k] = ENC
 }
 
