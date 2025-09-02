@@ -38,12 +38,20 @@ CpG_actual = function(x){
 ZAP_optimal = function(x){
   x = unname(as.character(x))
   n_optimal = str_count(x, pattern = "C.......G.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C....G.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C.....G.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C......G.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C........G.CG")
   return(n_optimal)
 }
 
 ZAP_suboptimal = function(x){
   x = unname(as.character(x))
   n_optimal = str_count(x, pattern = "C.......C.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C....C.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C.....C.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C......C.CG")
+  n_optimal = n_optimal + str_count(x, pattern = "C........C.CG")
   return(n_optimal)
 }
 
@@ -220,26 +228,26 @@ dev.off()
 library(tidyr)
 df$ratio = df$ZAP_optimal_motifs/df$ZAP_suboptimal_motifs
 
-p4 = ggplot(data = df, aes(x = clade, y = ratio, colour = clade))+
+p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
   geom_hline(yintercept = 1, colour = "black", linetype = "dashed")+
-  geom_jitter(width = 0.3, height = 0.02, alpha = 0.6) + theme_bw()+
+  geom_boxplot(outlier.size = 0.1, width = 0.5)+
+  geom_jitter(width = 0.3, height = 0, 
+              alpha = 0.6, colour = "black",
+              size = 1) + 
+  theme_bw()+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   ylab("Ratio optimal:suboptimal motifs") + xlab("Clade") +
   ylim(-0.02,8)+
-  scale_color_manual(values = mypal, 
+  scale_fill_manual(values = mypal, 
                      name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
   scale_x_discrete(labels = mylabels) +
-  geom_segment(x = "Cosmo AF1b", xend = "Cosmo AF1b", y = 7, yend = 8,
-               linetype = "solid", arrow = arrow(), colour = "black")+
-  geom_segment(x = "RAC-SK SCSK", xend = "RAC-SK SCSK", y = 7, yend = 8,
-               linetype = "solid", arrow = arrow(), colour = "black")+
-  guides(colour = "none")
+  scale_y_continuous(trans = "log", 
+                     breaks = c(1/4,1/2,1,2,4))+
+  guides(fill = "none")
 p4
 
-
-
-png("plots/Figure 10.png", width = 5, height = 5.5, units = 'in', res = 600)
+png("plots/Figure 9.png", width = 5, height = 5.5, units = 'in', res = 600)
 p4
 dev.off()
 
