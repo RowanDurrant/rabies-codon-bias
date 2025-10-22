@@ -3,12 +3,10 @@ library(ggpubr)
 
 df_pca = read.csv("output_data/PCA_output.csv")
 df_cpg = read.csv("output_data/N_CpG.csv")
-df_vol = read.csv("output_data/sequence_volatility_sp_normalised.csv")
-meta = read.csv("sequence_data/metadata.csv")
+df_purine = read.csv("output_data/purines.csv")
 
 df = merge(df_pca, df_cpg, by.x = c("Accession", "clade"), by.y = c("accessions", "clade"))
-df = merge(df, df_vol, by = "Accession")
-df = merge(df, meta, by.x = c("Accession", "clade"), by.y = c("Accession", "Clade"))
+df = merge(df, df_purine, by.x = c("Accession", "clade"), by.y = c("Accession", "Clade"))
 
 df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
@@ -50,12 +48,11 @@ p1 = ggplot(data = df, aes(x = cpg, y = PC1))+
                      labels = my_labels) +
   scale_shape_manual(name = "Clade",
                      labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("Obs/Exp CpG")+
   annotate("text", x = 0.42, y = -8, label = bquote("R^2 == 0.01023"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
+           parse = T,hjust = 0)
 
 p2 = ggplot(data = df, aes(x = cpg, y = PC2))+
   geom_smooth(method = "lm", se = F, colour = "black")+
@@ -65,12 +62,11 @@ p2 = ggplot(data = df, aes(x = cpg, y = PC2))+
                      labels = my_labels) +
   scale_shape_manual(name = "Clade",
                      labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("Obs/Exp CpG")+
   annotate("text", x = 0.42, y = -8, label = bquote("R^2 == 0.3529"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
+           parse = T,hjust = 0)
 
 p5 = ggplot(data = df, aes(x = tpa, y = PC1))+
   geom_smooth(method = "lm", se = F, colour = "black")+
@@ -80,12 +76,11 @@ p5 = ggplot(data = df, aes(x = tpa, y = PC1))+
                      labels = my_labels) +
   scale_shape_manual(name = "Clade",
                      labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("Obs/Exp UpA")+
   annotate("text", x = 0.58, y = -8, label = bquote("R^2 == 0.01651"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
+           parse = T,hjust = 0)
 
 p6 = ggplot(data = df, aes(x = tpa, y = PC2))+
   geom_smooth(method = "lm", se = F, colour = "black")+
@@ -95,274 +90,11 @@ p6 = ggplot(data = df, aes(x = tpa, y = PC2))+
                      labels = my_labels) +
   scale_shape_manual(name = "Clade",
                      labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("Obs/Exp UpA")+
-  annotate("text", x = 0.58, y = -8, label = bquote("R^2 == 0.4998"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-ggarrange(p1,p2,p5,p6, common.legend = T, legend = "bottom")
-
-summary(lm(data = df, Hamming~ PC1))$adj.r.squared
-summary(lm(data = df, Hamming ~ PC2))$adj.r.squared
-summary(lm(data = df, Miyata ~ PC1))$adj.r.squared
-summary(lm(data = df, Miyata ~ PC2))$adj.r.squared
-summary(lm(data = df, Hamming_stop0~ PC1))$adj.r.squared
-summary(lm(data = df, Hamming_stop0 ~ PC2))$adj.r.squared
-summary(lm(data = df, Miyata_stop0 ~ PC1))$adj.r.squared
-summary(lm(data = df, Miyata_stop0 ~ PC2))$adj.r.squared
-summary(lm(data = df, Hamming_norm ~ PC1))$adj.r.squared
-summary(lm(data = df, Hamming_norm ~ PC2))$adj.r.squared
-summary(lm(data = df, Miyata_norm ~ PC1))$adj.r.squared
-summary(lm(data = df, Miyata_norm ~ PC2))$adj.r.squared
-summary(lm(data = df, Hamming_stop0_norm~ PC1))$adj.r.squared
-summary(lm(data = df, Hamming_stop0_norm ~ PC2))$adj.r.squared
-summary(lm(data = df, Miyata_stop0_norm ~ PC1))$adj.r.squared
-summary(lm(data = df, Miyata_stop0_norm ~ PC2))$adj.r.squared
-
-p7 = ggplot(data = df, aes(x = Hamming, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Hamming Volatility")+
-  annotate("text", x = min(df$Hamming), y = -8, label = bquote("R^2 == 0.1472764"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p8 = ggplot(data = df, aes(x = Hamming, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Hamming Volatility")+
-  annotate("text", x = min(df$Hamming), y = -8, label = bquote("R^2 == 0.4028122"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-p9 = ggplot(data = df, aes(x = Miyata, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Miyata Volatility")+
-  annotate("text", x = min(df$Miyata), y = -8, label = bquote("R^2 == 0.006951463"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p10 = ggplot(data = df, aes(x = Miyata, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Miyata Volatility")+
-  annotate("text", x = min(df$Miyata), y = -8, label = bquote("R^2 == 0.2680988"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p11 = ggplot(data = df, aes(x = Hamming_stop0, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Hamming Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Hamming_stop0), y = -8, label = bquote("R^2 == 0.2331904"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p12 = ggplot(data = df, aes(x = Hamming_stop0, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Hamming Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Hamming_stop0), y = -8, label = bquote("R^2 == 0.1027724"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-p13 = ggplot(data = df, aes(x = Miyata_stop0, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Miyata Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Miyata_stop0), y = -8, label = bquote("R^2 == 0.2356389"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p14 = ggplot(data = df, aes(x = Miyata_stop0, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Mean Miyata Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Miyata_stop0), y = -8, label = bquote("R^2 == 0.3097638"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p15 = ggplot(data = df, aes(x = Hamming_norm, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Hamming Volatility")+
-  annotate("text", x = min(df$Hamming_norm), y = -8, label = bquote("R^2 == 0.1026912"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p16 = ggplot(data = df, aes(x = Hamming_norm, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Hamming Volatility")+
-  annotate("text", x = min(df$Hamming_norm), y = -8, label = bquote("R^2 == 0.2947614"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-p17 = ggplot(data = df, aes(x = Miyata_norm, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Miyata Volatility")+
-  annotate("text", x = min(df$Miyata_norm), y = -8, label = bquote("R^2 == 0.01406569"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p18 = ggplot(data = df, aes(x = Miyata_norm, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Miyata Volatility")+
-  annotate("text", x = min(df$Miyata_norm), y = -8, label = bquote("R^2 == 0.314556"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p19 = ggplot(data = df, aes(x = Hamming_stop0_norm, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Hamming Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Hamming_stop0_norm), y = -8, label = bquote("R^2 == 0.02612146"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p20 = ggplot(data = df, aes(x = Hamming_stop0_norm, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Hamming Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Hamming_stop0_norm), y = -8, label = bquote("R^2 == 0.1812105"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-p21 = ggplot(data = df, aes(x = Miyata_stop0_norm, y = PC1))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Miyata Volatility (stop = 0)")+
-  annotate("text", x = min(df$Miyata_stop0_norm), y = -8, label = bquote("R^2 == 0.2721213"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-p22 = ggplot(data = df, aes(x = Miyata_stop0_norm, y = PC2))+
-  geom_smooth(method = "lm", se = F, colour = "black")+
-  geom_point(size = 2, aes(col = clade, shape = clade),
-             alpha = 1) +
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
-  scale_shape_manual(name = "Clade",
-                     labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
-  theme_bw()+
-  xlab("Normalised Miyata Volatility\n(stop = 0)")+
-  annotate("text", x = min(df$Miyata_stop0_norm), y = -8, label = bquote("R^2 == 0.02666356"), 
-           parse = T,hjust = 0)+
-  ylim(-9,9)
-
-ggarrange(p7,p8,p9,p10,
-          p11, p12, p13, p14,
-          p15, p16, p17, p18,
-          p19,p20,p21,p22,
-          nrow = 4, ncol = 4,
-         common.legend = T, legend = "bottom")
+  annotate("text", x = 0.58, y = -6, label = bquote("R^2 == 0.4998"), 
+           parse = T,hjust = 0)
 
 library(ggh4x)
 g1 = ggplot(data = df, aes(x = PC1, y = PC2))+ 
@@ -372,7 +104,7 @@ g1 = ggplot(data = df, aes(x = PC1, y = PC2))+
                      labels = my_labels) +
   scale_shape_manual(name = "Clade",
                      labels = my_labels,
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   xlab("PC1 (24.2% explained var.)") + 
   ylab("PC2 (21.8% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
@@ -381,11 +113,30 @@ g1 = ggplot(data = df, aes(x = PC1, y = PC2))+
 
 g1
 
-ggarrange(g1, ggarrange(p1,p2,p5,p6, labels = c("B","C","D","E"), common.legend = T, legend = "none"), 
-          labels = c("A", "B"), nrow = 1, common.legend = T, legend = "bottom")
+summary(lm(data = df, PC1~pyrimidines))
+summary(lm(data = df, PC1~pyrimidines1))
+summary(lm(data = df, PC1~pyrimidines2))
+summary(lm(data = df, PC1~pyrimidines3))
 
-png("plots/Figure 5.png", width = 9, height = 6.5, units = 'in', res = 600)
-ggarrange(g1, ggarrange(p1,p2,p5,p6, labels = c("B","C","D","E"), common.legend = T, legend = "none"), 
-          labels = c("A", "B"), nrow = 1, common.legend = T, legend = "bottom")
+p8 = ggplot(data = df, aes(x = pyrimidines3, y = PC1))+
+  geom_smooth(method = "lm", se = F, colour = "black")+
+  geom_point(size = 2, aes(col = clade, shape = clade),
+             alpha = 1) +
+  scale_color_manual(values = my_pal, name = "Clade",
+                     labels = my_labels) +
+  scale_shape_manual(name = "Clade",
+                     labels = my_labels,
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
+  theme_bw()+
+  xlab("Pyrimidine content at 3rd position")+
+  annotate("text", x = 0.5, y = -8, label = bquote("R^2 == 0.7293"), 
+           parse = T,hjust = 0)
+
+
+ggarrange(g1, ggarrange(p8,p6, labels = c("B","C"), common.legend = T, legend = "none"), 
+          labels = c("A", "B"), nrow = 2, common.legend = T, legend = "bottom")
+
+png("plots/Figure 4.png", width = 8, height = 8, units = 'in', res = 600)
+ggarrange(g1, ggarrange(p8,p6, labels = c("B","C"), common.legend = T, legend = "none"), 
+          labels = c("A", "B"), nrow = 2, common.legend = T, legend = "bottom")
 dev.off()
-  

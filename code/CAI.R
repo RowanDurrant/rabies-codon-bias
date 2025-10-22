@@ -61,6 +61,6 @@ source("code/compare cpg cai.R")
 p2 = ggarrange(p, p1, common.legend = T, legend = "right")
 p2
 
-png("plots/Figure 6.png", width = 12, height = 6, units = 'in', res = 600)
+png("plots/Figure 5.png", width = 12, height = 6, units = 'in', res = 600)
 p2
 dev.off()

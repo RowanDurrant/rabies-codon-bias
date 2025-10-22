@@ -220,7 +220,7 @@ p8 = ggplot(data = df, aes(x = clade, y = tpa_actual, fill = clade))+
 
 egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
 
-png("plots/cpg_tpa_fig_7.png", width = 8, height = 8, units = 'in', res = 600)
+png("plots/Figure 6.png", width = 8, height = 8, units = 'in', res = 600)
 egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
 dev.off()
 
@@ -235,7 +235,7 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
               alpha = 0.6, colour = "black",
               size = 1) + 
   theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   ylab("Ratio optimal:suboptimal motifs") + xlab("Clade") +
   ylim(-0.02,8)+
   scale_fill_manual(values = mypal, 
@@ -247,7 +247,7 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
   guides(fill = "none")
 p4
 
-png("plots/Figure 9.png", width = 5, height = 5.5, units = 'in', res = 600)
+png("plots/Figure 8.png", width = 5, height = 5.5, units = 'in', res = 600)
 p4
 dev.off()
 
@@ -259,3 +259,55 @@ mean(df$tpa[df$host_group == "Bat"])
 
 t.test(data = df, cpg ~ host_group)
 t.test(data = df, tpa ~ host_group)
+
+summary(lm(data = df, ZAP_optimal_motifs ~ cpg_actual))
+mean(ZAP_optimal_motifs/cpg_actual)
+
+summary(lm(data= df, ZAP_optimal_motifs ~ cpg_actual))
+summary(lm(data= df, ZAP_suboptimal_motifs ~ cpg_actual))
+
+p5 = ggplot(data = df, aes(y = ZAP_optimal_motifs, 
+                      x = cpg_actual, colour = clade))+
+  geom_jitter(alpha = 0.6,
+              size = 2, height = 0.3, width = 0.3) + 
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  ylab("No. ZAP optimal motifs") + xlab("No. CpG dinucleotides") +
+  scale_colour_manual(values = mypal, 
+                    name = "Clade", guide = guide_legend(),
+                    labels = mylabels) +
+  geom_smooth(method = "lm", se = F, col = "black")
+
+p6 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
+                      x = cpg_actual, colour = clade))+
+  geom_jitter(alpha = 0.6,
+              size = 2, height = 0.3, width = 0.3) + 
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  ylab("No. ZAP suboptimal motifs") + xlab("No. CpG dinucleotides") +
+  scale_colour_manual(values = mypal, 
+                      name = "Clade", guide = guide_legend(),
+                      labels = mylabels) +
+  geom_smooth(method = "lm", se = F, col = "black")+
+  theme(legend.position = "bottom")
+
+ggpubr::ggarrange(p5,p6, labels = c("A", "B"), 
+                  common.legend = T, legend = "bottom")
+
+p7 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
+                      x = ZAP_optimal_motifs, colour = clade))+
+  geom_jitter(alpha = 0.6,
+              size = 2, height = 0.3, width = 0.3) + 
+  theme_bw()+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  ylab("No. ZAP suboptimal motifs") + 
+  xlab("No. ZAP optimal motifs") +
+  scale_colour_manual(values = mypal, 
+                      name = "Clade", guide = guide_legend(),
+                      labels = mylabels) +
+  geom_smooth(method = "lm", se = F, col = "black")+
+  theme(legend.position = "bottom")
+
+source("code/ZAP CpG locs.R")
+
+ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")

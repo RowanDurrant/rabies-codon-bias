@@ -84,20 +84,22 @@ mylabels = c("RAC-SK SCSK\n(skunk)",
              "Cosmo AF1b\n(dog)")
 
 p = ggplot(data = df, aes(x = clade, y = ENC, fill = clade))+
-  geom_boxplot(outlier.size = 0.1, width = 0.5)+ 
+  geom_boxplot(outlier.size = 0.1, width = 0.5, alpha = 0.8)+ 
   geom_jitter(colour = "black", size  = 1, 
-              width = 0.4, height = 0, alpha = 0.6) + theme_bw()+
+              width = 0.3, height = 0, 
+              alpha = 0.5, stroke = 0) + theme_bw()+
   theme(legend.position = "none")+
-  xlab("Clade") +
+  xlab("") +
   scale_fill_manual(values = mypal, name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
-  scale_x_discrete(labels = mylabels) + coord_flip()
+  scale_x_discrete(labels = mylabels) + coord_flip()+
+  theme(axis.text.y = element_text(size = 7))
 
 p
 
-png("plots/Figure 2.png", width = 7.5, height = 5, units = 'in', res = 600)
-p
-dev.off()
+# png("plots/Figure 2.png", width = 7.5, height = 5, units = 'in', res = 600)
+# p
+# dev.off()
 
 mean(df$ENC)
 sd(df$ENC)

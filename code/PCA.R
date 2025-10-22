@@ -32,7 +32,11 @@ df = df[,1:(ncol(df)-2)]
 pc <- prcomp(df,
              center = TRUE,
              scale. = TRUE)
-attributes(pc)
+summary(pc)
+
+library(factoextra)
+fviz_eig(pc, 
+         addlabels = TRUE)
 
 var_explained = pc$sdev^2 / sum(pc$sdev^2)
 

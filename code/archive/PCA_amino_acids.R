@@ -11,7 +11,7 @@ for(i in 2:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
 colnames(df)[1] = "Accession no."
-df = df[2:nrow(df),]
+df = df[2:(nrow(df)-1),]
 rownames = df$`Accession no.`
 df = df[,2:ncol(df)]
 
@@ -66,7 +66,12 @@ df = remove_constant(df)
 pc <- prcomp(df,
              center = TRUE,
              scale. = TRUE)
-attributes(pc)
+summary(pc)
+
+library(factoextra)
+fviz_eig(pc, 
+         addlabels = TRUE)
+
 
 metadata = read.csv("sequence_data/metadata.csv")
 
@@ -121,11 +126,13 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
                      values = c(17,17,17,17,17,16,16,16,17,16))+
-  xlab("PC1 (32.8% explained var.)") + 
-  ylab("PC2 (14.9% explained var.)")+
+  xlab("PC1 (29.5% explained var.)") + 
+  ylab("PC2 (13.5% explained var.)")+
   theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
 
 g1
 loadings <- pc$rotation
+
+write.csv(df2, "output_data/PCA_aminoacid_output.csv")
