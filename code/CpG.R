@@ -5,15 +5,15 @@
 
 library(stringr)
 library(ggpubr)
-library("Biostrings")
+library(seqinr)
 library(ggplot2)
 library(egg)
 
 CpG = function(x){
   x = unname(as.character(x))
-  nG = str_count(x, "G")
-  nC = str_count(x, "C")
-  nCpG = str_count(x, "CG")
+  nG = str_count(x, "g")
+  nC = str_count(x, "c")
+  nCpG = str_count(x, "cg")
   N = nchar(x)
   ObsExpCpG = (nCpG/(nC * nG))*N
   return(ObsExpCpG)
@@ -21,8 +21,8 @@ CpG = function(x){
 
 GCcontent = function(x){
   x = unname(as.character(x))
-  nG = str_count(x, "G")
-  nC = str_count(x, "C")
+  nG = str_count(x, "g")
+  nC = str_count(x, "c")
   N = nchar(x)
   gccont = (nC + nG)/N
   return(gccont)
@@ -31,35 +31,35 @@ GCcontent = function(x){
 
 CpG_actual = function(x){
   x = unname(as.character(x))
-  nCpG = str_count(x, "CG")
+  nCpG = str_count(x, "cg")
   return(nCpG)
 }
 
 ZAP_optimal = function(x){
   x = unname(as.character(x))
-  n_optimal = str_count(x, pattern = "C.......G.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C....G.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C.....G.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C......G.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C........G.CG")
+  n_optimal = str_count(x, pattern = "c.......g.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c....g.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c.....g.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c......g.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c........g.cg")
   return(n_optimal)
 }
 
 ZAP_suboptimal = function(x){
   x = unname(as.character(x))
-  n_optimal = str_count(x, pattern = "C.......C.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C....C.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C.....C.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C......C.CG")
-  n_optimal = n_optimal + str_count(x, pattern = "C........C.CG")
+  n_optimal = str_count(x, pattern = "c.......c.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c....c.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c.....c.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c......c.cg")
+  n_optimal = n_optimal + str_count(x, pattern = "c........c.cg")
   return(n_optimal)
 }
 
 TpA = function(x){
   x = unname(as.character(x))
-  nT = str_count(x, "T")
-  nA = str_count(x, "A")
-  nTpA = str_count(x, "TA")
+  nT = str_count(x, "t")
+  nA = str_count(x, "a")
+  nTpA = str_count(x, "ta")
   N = nchar(x)
   ObsExpTpA = (nTpA/(nT * nA))*N
   return(ObsExpTpA)
@@ -67,8 +67,8 @@ TpA = function(x){
 
 TAcontent = function(x){
   x = unname(as.character(x))
-  nT = str_count(x, "T")
-  nA = str_count(x, "A")
+  nT = str_count(x, "t")
+  nA = str_count(x, "a")
   N = nchar(x)
   tacont = (nT + nA)/N
   return(tacont)
@@ -77,11 +77,11 @@ TAcontent = function(x){
 
 TpA_actual = function(x){
   x = unname(as.character(x))
-  nTpA = str_count(x, "TA")
+  nTpA = str_count(x, "ta")
   return(nTpA)
 }
 
-seqs = readDNAStringSet("sequence_data/all_seqs.fasta")
+seqs = read.fasta("sequence_data/all_seqs.fasta",as.string = T)
 seqs = seqs[1:length(seqs)-1]
 metadata = read.csv("sequence_data/metadata.csv")
 
@@ -98,17 +98,17 @@ ta = c()
 tpa_actual = c()
 
   for(j in 1:length(seqs)){
-       cpg = append(cpg, CpG(seqs[j]))
-       tpa = append(tpa, TpA(seqs[j]))
-       gc = append(gc, GCcontent(seqs[j]))
-       ta = append(ta, TAcontent(seqs[j]))
-       cpg_actual = append(cpg_actual, CpG_actual(seqs[j]))
-       tpa_actual= append(tpa_actual, TpA_actual(seqs[j]))
-       accessions = append(accessions, names(seqs[j]))
-       clade = append(clade, metadata$Clade[metadata$Accession==names(seqs[j])])
-       host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs[j])])
-       ZAP_optimal_motifs = append(ZAP_optimal_motifs, ZAP_optimal(seqs[j]))
-       ZAP_suboptimal_motifs = append(ZAP_suboptimal_motifs, ZAP_suboptimal(seqs[j]))
+       cpg = append(cpg, CpG(seqs[[j]][1]))
+       tpa = append(tpa, TpA(seqs[[j]][1]))
+       gc = append(gc, GCcontent(seqs[[j]][1]))
+       ta = append(ta, TAcontent(seqs[[j]][1]))
+       cpg_actual = append(cpg_actual, CpG_actual(seqs[[j]][1]))
+       tpa_actual= append(tpa_actual, TpA_actual(seqs[[j]][1]))
+       accessions = append(accessions, names(seqs)[j])
+       clade = append(clade, metadata$Clade[metadata$Accession==names(seqs)[j]])
+       host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs)[j]])
+       ZAP_optimal_motifs = append(ZAP_optimal_motifs, ZAP_optimal(seqs[[j]][1]))
+       ZAP_suboptimal_motifs = append(ZAP_suboptimal_motifs, ZAP_suboptimal(seqs[[j]][1]))
     }
   
 df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual, 
@@ -247,9 +247,9 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
   guides(fill = "none")
 p4
 
-png("plots/Figure 8.png", width = 5, height = 5.5, units = 'in', res = 600)
-p4
-dev.off()
+# png("plots/Figure 8.png", width = 5, height = 5.5, units = 'in', res = 600)
+# p4
+# dev.off()
 
 mean(df$cpg[df$host_group == "Carnivore"])
 mean(df$cpg[df$host_group == "Bat"])
@@ -310,4 +310,6 @@ p7 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs,
 
 source("code/ZAP CpG locs.R")
 
+png("plots/Figure 8.png", width = 11, height = 7, units = 'in', res = 600)
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
+dev.off()
