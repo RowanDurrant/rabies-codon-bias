@@ -106,5 +106,9 @@ p2
 source("code/ENC.R")
 
 library(ggmap)
-p2 +
-  inset(ggplotGrob(p), xmin = 0.24, xmax = 0.48, ymin = 20, ymax = 430)
+p3 = p2 +
+  inset(ggplotGrob(p), xmin = 0.23, xmax = 0.48, ymin = 20, ymax = 430)
+
+png("plots/Figure 1.png", width = 10, height = 7, units = 'in', res = 600)
+p3
+dev.off()

@@ -8,6 +8,8 @@ library(ggpubr)
 library(seqinr)
 library(ggplot2)
 library(egg)
+library(ggimage)
+library(tibble)
 
 CpG = function(x){
   x = unname(as.character(x))
@@ -113,7 +115,7 @@ tpa_actual = c()
   
 df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual, 
                 ZAP_optimal_motifs, ZAP_suboptimal_motifs, tpa, ta, tpa_actual)
-write.csv(df, "output_data/N_CpG.csv")
+#write.csv(df, "output_data/N_CpG.csv")
 df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
                             "Bat DR","Bat TB1", "Bat LC",
@@ -142,7 +144,47 @@ p1= ggplot(data = df, aes(x = clade, y = cpg, fill = clade))+
   ylab("Obs/Exp CpG") + xlab("Clade") +
   scale_fill_manual(values = mypal,
                     name = "Clade", guide = guide_legend(),
-                    labels = mylabels)
+                    labels = mylabels)+
+  geom_image(
+    data = tibble(clade = "Cosmo AF1b", cpg = 0.67),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Cosmo AM2a", cpg = 0.67),
+    aes(image = "phylopic_images/mongoose.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2a", cpg = 0.67),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2b", cpg = 0.67),
+    aes(image = "phylopic_images/cfb.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Arctic A", cpg = 0.67),
+    aes(image = "phylopic_images/fox.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat LC", cpg = 0.67),
+    aes(image = "phylopic_images/lasiurus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat DR", cpg = 0.67),
+    aes(image = "phylopic_images/desmodus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat TB1", cpg = 0.67),
+    aes(image = "phylopic_images/tadarida.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat EF-E2", cpg = 0.67),
+    aes(image = "phylopic_images/eptesicus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "RAC-SK SCSK", cpg = 0.67),
+    aes(image = "phylopic_images/skunk.png"),
+    size = 0.08)
 
 # p2= ggplot(data = df, aes(x = clade, y = gc, fill = clade))+
 #   geom_boxplot()+ 
@@ -166,7 +208,47 @@ p3 = ggplot(data = df, aes(x = clade, y = cpg_actual, fill = clade))+
   scale_fill_manual(values = mypal,
                     name = "Clade", guide = guide_legend(),
                     labels = mylabels) +
-  scale_x_discrete(labels = mylabels)
+  scale_x_discrete(labels = mylabels)+
+  geom_image(
+    data = tibble(clade = "Cosmo AF1b", cpg_actual = 44),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Cosmo AM2a", cpg_actual = 44),
+    aes(image = "phylopic_images/mongoose.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2a", cpg_actual = 44),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2b", cpg_actual = 44),
+    aes(image = "phylopic_images/cfb.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Arctic A", cpg_actual = 44),
+    aes(image = "phylopic_images/fox.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat LC", cpg_actual = 44),
+    aes(image = "phylopic_images/lasiurus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat DR", cpg_actual = 44),
+    aes(image = "phylopic_images/desmodus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat TB1", cpg_actual = 44),
+    aes(image = "phylopic_images/tadarida.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat EF-E2", cpg_actual = 44),
+    aes(image = "phylopic_images/eptesicus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "RAC-SK SCSK", cpg_actual = 44),
+    aes(image = "phylopic_images/skunk.png"),
+    size = 0.08)
 
 # ggarrange(p1, ggarrange(p2, p3, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
 # 
@@ -185,7 +267,47 @@ p6 = ggplot(data = df, aes(x = clade, y = tpa, fill = clade))+
   ylab("Obs/Exp UpA") + xlab("Clade") +
   scale_fill_manual(values = mypal,
                     name = "Clade", guide = guide_legend(),
-                    labels = mylabels)
+                    labels = mylabels)+
+  geom_image(
+    data = tibble(clade = "Cosmo AF1b", tpa = 0.73),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Cosmo AM2a", tpa = 0.73),
+    aes(image = "phylopic_images/mongoose.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2a", tpa = 0.73),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2b", tpa = 0.73),
+    aes(image = "phylopic_images/cfb.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Arctic A", tpa = 0.73),
+    aes(image = "phylopic_images/fox.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat LC", tpa = 0.73),
+    aes(image = "phylopic_images/lasiurus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat DR", tpa = 0.73),
+    aes(image = "phylopic_images/desmodus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat TB1", tpa = 0.73),
+    aes(image = "phylopic_images/tadarida.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat EF-E2", tpa = 0.73),
+    aes(image = "phylopic_images/eptesicus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "RAC-SK SCSK", tpa = 0.73),
+    aes(image = "phylopic_images/skunk.png"),
+    size = 0.08)
 
 
 # p7= ggplot(data = df, aes(x = clade, y = ta))+
@@ -210,13 +332,47 @@ p8 = ggplot(data = df, aes(x = clade, y = tpa_actual, fill = clade))+
   scale_fill_manual(values = mypal,
                      name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
-  scale_x_discrete(labels = mylabels)
-#ggarrange(p6, ggarrange(p7, p8, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
-
-# png("plots/tpa_fig_7.png", width = 8, height = 5, units = 'in', res = 600)
-# ggarrange(p6, ggarrange(p7, p8, labels = c("B", "C"), ncol = 1, nrow = 2), labels = c("A"))
-# 
-# dev.off()
+  scale_x_discrete(labels = mylabels)+
+  geom_image(
+    data = tibble(clade = "Cosmo AF1b", tpa_actual = 76),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Cosmo AM2a", tpa_actual = 76),
+    aes(image = "phylopic_images/mongoose.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2a", tpa_actual = 76),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2b", tpa_actual = 76),
+    aes(image = "phylopic_images/cfb.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Arctic A", tpa_actual = 76),
+    aes(image = "phylopic_images/fox.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat LC", tpa_actual = 76),
+    aes(image = "phylopic_images/lasiurus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat DR", tpa_actual = 76),
+    aes(image = "phylopic_images/desmodus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat TB1", tpa_actual = 76),
+    aes(image = "phylopic_images/tadarida.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "Bat EF-E2", tpa_actual = 76),
+    aes(image = "phylopic_images/eptesicus.png"),
+    size = 0.08)+
+  geom_image(
+    data = tibble(clade = "RAC-SK SCSK", tpa_actual = 76),
+    aes(image = "phylopic_images/skunk.png"),
+    size = 0.08)
 
 egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
 
@@ -237,79 +393,116 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
   theme_bw()+
   #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
   ylab("Ratio optimal:suboptimal motifs") + xlab("Clade") +
-  ylim(-0.02,8)+
   scale_fill_manual(values = mypal, 
                      name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
   scale_x_discrete(labels = mylabels) +
   scale_y_continuous(trans = "log", 
-                     breaks = c(1/4,1/2,1,2,4))+
-  guides(fill = "none")
+                     breaks = c(1/4,1/2,1,2,4, 8),
+                     limits = c(-0.02,10))+
+  guides(fill = "none")+
+  geom_image(
+    data = tibble(clade = "Cosmo AF1b", ratio = 8),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Cosmo AM2a", ratio = 8),
+    aes(image = "phylopic_images/mongoose.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2a", ratio = 8),
+    aes(image = "phylopic_images/dog.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Asian SEA2b", ratio = 8),
+    aes(image = "phylopic_images/cfb.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Arctic A", ratio = 8),
+    aes(image = "phylopic_images/fox.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Bat LC", ratio = 8),
+    aes(image = "phylopic_images/lasiurus.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Bat DR", ratio = 8),
+    aes(image = "phylopic_images/desmodus.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Bat TB1", ratio = 8),
+    aes(image = "phylopic_images/tadarida.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "Bat EF-E2", ratio = 8),
+    aes(image = "phylopic_images/eptesicus.png"),
+    size = 0.15)+
+  geom_image(
+    data = tibble(clade = "RAC-SK SCSK", ratio = 8),
+    aes(image = "phylopic_images/skunk.png"),
+    size = 0.15)
 p4
 
-# png("plots/Figure 8.png", width = 5, height = 5.5, units = 'in', res = 600)
-# p4
-# dev.off()
 
-mean(df$cpg[df$host_group == "Carnivore"])
-mean(df$cpg[df$host_group == "Bat"])
-
-mean(df$tpa[df$host_group == "Carnivore"])
-mean(df$tpa[df$host_group == "Bat"])
-
-t.test(data = df, cpg ~ host_group)
-t.test(data = df, tpa ~ host_group)
-
-summary(lm(data = df, ZAP_optimal_motifs ~ cpg_actual))
-mean(ZAP_optimal_motifs/cpg_actual)
-
-summary(lm(data= df, ZAP_optimal_motifs ~ cpg_actual))
-summary(lm(data= df, ZAP_suboptimal_motifs ~ cpg_actual))
-
-p5 = ggplot(data = df, aes(y = ZAP_optimal_motifs, 
-                      x = cpg_actual, colour = clade))+
-  geom_jitter(alpha = 0.6,
-              size = 2, height = 0.3, width = 0.3) + 
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  ylab("No. ZAP optimal motifs") + xlab("No. CpG dinucleotides") +
-  scale_colour_manual(values = mypal, 
-                    name = "Clade", guide = guide_legend(),
-                    labels = mylabels) +
-  geom_smooth(method = "lm", se = F, col = "black")
-
-p6 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
-                      x = cpg_actual, colour = clade))+
-  geom_jitter(alpha = 0.6,
-              size = 2, height = 0.3, width = 0.3) + 
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  ylab("No. ZAP suboptimal motifs") + xlab("No. CpG dinucleotides") +
-  scale_colour_manual(values = mypal, 
-                      name = "Clade", guide = guide_legend(),
-                      labels = mylabels) +
-  geom_smooth(method = "lm", se = F, col = "black")+
-  theme(legend.position = "bottom")
-
-ggpubr::ggarrange(p5,p6, labels = c("A", "B"), 
-                  common.legend = T, legend = "bottom")
-
-p7 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
-                      x = ZAP_optimal_motifs, colour = clade))+
-  geom_jitter(alpha = 0.6,
-              size = 2, height = 0.3, width = 0.3) + 
-  theme_bw()+
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  ylab("No. ZAP suboptimal motifs") + 
-  xlab("No. ZAP optimal motifs") +
-  scale_colour_manual(values = mypal, 
-                      name = "Clade", guide = guide_legend(),
-                      labels = mylabels) +
-  geom_smooth(method = "lm", se = F, col = "black")+
-  theme(legend.position = "bottom")
+# mean(df$cpg[df$host_group == "Carnivore"])
+# mean(df$cpg[df$host_group == "Bat"])
+# 
+# mean(df$tpa[df$host_group == "Carnivore"])
+# mean(df$tpa[df$host_group == "Bat"])
+# 
+# t.test(data = df, cpg ~ host_group)
+# t.test(data = df, tpa ~ host_group)
+# 
+# summary(lm(data = df, ZAP_optimal_motifs ~ cpg_actual))
+# mean(ZAP_optimal_motifs/cpg_actual)
+# 
+# summary(lm(data= df, ZAP_optimal_motifs ~ cpg_actual))
+# summary(lm(data= df, ZAP_suboptimal_motifs ~ cpg_actual))
+# 
+# p5 = ggplot(data = df, aes(y = ZAP_optimal_motifs, 
+#                       x = cpg_actual, colour = clade))+
+#   geom_jitter(alpha = 0.6,
+#               size = 2, height = 0.3, width = 0.3) + 
+#   theme_bw()+
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+#   ylab("No. ZAP optimal motifs") + xlab("No. CpG dinucleotides") +
+#   scale_colour_manual(values = mypal, 
+#                     name = "Clade", guide = guide_legend(),
+#                     labels = mylabels) +
+#   geom_smooth(method = "lm", se = F, col = "black")
+# 
+# p6 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
+#                       x = cpg_actual, colour = clade))+
+#   geom_jitter(alpha = 0.6,
+#               size = 2, height = 0.3, width = 0.3) + 
+#   theme_bw()+
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+#   ylab("No. ZAP suboptimal motifs") + xlab("No. CpG dinucleotides") +
+#   scale_colour_manual(values = mypal, 
+#                       name = "Clade", guide = guide_legend(),
+#                       labels = mylabels) +
+#   geom_smooth(method = "lm", se = F, col = "black")+
+#   theme(legend.position = "bottom")
+# 
+# ggpubr::ggarrange(p5,p6, labels = c("A", "B"), 
+#                   common.legend = T, legend = "bottom")
+# 
+# p7 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
+#                       x = ZAP_optimal_motifs, colour = clade))+
+#   geom_jitter(alpha = 0.6,
+#               size = 2, height = 0.3, width = 0.3) + 
+#   theme_bw()+
+#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+#   ylab("No. ZAP suboptimal motifs") + 
+#   xlab("No. ZAP optimal motifs") +
+#   scale_colour_manual(values = mypal, 
+#                       name = "Clade", guide = guide_legend(),
+#                       labels = mylabels) +
+#   geom_smooth(method = "lm", se = F, col = "black")+
+#   theme(legend.position = "bottom")
 
 source("code/ZAP CpG locs.R")
 
-png("plots/Figure 8.png", width = 11, height = 7, units = 'in', res = 600)
+png("plots/Figure 8.png", width = 10, height = 7.5, units = 'in', res = 600)
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
 dev.off()
