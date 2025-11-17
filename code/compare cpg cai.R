@@ -53,3 +53,6 @@ p1 = ggplot(data = df, aes(x = cpg, y = nCAI))+
   xlab("Obs/Exp CpG content")
 
 summary(lm(data = df, nCAI ~ cpg))
+bootstrap = boot(df,function(data,indices)
+  summary(lm(nCAI ~ cpg,data[indices,]))$adj.r.squared,R=10000)
+quantile(bootstrap$t,c(0.025,0.975))

@@ -443,12 +443,12 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
     size = 0.15)
 p4
 
+library(DescTools)
+MeanCI(df$cpg[df$host_group == "Carnivore"], conf.level = 0.95)
+MeanCI(df$cpg[df$host_group == "Bat"], conf.level = 0.95)
 
-# mean(df$cpg[df$host_group == "Carnivore"])
-# mean(df$cpg[df$host_group == "Bat"])
-# 
-# mean(df$tpa[df$host_group == "Carnivore"])
-# mean(df$tpa[df$host_group == "Bat"])
+MeanCI(df$tpa[df$host_group == "Carnivore"], conf.level = 0.95)
+MeanCI(df$tpa[df$host_group == "Bat"], conf.level = 0.95)
 # 
 # t.test(data = df, cpg ~ host_group)
 # t.test(data = df, tpa ~ host_group)
