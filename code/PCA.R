@@ -44,8 +44,11 @@ qplot(c(1:10), var_explained[1:10]) +
   geom_line() + 
   xlab("Principal Component") + 
   ylab("Variance Explained") +
-  ggtitle("Scree Plot") +
-  ylim(0, 0.3)
+  ggtitle("") +
+  ylim(0, 0.3)+
+  theme_bw()+
+  scale_x_continuous(breaks = 1:10)+
+  geom_text(aes(label = signif(var_explained[1:10],3)), hjust=0.25, vjust=-0.5)
 
 g <- ggbiplot(pc,
               obs.scale = 1,

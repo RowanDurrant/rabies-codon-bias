@@ -64,7 +64,7 @@ df2$clade = factor(df2$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian S
                               "Asian SEA2b", 
                               "Bat DR","Bat TB1", "Bat LC",
                               "Bat EF-E2","RAC-SK SCSK"))
-mypal = c(rgb(0.9,0.9,0.9, alpha = 0.5),
+mypal = c(rgb(0.9,0.9,0.9, alpha = 0.6),
           rgb(216/256, 27/256, 96/256, alpha = 0.8),
           rgb(30/256, 136/256, 229/256, alpha = 0.8))
 
