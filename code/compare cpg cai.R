@@ -1,5 +1,6 @@
 library(tidyr)
 library(ggplot2)
+library(boot)
 
 df = read.csv("output_data/HIVE-CUTS_CAI.csv")
 cpg = read.csv("output_data/N_CpG.csv")

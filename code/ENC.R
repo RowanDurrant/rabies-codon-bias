@@ -95,45 +95,46 @@ p = ggplot(data = df, aes(x = clade, y = ENC, fill = clade))+
   scale_fill_manual(values = mypal, name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
   scale_x_discrete(labels = mylabels) + coord_flip()+
-  theme(axis.text.y = element_text(size = 7))+
+  theme(axis.text=element_text(size=10),
+        axis.title=element_text(size=14))+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", ENC = 60),
+    data = tibble(clade = "Cosmo AF1b", ENC = 60.5),
     aes(image = "phylopic_images/dog.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", ENC = 60),
+    data = tibble(clade = "Cosmo AM2a", ENC = 60.5),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Asian SEA2a", ENC = 60),
+    data = tibble(clade = "Asian SEA2a", ENC = 60.5),
     aes(image = "phylopic_images/dog.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Asian SEA2b", ENC = 60),
+    data = tibble(clade = "Asian SEA2b", ENC = 60.5),
     aes(image = "phylopic_images/cfb.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Arctic A", ENC = 60),
+    data = tibble(clade = "Arctic A", ENC = 60.5),
     aes(image = "phylopic_images/fox.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat LC", ENC = 60),
+    data = tibble(clade = "Bat LC", ENC = 60.5),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat DR", ENC = 60),
+    data = tibble(clade = "Bat DR", ENC = 60.5),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat TB1", ENC = 60),
+    data = tibble(clade = "Bat TB1", ENC = 60.5),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", ENC = 60),
+    data = tibble(clade = "Bat EF-E2", ENC = 60.5),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "RAC-SK SCSK", ENC = 60),
+    data = tibble(clade = "RAC-SK SCSK", ENC = 60.5),
     aes(image = "phylopic_images/skunk.png"),
     size = 0.08)+
   ylim(49.5,61)
