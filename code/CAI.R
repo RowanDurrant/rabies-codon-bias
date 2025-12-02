@@ -48,8 +48,8 @@ p = ggplot(data = df2, aes(x = name, y = normalised, fill = clade))+
   theme_bw()+ 
 scale_fill_manual(values = mypal, labels = mylabels,
                    name = "Clade")+
-scale_x_discrete(labels=c(expression(italic("Canis familiaris")), expression(italic("Vulpes lagopus")),
-                          expression(italic("Desmodus rotundus")), expression(italic("Eptesicus fuscus"))))+
+scale_x_discrete(labels=c(expression(italic("C. familiaris")), expression(italic("V. lagopus")),
+                          expression(italic("D. rotundus")), expression(italic("E. fuscus"))))+
   ylab("nCAI") +
   xlab("Reference host") +
   guides(fill = "none")
@@ -61,6 +61,6 @@ source("code/compare cpg cai.R")
 p2 = ggarrange(p, p1, common.legend = T, legend = "right", labels = "AUTO")
 p2
 
-png("plots/Figure 5.png", width = 12, height = 6, units = 'in', res = 600)
+png("plots/Figure 5.png", width = 10, height = 5, units = 'in', res = 600)
 p2
 dev.off()
