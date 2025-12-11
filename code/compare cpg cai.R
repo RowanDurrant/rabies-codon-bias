@@ -57,3 +57,22 @@ summary(lm(data = df, nCAI ~ cpg))
 bootstrap = boot(df,function(data,indices)
   summary(lm(nCAI ~ cpg,data[indices,]))$adj.r.squared,R=10000)
 quantile(bootstrap$t,c(0.025,0.975))
+
+ggplot(data = df, aes(x = tpa, y = nCAI))+
+  geom_point(aes(shape = Reference_species,
+                 colour = clade))+
+  geom_smooth(se = F, method = "lm", col = "black")+
+  theme_bw()+ 
+  scale_colour_manual(values = mypal, labels = mylabels,
+                      name = "Clade")+
+  scale_shape_manual(name = "Reference host",
+                     values = c(15,16,17,3),
+                     labels = c(expression(italic("Canis familiaris")),
+                                expression(italic("Desmodus rotundus")),
+                                expression(italic("Eptesicus fuscus")),
+                                expression(italic("Vulpes lagopus"))))+
+  xlab("Obs/Exp UpA content")
+summary(lm(data = df, nCAI ~ tpa))
+bootstrap = boot(df,function(data,indices)
+  summary(lm(nCAI ~ tpa,data[indices,]))$adj.r.squared,R=10000)
+quantile(bootstrap$t,c(0.025,0.975))
