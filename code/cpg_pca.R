@@ -129,16 +129,16 @@ g1 = ggplot(data = df, aes(x = PC1, y = PC2))+
 
 g1
 
-summary(lm(data = df, PC1~pyrimidines))
-summary(lm(data = df, PC1~pyrimidines1))
-summary(lm(data = df, PC1~pyrimidines2))
-summary(lm(data = df, PC1~pyrimidines3))
+summary(lm(data = df, PC1~purines))
+summary(lm(data = df, PC1~purines1))
+summary(lm(data = df, PC1~purines2))
+summary(lm(data = df, PC1~purines3))
 
 bootstrap = boot(df,function(data,indices)
-  summary(lm(PC1~pyrimidines3,data[indices,]))$adj.r.squared,R=10000)
+  summary(lm(PC1~purines3,data[indices,]))$adj.r.squared,R=10000)
 quantile(bootstrap$t,c(0.025,0.975))
 
-p8 = ggplot(data = df, aes(x = pyrimidines3, y = PC1))+
+p8 = ggplot(data = df, aes(x = purines3, y = PC1))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -148,8 +148,8 @@ p8 = ggplot(data = df, aes(x = pyrimidines3, y = PC1))+
                      labels = my_labels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
-  xlab("Pyrimidine content at 3rd position")+
-  annotate("text", x = 0.5, y = -8, label = bquote("R^2 == 0.7293"), 
+  xlab("Purine content at 3rd position")+
+  annotate("text", x = 0.49, y = -8, label = bquote("R^2 == 0.7293"), 
            parse = T,hjust = 0)
 
 
