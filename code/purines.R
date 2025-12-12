@@ -1,22 +1,22 @@
 library(stringr)
-library(Biostrings)
+library(seqinr)
 
-seqs = readDNAStringSet("sequence_data/all_seqs.fasta")
+seqs = read.fasta("sequence_data/all_seqs.fasta",as.string = T)
 seqs = seqs[1:length(seqs)-1]
 metadata = read.csv("sequence_data/metadata.csv")
-metadata$pyrimidines = NA
-metadata$pyrimidines1 = NA
-metadata$pyrimidines2 = NA
-metadata$pyrimidines3 = NA
+metadata$purines = NA
+metadata$purines1 = NA
+metadata$purines2 = NA
+metadata$purines3 = NA
 for(i in 1:length(seqs)){
   split = str_split(as.character(seqs[i]), "")[[1]]
-  metadata$pyrimidines[i] = length(split[split == "C" | split == "T"])/length(split)
+  metadata$purines[i] = length(split[split == "a" | split == "g"])/length(split)
   third_only = split[(1:(length(split)/3))*3]
-  metadata$pyrimidines3[i] = length(third_only[third_only == "C" | third_only == "T"])/length(third_only)
+  metadata$purines3[i] = length(third_only[third_only == "a" | third_only == "g"])/length(third_only)
   second_only = split[((1:(length(split)/3))*3)-1]
-  metadata$pyrimidines2[i] = length(second_only[second_only == "C" | second_only == "T"])/length(second_only)
+  metadata$purines2[i] = length(second_only[second_only == "a" | second_only == "g"])/length(second_only)
   first_only = split[((1:(length(split)/3))*3)-2]
-  metadata$pyrimidines1[i] = length(first_only[first_only == "C" | first_only == "T"])/length(first_only)
+  metadata$purines1[i] = length(first_only[first_only == "a" | first_only == "g"])/length(first_only)
 }
 
 write.csv(metadata, "output_data/purines.csv")
