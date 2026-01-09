@@ -376,7 +376,7 @@ p8 = ggplot(data = df, aes(x = clade, y = tpa_actual, fill = clade))+
 
 egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
 
-png("plots/Figure 6.png", width = 8, height = 8, units = 'in', res = 600)
+png("plots/Figure 5.png", width = 8, height = 8, units = 'in', res = 600)
 egg::ggarrange(p1,p6,p3,p8, labels = c("A", "B", "C", "D"))
 dev.off()
 
@@ -503,6 +503,6 @@ MeanCI(df$tpa[df$host_group == "Bat"], conf.level = 0.95)
 
 source("code/ZAP CpG locs.R")
 
-png("plots/Figure 8.png", width = 10, height = 7.5, units = 'in', res = 600)
+png("plots/Figure 7.png", width = 10, height = 7.5, units = 'in', res = 600)
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
 dev.off()
