@@ -1,6 +1,6 @@
 # Rabies codon bias
 
-Repo for the manuscript "Differences in codon usage and CpG content between host species-specific rabies clades". 
+Repo for the manuscript "Differences in codon usage between host-species-specific rabies virus clades are driven by UpA and purine content". 
 
 ## Data
 
