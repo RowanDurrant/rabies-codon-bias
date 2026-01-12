@@ -501,7 +501,7 @@ MeanCI(df$tpa[df$host_group == "Bat"], conf.level = 0.95)
 #   geom_smooth(method = "lm", se = F, col = "black")+
 #   theme(legend.position = "bottom")
 
-source("code/ZAP CpG locs.R")
+source("code/ZAP_CpG_locs.R")
 
 png("plots/Figure 7.png", width = 10, height = 7.5, units = 'in', res = 600)
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
