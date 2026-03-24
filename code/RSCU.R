@@ -45,6 +45,7 @@ melt_data$Group.1 = factor(melt_data$Group.1, c("RAC-SK SCSK\n(skunk)",
                                                 "Cosmo AM2a\n(mongoose)",
                                                 "Cosmo AF1b\n(dog)"))
 
+write.csv(melt_data, "output_data/RSCU_melt.csv")
 
 p = ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) + 
   geom_tile() + xlab("Codon") + ylab("Clade") +
@@ -56,9 +57,9 @@ p = ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) +
 
 p
 
-png("plots/Figure 3.png", width = 9, height = 5, units = 'in', res = 600)
-p
-dev.off()
+# png("plots/Figure 3.png", width = 9, height = 5, units = 'in', res = 600)
+# p
+# dev.off()
 
 p2 = ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) + 
   geom_tile() + xlab("Codon") + ylab("Clade") +
@@ -115,6 +116,8 @@ p2 = ggplot(melt_data, aes(x = variable, y= Group.1, fill= rscu)) +
     aes(image = "phylopic_images/skunk.png"),
     size = 0.1)
 
-png("plots/Figure 3.png", width = 9, height = 6, units = 'in', res = 600)
+p2
+
+png("plots/Figure 2.png", width = 9, height = 6, units = 'in', res = 600)
 p2
 dev.off()

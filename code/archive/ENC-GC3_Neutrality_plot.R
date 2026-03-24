@@ -95,59 +95,27 @@ p = ggplot(data = df, aes(x = GC3s, y = ENC))+
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   stat_function(fun=f1, col = "black") +
   xlab("GC3 content")+
-  xlim(0,1)+ ylim(20,65)+ theme(legend.position = "none")
+  xlim(0.2,0.8)+ ylim(45,65)
 p
 
-# df = as.data.frame(read_excel("output_data/Nucleotide_composition_N.xlsx"))
-# 
-# df$clade = NA
-# for(i in 1:nrow(df)){
-#   df$clade[i] = metadata$Clade[metadata$Accession==df$Accession[i]]
-# }
-# 
-# df$bat = NA
-# df$bat[df$clade %in% c("Bat TB1",
-#                        "Bat DR", "Bat EF-E2","Bat LC")] = "Bats"
-# df$bat[df$clade %in% c("Cosmo AF1b", "RAC-SK SCSK", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
-#                        "Asian SEA2b")] = "Carnivores"
-# df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
-#                               "Asian SEA2b", 
-#                               "Bat DR","Bat TB1", "Bat LC",
-#                               "Bat EF-E2","RAC-SK SCSK"))
-# 
-# 
-# df$GC12s = (df2$`%G1+C1` + df2$`%G2+C2`)/200
-# df$GC3s = df2$`%G3+C3`/100
-# 
-# lm(data=df[df$bat == "Bats",], GC12s ~ GC3s)
-# lm(data=df[df$bat == "Carnivores",], GC12s ~ GC3s)
-# lm(data=df, GC12s ~ GC3s)
-# 
-# p2 = ggplot(data = df, aes(x = GC3s, y = GC12s,  
-#                            linetype = bat)) + 
-#   theme_bw() + 
-#   geom_point(position = position_jitter(width = .0005, height = 0.0005), 
-#              size = 2, 
-#              alpha = 0.8, aes(col = clade, shape = clade)) +
-#   scale_color_manual(values = my_pal, name = "Clade",
-#                      labels = mylabels) +
-#   scale_shape_manual(name = "Clade",
-#                      labels = mylabels,
-#                      values = c(17,17,17,17,17,16,16,16,16,17))+
-#   stat_smooth(method = "lm", col = "black", se = F)+  
-#   stat_regline_equation(col = "black")+
-#   scale_linetype_manual(name="", 
-#                         breaks=c("Bats", "Carnivores"), 
-#                         labels = c("Bats", "Carnivores"),
-#                         values = c("dotted", "solid")) +
-#   xlab("GC3 content") + ylab("GC1+2 content")
+df_pca = read.csv("output_data/PCA_output_RSCU.csv")
+df_pca$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+                              "Asian SEA2b", 
+                              "Bat DR","Bat TB1", "Bat LC",
+                              "Bat EF-E2","RAC-SK SCSK"))
+g1 = ggplot(data = df_pca, aes(x = PC1, y = PC2))+ 
+  geom_point(size = 2, alpha = 0.8, aes(col = clade, shape = clade)) +
+  geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
+  ylim(-8,8) + xlim(-10,10)+
+  scale_color_manual(values = my_pal, name = "Clade",
+                     labels = my_labels) +
+  scale_shape_manual(name = "Clade",
+                     labels = my_labels,
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
+  xlab("PC1 (25.0% explained var.)") + 
+  ylab("PC2 (20.7% explained var.)")+
+  theme_bw() + 
+  coord_axes_inside(labels_inside = TRUE)
 
-
-#run ENC-GC3 script to get p1
-# ggarrange(p1, p2, labels = c("A", "B"), common.legend = T, legend = "bottom")
-# 
-# 
-# png("plots/Figure 4.png", width = 6.5, height = 6, units = 'in', res = 600)
-# p
-# dev.off()
+ggarrange(p, g1, common.legend = T, legend = "bottom")
 

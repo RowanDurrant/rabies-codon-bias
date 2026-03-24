@@ -67,10 +67,10 @@ for(i in 1:nrow(df)){
   df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
 }
 
-df$clade = factor(df$clade, rev(c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+df$clade = factor(df$clade, rev(c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
-                              "Bat DR","Bat TB1", "Bat LC",
-                              "Bat EF-E2","RAC-SK SCSK")))
+                              "Bats DR","Bats TB1", "Bats LC",
+                              "Bats EF-E2","RAC-SK SCSK")))
 
 mypal = rev(c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
           "#DDCC77","#999933", "#AA4499","#CC6677","#882255"))
@@ -95,48 +95,48 @@ p = ggplot(data = df, aes(x = clade, y = ENC, fill = clade))+
   scale_fill_manual(values = mypal, name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
   scale_x_discrete(labels = mylabels) + coord_flip()+
-  theme(axis.text=element_text(size=10),
-        axis.title=element_text(size=14))+
+  theme(axis.text=element_text(size=8),
+        axis.title=element_text(size=12))+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", ENC = 60.5),
+    data = tibble(clade = "Cosmopolitan AF1b", ENC = 60.5),
     aes(image = "phylopic_images/dog.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", ENC = 60.5),
+    data = tibble(clade = "Cosmopolitan AM2a", ENC = 60.5),
     aes(image = "phylopic_images/mongoose.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
     data = tibble(clade = "Asian SEA2a", ENC = 60.5),
     aes(image = "phylopic_images/dog.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
     data = tibble(clade = "Asian SEA2b", ENC = 60.5),
     aes(image = "phylopic_images/cfb.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
     data = tibble(clade = "Arctic A", ENC = 60.5),
     aes(image = "phylopic_images/fox.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
-    data = tibble(clade = "Bat LC", ENC = 60.5),
+    data = tibble(clade = "Bats LC", ENC = 60.5),
     aes(image = "phylopic_images/lasiurus.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
-    data = tibble(clade = "Bat DR", ENC = 60.5),
+    data = tibble(clade = "Bats DR", ENC = 60.5),
     aes(image = "phylopic_images/desmodus.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
-    data = tibble(clade = "Bat TB1", ENC = 60.5),
+    data = tibble(clade = "Bats TB1", ENC = 60.5),
     aes(image = "phylopic_images/tadarida.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", ENC = 60.5),
+    data = tibble(clade = "Bats EF-E2", ENC = 60.5),
     aes(image = "phylopic_images/eptesicus.png"),
-    size = 0.08)+
+    size = 0.06)+
   geom_image(
     data = tibble(clade = "RAC-SK SCSK", ENC = 60.5),
     aes(image = "phylopic_images/skunk.png"),
-    size = 0.08)+
+    size = 0.06)+
   ylim(49.5,61)
 
 p
@@ -145,8 +145,12 @@ p
 # p
 # dev.off()
 
-mean(df$ENC)
+library(DescTools)
+
+MeanCI(df$ENC, conf.level = 0.95)
 sd(df$ENC)
 
-mean(df$ENC[df$clade == "Cosmo AF1b"])
-mean(df$ENC[df$clade == "Asian SEA2b"])
+MeanCI(df$ENC[df$clade == "Cosmopolitan AF1b"], conf.level = 0.95)
+MeanCI(df$ENC[df$clade == "Arctic A"], conf.level = 0.95)
+MeanCI(df$ENC[df$clade == "Bats EF-E2"], conf.level = 0.95)
+MeanCI(df$ENC[df$clade == "Asian SEA2b"], conf.level = 0.95)

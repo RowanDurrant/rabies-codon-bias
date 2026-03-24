@@ -1,7 +1,7 @@
 library(stringr)
 library(seqinr)
 
-seqs = read.fasta("sequence_data/all_seqs.fasta",as.string = T)
+seqs = seqinr::read.fasta("sequence_data/all_seqs.fasta",as.string = T)
 seqs = seqs[1:length(seqs)-1]
 metadata = read.csv("sequence_data/metadata.csv")
 metadata$purines = NA

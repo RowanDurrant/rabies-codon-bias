@@ -83,7 +83,7 @@ TpA_actual = function(x){
   return(nTpA)
 }
 
-seqs = read.fasta("sequence_data/all_seqs.fasta",as.string = T)
+seqs = seqinr::read.fasta("sequence_data/all_seqs.fasta",as.string = T)
 seqs = seqs[1:length(seqs)-1]
 metadata = read.csv("sequence_data/metadata.csv")
 
@@ -108,18 +108,18 @@ tpa_actual = c()
        tpa_actual= append(tpa_actual, TpA_actual(seqs[[j]][1]))
        accessions = append(accessions, names(seqs)[j])
        clade = append(clade, metadata$Clade[metadata$Accession==names(seqs)[j]])
-       host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs)[j]])
+       #host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs)[j]])
        ZAP_optimal_motifs = append(ZAP_optimal_motifs, ZAP_optimal(seqs[[j]][1]))
        ZAP_suboptimal_motifs = append(ZAP_suboptimal_motifs, ZAP_suboptimal(seqs[[j]][1]))
     }
   
-df = data.frame(accessions, clade, host_group, cpg, gc, cpg_actual, 
+df = data.frame(accessions, clade, cpg, gc, cpg_actual, 
                 ZAP_optimal_motifs, ZAP_suboptimal_motifs, tpa, ta, tpa_actual)
-#write.csv(df, "output_data/N_CpG.csv")
-df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+write.csv(df, "output_data/N_CpG.csv")
+df$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
-                            "Bat DR","Bat TB1", "Bat LC",
-                           "Bat EF-E2","RAC-SK SCSK"))
+                            "Bats DR","Bats TB1", "Bats LC",
+                           "Bats EF-E2","RAC-SK SCSK"))
 
 mypal = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
           "#DDCC77","#999933", "#AA4499","#CC6677","#882255")
@@ -146,11 +146,11 @@ p1= ggplot(data = df, aes(x = clade, y = cpg, fill = clade))+
                     name = "Clade", guide = guide_legend(),
                     labels = mylabels)+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", cpg = 0.67),
+    data = tibble(clade = "Cosmopolitan AF1b", cpg = 0.67),
     aes(image = "phylopic_images/dog.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", cpg = 0.67),
+    data = tibble(clade = "Cosmopolitan AM2a", cpg = 0.67),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.08)+
   geom_image(
@@ -166,19 +166,19 @@ p1= ggplot(data = df, aes(x = clade, y = cpg, fill = clade))+
     aes(image = "phylopic_images/fox.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat LC", cpg = 0.67),
+    data = tibble(clade = "Bats LC", cpg = 0.67),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat DR", cpg = 0.67),
+    data = tibble(clade = "Bats DR", cpg = 0.67),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat TB1", cpg = 0.67),
+    data = tibble(clade = "Bats TB1", cpg = 0.67),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", cpg = 0.67),
+    data = tibble(clade = "Bats EF-E2", cpg = 0.67),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.08)+
   geom_image(
@@ -210,11 +210,11 @@ p3 = ggplot(data = df, aes(x = clade, y = cpg_actual, fill = clade))+
                     labels = mylabels) +
   scale_x_discrete(labels = mylabels)+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", cpg_actual = 44),
+    data = tibble(clade = "Cosmopolitan AF1b", cpg_actual = 44),
     aes(image = "phylopic_images/dog.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", cpg_actual = 44),
+    data = tibble(clade = "Cosmopolitan AM2a", cpg_actual = 44),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.08)+
   geom_image(
@@ -230,19 +230,19 @@ p3 = ggplot(data = df, aes(x = clade, y = cpg_actual, fill = clade))+
     aes(image = "phylopic_images/fox.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat LC", cpg_actual = 44),
+    data = tibble(clade = "Bats LC", cpg_actual = 44),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat DR", cpg_actual = 44),
+    data = tibble(clade = "Bats DR", cpg_actual = 44),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat TB1", cpg_actual = 44),
+    data = tibble(clade = "Bats TB1", cpg_actual = 44),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", cpg_actual = 44),
+    data = tibble(clade = "Bats EF-E2", cpg_actual = 44),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.08)+
   geom_image(
@@ -269,11 +269,11 @@ p6 = ggplot(data = df, aes(x = clade, y = tpa, fill = clade))+
                     name = "Clade", guide = guide_legend(),
                     labels = mylabels)+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", tpa = 0.73),
+    data = tibble(clade = "Cosmopolitan AF1b", tpa = 0.73),
     aes(image = "phylopic_images/dog.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", tpa = 0.73),
+    data = tibble(clade = "Cosmopolitan AM2a", tpa = 0.73),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.08)+
   geom_image(
@@ -289,19 +289,19 @@ p6 = ggplot(data = df, aes(x = clade, y = tpa, fill = clade))+
     aes(image = "phylopic_images/fox.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat LC", tpa = 0.73),
+    data = tibble(clade = "Bats LC", tpa = 0.73),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat DR", tpa = 0.73),
+    data = tibble(clade = "Bats DR", tpa = 0.73),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat TB1", tpa = 0.73),
+    data = tibble(clade = "Bats TB1", tpa = 0.73),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", tpa = 0.73),
+    data = tibble(clade = "Bats EF-E2", tpa = 0.73),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.08)+
   geom_image(
@@ -334,11 +334,11 @@ p8 = ggplot(data = df, aes(x = clade, y = tpa_actual, fill = clade))+
                      labels = mylabels) +
   scale_x_discrete(labels = mylabels)+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", tpa_actual = 76),
+    data = tibble(clade = "Cosmopolitan AF1b", tpa_actual = 76),
     aes(image = "phylopic_images/dog.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", tpa_actual = 76),
+    data = tibble(clade = "Cosmopolitan AM2a", tpa_actual = 76),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.08)+
   geom_image(
@@ -354,19 +354,19 @@ p8 = ggplot(data = df, aes(x = clade, y = tpa_actual, fill = clade))+
     aes(image = "phylopic_images/fox.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat LC", tpa_actual = 76),
+    data = tibble(clade = "Bats LC", tpa_actual = 76),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat DR", tpa_actual = 76),
+    data = tibble(clade = "Bats DR", tpa_actual = 76),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat TB1", tpa_actual = 76),
+    data = tibble(clade = "Bats TB1", tpa_actual = 76),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.08)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", tpa_actual = 76),
+    data = tibble(clade = "Bats EF-E2", tpa_actual = 76),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.08)+
   geom_image(
@@ -402,11 +402,11 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
                      limits = c(-0.02,10))+
   guides(fill = "none")+
   geom_image(
-    data = tibble(clade = "Cosmo AF1b", ratio = 8),
+    data = tibble(clade = "Cosmopolitan AF1b", ratio = 8),
     aes(image = "phylopic_images/dog.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Cosmo AM2a", ratio = 8),
+    data = tibble(clade = "Cosmopolitan AM2a", ratio = 8),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.15)+
   geom_image(
@@ -422,19 +422,19 @@ p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
     aes(image = "phylopic_images/fox.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bat LC", ratio = 8),
+    data = tibble(clade = "Bats LC", ratio = 8),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bat DR", ratio = 8),
+    data = tibble(clade = "Bats DR", ratio = 8),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bat TB1", ratio = 8),
+    data = tibble(clade = "Bats TB1", ratio = 8),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bat EF-E2", ratio = 8),
+    data = tibble(clade = "Bats EF-E2", ratio = 8),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.15)+
   geom_image(
@@ -502,6 +502,7 @@ MeanCI(df$tpa[df$host_group == "Bat"], conf.level = 0.95)
 #   theme(legend.position = "bottom")
 
 source("code/ZAP_CpG_locs.R")
+ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
 
 png("plots/Figure 7.png", width = 10, height = 7.5, units = 'in', res = 600)
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
