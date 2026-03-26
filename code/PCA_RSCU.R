@@ -63,13 +63,15 @@ g <- g + theme(legend.direction = 'horizontal',
 print(g)
 
 df2 = as.data.frame(pc$x)
-df2$clade = metadata$Clade
-df2$Accession = metadata$Accession
+df2$clade = NA
+for(i in 1:nrow(df2)){
+  df2$clade[i] = metadata$Clade[metadata$Accession==rownames(df2[i,])]
+}
 
-df2$clade = factor(df2$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+df2$clade = factor(df2$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                                 "Asian SEA2b", 
-                                "Bat TB1",
-                                "Bat DR", "Bat EF-E2","RAC-SK SCSK", "Bat LC"))
+                                "Bats TB1",
+                                "Bats DR", "Bats EF-E2","RAC-SK SCSK", "Bats LC"))
 
 
 my_pal <- c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
@@ -101,9 +103,9 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
                                 "RAC-SK SCSK\n(skunk)",
                                 "Bat LC\n(hoary bat)"),
                      values = c(17,17,17,17,17,16,16,16,17,16))+
-  xlab("PC1 (25.0% explained var.)") + 
-  ylab("PC2 (20.7% explained var.)")+
-  theme_bw() + ylim(-10, 10) + xlim(-10, 10)+
+  xlab("PC1 (22.4% explained var.)") + 
+  ylab("PC2 (20.1% explained var.)")+
+  theme_bw() + #ylim(-10, 10) + xlim(-10, 10)+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
 

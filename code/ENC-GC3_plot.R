@@ -7,7 +7,7 @@ for(i in 3:ncol(df)){
   colnames(df)[i] = paste0(as.character(df[1,i]),"_",colnames(df)[i])
 }
 colnames(df)[1] = "Accession no."
-df = df[2:(nrow(df)-1),]
+df = df[2:nrow(df),]
 
 F_function = function(codons){
   n = sum(codons)
@@ -64,10 +64,10 @@ for(i in 1:nrow(df)){
   df$clade[i] = metadata$Clade[metadata$Accession==df$`Accession no.`[i]]
 }
 
-df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+df$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
-                              "Bat DR","Bat TB1", "Bat LC",
-                              "Bat EF-E2","RAC-SK SCSK"))
+                              "Bats DR","Bats TB1", "Bats LC",
+                              "Bats EF-E2","RAC-SK SCSK"))
 
 f1 = function(x){
   2+x+(29/(x^2+(1-x)^2))
@@ -94,15 +94,15 @@ p = ggplot(data = df, aes(x = GC3s, y = ENC))+
                      labels = mylabels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   stat_function(fun=f1, col = "black") +
-  xlab("GC3 content")+
-  xlim(0.2,0.8)+ ylim(45,65)
+  xlim(0.3,0.7) + ylim(48,61)+
+  xlab("GC3 content")
 p
 
 df_pca = read.csv("output_data/PCA_output_RSCU.csv")
-df_pca$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+df_pca$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
-                              "Bat DR","Bat TB1", "Bat LC",
-                              "Bat EF-E2","RAC-SK SCSK"))
+                              "Bats DR","Bats TB1", "Bats LC",
+                              "Bats EF-E2","RAC-SK SCSK"))
 g1 = ggplot(data = df_pca, aes(x = PC1, y = PC2))+ 
   geom_point(size = 2, alpha = 0.8, aes(col = clade, shape = clade)) +
   geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
@@ -112,10 +112,15 @@ g1 = ggplot(data = df_pca, aes(x = PC1, y = PC2))+
   scale_shape_manual(name = "Clade",
                      labels = my_labels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
-  xlab("PC1 (25.0% explained var.)") + 
-  ylab("PC2 (20.7% explained var.)")+
+  xlab("PC1 (22.4% explained var.)") + 
+  ylab("PC2 (20.1% explained var.)")+
   theme_bw() + 
   coord_axes_inside(labels_inside = TRUE)
 
-ggarrange(p, g1, common.legend = T, legend = "bottom")
+ggpubr::ggarrange(p, g1, common.legend = T, legend = "bottom",
+                  align = "h")
 
+png("plots/Supplementary Figure 2.png", width = 9, height = 6, units = 'in', res = 600)
+ggpubr::ggarrange(p, g1, common.legend = T, legend = "bottom",
+                  align = "h")
+dev.off()

@@ -73,6 +73,8 @@ df2$clade = factor(df2$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arcti
                                "Bats TB1",
                                "Bats DR", "Bats EF-E2","RAC-SK SCSK", "Bats LC"))
 
+library(plotly)
+plot_ly(x=df2$PC1, y=df2$PC2, z=df2$PC3, type="scatter3d", color = df2$clade)
 
 my_pal <- c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
             "#999933", "#DDCC77","#CC6677","#882255","#AA4499")
@@ -109,11 +111,39 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
   coord_axes_inside(labels_inside = TRUE) +
   theme(legend.position = "bottom", legend.box = "vertical")
 
-g1
+g2 = ggplot(data = df2, aes(x = PC1, y = PC3))+ 
+  geom_point(size = 2, aes(col = clade, shape = clade)) +
+  geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
+  scale_color_manual(values = my_pal, name = "Clade",
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)")) +
+  scale_shape_manual(name = "Clade",
+                     labels = c("Cosmo AF1b\n(dog)",
+                                "Cosmo AM2a\n(mongoose)",
+                                "Arctic A\n(arctic fox)",
+                                "Asian SEA2a\n(dog)",
+                                "Asian SEA2b\n(CFB)",
+                                "Bat TB1\n(Mexican free\n-tailed bat)",
+                                "Bat DR\n(vampire bat)",
+                                "Bat EF-E2\n(big brown bat)",
+                                "RAC-SK SCSK\n(skunk)",
+                                "Bat LC\n(hoary bat)"),
+                     values = c(17,17,17,17,17,16,16,16,17,16))+
+  xlab("PC1 (22.2% explained var.)") + 
+  ylab("PC3 (16.9% explained var.)")+
+  theme_bw() + #ylim(-10, 10) + xlim(-10, 10)+
+  coord_axes_inside(labels_inside = TRUE) +
+  theme(legend.position = "bottom", legend.box = "vertical")
 
-# png("plots/Figure 5.png", width = 7.5, height = 7.5, units = 'in', res = 600)
-# g1
-# dev.off()
+ggpubr::ggarrange(g1,g2, common.legend = T)
 
 write.csv(df2, "output_data/PCA_output.csv")
 

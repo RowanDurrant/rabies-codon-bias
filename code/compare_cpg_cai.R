@@ -5,25 +5,23 @@ library(boot)
 df = read.csv("output_data/HIVE-CUTS_CAI.csv")
 cpg = read.csv("output_data/N_CpG.csv")
 
-df = as.data.frame(cbind(df,cpg))
+df = merge(df, cpg, by.x = "Name", by.y = "accessions")
 
-df = pivot_longer(df, cols= 2:5, names_to = "Reference_species", values_to = "CAI")
+canis_familiaris_eCAI = 0.784
+desmodus_rotundus_eCAI = 0.754
+eptesicus_fuscus_eCAI = 0.753
+vulpes_lagopus_eCAI = 0.774
 
-canis_familiaris_eCAI = 0.785
-desmodus_rotundus_eCAI = 0.753
-eptesicus_fuscus_eCAI = 0.755
-vulpes_lagopus_eCAI = 0.778
+df$normalised = NA
+df$normalised[df$Reference == "Canis familiaris"] = df$CAI[df$Reference == "Canis familiaris"]/canis_familiaris_eCAI
+df$normalised[df$Reference == "Eptesicus fuscus"] = df$CAI[df$Reference == "Eptesicus fuscus"]/eptesicus_fuscus_eCAI
+df$normalised[df$Reference == "Desmodus rotundus"] = df$CAI[df$Reference == "Desmodus rotundus"]/desmodus_rotundus_eCAI
+df$normalised[df$Reference == "Vulpes lagopus"] = df$CAI[df$Reference == "Vulpes lagopus"]/vulpes_lagopus_eCAI
 
-df$nCAI = NA
-df$nCAI[df$Reference_species == "Canis_familiaris"] = df$CAI[df$Reference_species == "Canis_familiaris"]/canis_familiaris_eCAI
-df$nCAI[df$Reference_species == "Eptesicus_fuscus"] = df$CAI[df$Reference_species == "Eptesicus_fuscus"]/eptesicus_fuscus_eCAI
-df$nCAI[df$Reference_species == "Desmodus_rotundus"] = df$CAI[df$Reference_species == "Desmodus_rotundus"]/desmodus_rotundus_eCAI
-df$nCAI[df$Reference_species == "Vulpes_lagopus"] = df$CAI[df$Reference_species == "Vulpes_lagopus"]/vulpes_lagopus_eCAI
-
-df$clade = factor(df$clade, c("Cosmo AF1b", "Cosmo AM2a", "Arctic A", "Asian SEA2a", 
+df$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                               "Asian SEA2b", 
-                              "Bat DR","Bat TB1", "Bat LC",
-                              "Bat EF-E2","RAC-SK SCSK"))
+                              "Bats DR","Bats TB1", "Bats LC",
+                              "Bats EF-E2","RAC-SK SCSK"))
 
 mypal = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
           "#DDCC77","#999933", "#AA4499","#CC6677","#882255")
@@ -38,8 +36,8 @@ mylabels = c("Cosmo AF1b\n(dog)",
              "Bat EF-E2\n(big brown bat)",
              "RAC-SK SCSK\n(skunk)")
 
-p1 = ggplot(data = df, aes(x = cpg, y = nCAI))+
-  geom_point(aes(shape = Reference_species,
+p0 = ggplot(data = df, aes(x = cpg, y = normalised))+
+  geom_point(aes(shape = Reference,
                  colour = clade))+
   geom_smooth(se = F, method = "lm", col = "black")+
   theme_bw()+ 
@@ -53,13 +51,13 @@ p1 = ggplot(data = df, aes(x = cpg, y = nCAI))+
                                 expression(italic("Vulpes lagopus"))))+
   xlab("Obs/Exp CpG content")
 
-summary(lm(data = df, nCAI ~ cpg))
+summary(lm(data = df, normalised ~ cpg))
 bootstrap = boot(df,function(data,indices)
-  summary(lm(nCAI ~ cpg,data[indices,]))$adj.r.squared,R=10000)
+  summary(lm(normalised ~ cpg,data[indices,]))$adj.r.squared,R=10000)
 quantile(bootstrap$t,c(0.025,0.975))
 
-ggplot(data = df, aes(x = tpa, y = nCAI))+
-  geom_point(aes(shape = Reference_species,
+p1 = ggplot(data = df, aes(x = tpa, y = normalised))+
+  geom_point(aes(shape = Reference,
                  colour = clade))+
   geom_smooth(se = F, method = "lm", col = "black")+
   theme_bw()+ 
@@ -71,8 +69,8 @@ ggplot(data = df, aes(x = tpa, y = nCAI))+
                                 expression(italic("Desmodus rotundus")),
                                 expression(italic("Eptesicus fuscus")),
                                 expression(italic("Vulpes lagopus"))))+
-  xlab("Obs/Exp UpA content")
-summary(lm(data = df, nCAI ~ tpa))
+  xlab("Obs/Exp UpA content") + ylab("nCAI")
+summary(lm(data = df, normalised ~ tpa))
 bootstrap = boot(df,function(data,indices)
-  summary(lm(nCAI ~ tpa,data[indices,]))$adj.r.squared,R=10000)
-quantile(bootstrap$t,c(0.025,0.975))
+  summary(lm(normalised ~ tpa,data[indices,]))$adj.r.squared,R=10000)
+print(quantile(bootstrap$t,c(0.025,0.5,0.975)))
