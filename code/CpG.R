@@ -2,7 +2,7 @@
 # Observed to Expected CpG is calculated as below : 
 # Obs/Exp CpG = Number of CpG * N / (Number of C * Number of G) 
 # where N = length of sequence.
-
+library(DescTools)
 library(stringr)
 library(ggpubr)
 library(seqinr)
@@ -10,6 +10,7 @@ library(ggplot2)
 library(egg)
 library(ggimage)
 library(tibble)
+library(uShuffleR)
 
 CpG = function(x){
   x = unname(as.character(x))
@@ -57,6 +58,15 @@ ZAP_suboptimal = function(x){
   return(n_optimal)
 }
 
+ZAP_expected = function(shuffled){
+  optimal = c()
+  for(i in 1:length(shuffled)){
+    x = unname(as.character(shuffled[i]))
+    optimal = append(optimal, ZAP_optimal(x))
+  }
+  return(mean(optimal))
+}
+
 TpA = function(x){
   x = unname(as.character(x))
   nT = str_count(x, "t")
@@ -86,6 +96,7 @@ TpA_actual = function(x){
 seqs = seqinr::read.fasta("sequence_data/all_seqs.fasta",as.string = T)
 seqs = seqs[1:length(seqs)-1]
 metadata = read.csv("sequence_data/metadata.csv")
+shuffled = seqinr::read.fasta("sequence_data/reshuffled.fasta",as.string = T)
 
 cpg = c()
 gc = c()
@@ -95,6 +106,7 @@ clade = c()
 host_group = c()
 ZAP_optimal_motifs = c()
 ZAP_suboptimal_motifs = c()
+ZAP_expected_motifs = c()
 tpa = c()
 ta = c()
 tpa_actual = c()
@@ -111,10 +123,13 @@ tpa_actual = c()
        #host_group = append(host_group, metadata$Group[metadata$Accession==names(seqs)[j]])
        ZAP_optimal_motifs = append(ZAP_optimal_motifs, ZAP_optimal(seqs[[j]][1]))
        ZAP_suboptimal_motifs = append(ZAP_suboptimal_motifs, ZAP_suboptimal(seqs[[j]][1]))
+       
+       shuffle_names = shuffled[grep(names(seqs)[j], names(shuffled), value = T)]
+       ZAP_expected_motifs = append(ZAP_expected_motifs, ZAP_expected(shuffle_names))
     }
   
 df = data.frame(accessions, clade, cpg, gc, cpg_actual, 
-                ZAP_optimal_motifs, ZAP_suboptimal_motifs, tpa, ta, tpa_actual)
+                ZAP_optimal_motifs, ZAP_suboptimal_motifs, ZAP_expected_motifs, tpa, ta, tpa_actual)
 write.csv(df, "output_data/N_CpG.csv")
 df$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
@@ -382,66 +397,70 @@ dev.off()
 
 
 library(tidyr)
-df$ratio = df$ZAP_optimal_motifs/df$ZAP_suboptimal_motifs
+df$ratio_expected = df$ZAP_optimal_motifs/df$ZAP_expected_motifs
 
-p4 = ggplot(data = df, aes(x = clade, y = ratio, fill = clade))+
-  geom_hline(yintercept = 1, colour = "black", linetype = "dashed")+
+p4 = ggplot(data = df, aes(x = clade, y = ratio_expected, fill = clade))+
+  geom_hline(yintercept = 1)+
   geom_boxplot(outlier.size = 0.1, width = 0.5)+
   geom_jitter(width = 0.3, height = 0, 
               alpha = 0.6, colour = "black",
               size = 1) + 
   theme_bw()+
-  #theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-  ylab("Ratio optimal:suboptimal motifs") + xlab("Clade") +
+  ylab("Obs/exp optimal motifs") + xlab("Clade") +
   scale_fill_manual(values = mypal, 
                      name = "Clade", guide = guide_legend(),
                      labels = mylabels) +
+  scale_y_continuous(breaks = c(0.4,0.6,0.8,1,1.2,1.4,1.6),
+                     limits = c(NA, 1.7))+
   scale_x_discrete(labels = mylabels) +
-  scale_y_continuous(trans = "log", 
-                     breaks = c(1/4,1/2,1,2,4, 8),
-                     limits = c(-0.02,10))+
   guides(fill = "none")+
   geom_image(
-    data = tibble(clade = "Cosmopolitan AF1b", ratio = 8),
+    data = tibble(clade = "Cosmopolitan AF1b", ratio_expected = 1.625),
     aes(image = "phylopic_images/dog.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Cosmopolitan AM2a", ratio = 8),
+    data = tibble(clade = "Cosmopolitan AM2a", ratio_expected = 1.625),
     aes(image = "phylopic_images/mongoose.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Asian SEA2a", ratio = 8),
+    data = tibble(clade = "Asian SEA2a", ratio_expected = 1.625),
     aes(image = "phylopic_images/dog.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Asian SEA2b", ratio = 8),
+    data = tibble(clade = "Asian SEA2b", ratio_expected = 1.625),
     aes(image = "phylopic_images/cfb.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Arctic A", ratio = 8),
+    data = tibble(clade = "Arctic A", ratio_expected = 1.625),
     aes(image = "phylopic_images/fox.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bats LC", ratio = 8),
+    data = tibble(clade = "Bats LC", ratio_expected = 1.625),
     aes(image = "phylopic_images/lasiurus.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bats DR", ratio = 8),
+    data = tibble(clade = "Bats DR", ratio_expected = 1.625),
     aes(image = "phylopic_images/desmodus.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bats TB1", ratio = 8),
+    data = tibble(clade = "Bats TB1", ratio_expected = 1.625),
     aes(image = "phylopic_images/tadarida.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "Bats EF-E2", ratio = 8),
+    data = tibble(clade = "Bats EF-E2", ratio_expected = 1.625),
     aes(image = "phylopic_images/eptesicus.png"),
     size = 0.15)+
   geom_image(
-    data = tibble(clade = "RAC-SK SCSK", ratio = 8),
+    data = tibble(clade = "RAC-SK SCSK", ratio_expected = 1.625),
     aes(image = "phylopic_images/skunk.png"),
     size = 0.15)
 p4
+
+df$host_group = NA
+df$host_group[df$clade %in% c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
+                              "Asian SEA2b", "RAC-SK SCSK")] = "Carnivore"
+df$host_group[df$clade %in% c("Bats DR","Bats TB1", "Bats LC",
+                              "Bats EF-E2")] = "Bat"
 
 library(DescTools)
 MeanCI(df$cpg[df$host_group == "Carnivore"], conf.level = 0.95)
@@ -449,57 +468,9 @@ MeanCI(df$cpg[df$host_group == "Bat"], conf.level = 0.95)
 
 MeanCI(df$tpa[df$host_group == "Carnivore"], conf.level = 0.95)
 MeanCI(df$tpa[df$host_group == "Bat"], conf.level = 0.95)
-# 
-# t.test(data = df, cpg ~ host_group)
-# t.test(data = df, tpa ~ host_group)
-# 
-# summary(lm(data = df, ZAP_optimal_motifs ~ cpg_actual))
-# mean(ZAP_optimal_motifs/cpg_actual)
-# 
-# summary(lm(data= df, ZAP_optimal_motifs ~ cpg_actual))
-# summary(lm(data= df, ZAP_suboptimal_motifs ~ cpg_actual))
-# 
-# p5 = ggplot(data = df, aes(y = ZAP_optimal_motifs, 
-#                       x = cpg_actual, colour = clade))+
-#   geom_jitter(alpha = 0.6,
-#               size = 2, height = 0.3, width = 0.3) + 
-#   theme_bw()+
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-#   ylab("No. ZAP optimal motifs") + xlab("No. CpG dinucleotides") +
-#   scale_colour_manual(values = mypal, 
-#                     name = "Clade", guide = guide_legend(),
-#                     labels = mylabels) +
-#   geom_smooth(method = "lm", se = F, col = "black")
-# 
-# p6 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
-#                       x = cpg_actual, colour = clade))+
-#   geom_jitter(alpha = 0.6,
-#               size = 2, height = 0.3, width = 0.3) + 
-#   theme_bw()+
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-#   ylab("No. ZAP suboptimal motifs") + xlab("No. CpG dinucleotides") +
-#   scale_colour_manual(values = mypal, 
-#                       name = "Clade", guide = guide_legend(),
-#                       labels = mylabels) +
-#   geom_smooth(method = "lm", se = F, col = "black")+
-#   theme(legend.position = "bottom")
-# 
-# ggpubr::ggarrange(p5,p6, labels = c("A", "B"), 
-#                   common.legend = T, legend = "bottom")
-# 
-# p7 = ggplot(data = df, aes(y = ZAP_suboptimal_motifs, 
-#                       x = ZAP_optimal_motifs, colour = clade))+
-#   geom_jitter(alpha = 0.6,
-#               size = 2, height = 0.3, width = 0.3) + 
-#   theme_bw()+
-#   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
-#   ylab("No. ZAP suboptimal motifs") + 
-#   xlab("No. ZAP optimal motifs") +
-#   scale_colour_manual(values = mypal, 
-#                       name = "Clade", guide = guide_legend(),
-#                       labels = mylabels) +
-#   geom_smooth(method = "lm", se = F, col = "black")+
-#   theme(legend.position = "bottom")
+
+MeanCI(df$ratio_expected[df$host_group == "Carnivore"], conf.level = 0.95)
+MeanCI(df$ratio_expected[df$host_group == "Bat"], conf.level = 0.95)
 
 source("code/ZAP_CpG_locs.R")
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")

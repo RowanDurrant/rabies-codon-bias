@@ -1,6 +1,7 @@
 library(readxl)
 library(ggpubr)
 library(ggplot2)
+library(ggh4x)
 
 df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 for(i in 3:ncol(df)){
@@ -108,9 +109,9 @@ g1 = ggplot(data = df_pca, aes(x = PC1, y = PC2))+
   geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
   ylim(-8,8) + xlim(-10,10)+
   scale_color_manual(values = my_pal, name = "Clade",
-                     labels = my_labels) +
+                     labels = mylabels) +
   scale_shape_manual(name = "Clade",
-                     labels = my_labels,
+                     labels = mylabels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   xlab("PC1 (22.4% explained var.)") + 
   ylab("PC2 (20.1% explained var.)")+

@@ -173,40 +173,6 @@ max(pc1)
 names(pc1[pc1>4])
 
 loadings = as.data.frame(loadings)
-loadings = loadings[,1:2]
 
-loadings$contains_cpg = F
-loadings$contains_cpg[grep(pattern = "CG", x = rownames(loadings))] = T
+write.csv(loadings, "output_data/loadings.csv")
 
-loadings$starts_G = F
-loadings$starts_G[str_sub(rownames(loadings), -3,-3) == "G"] = T
-
-loadings$ends_C = F
-loadings$ends_C[str_sub(rownames(loadings), -1,-1) == "C"] = T
-
-
-p1 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = contains_cpg))+
-  geom_point()+
-  ggtitle("Contains CG dinucleotide") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                       labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-p2 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = starts_G))+
-  geom_point()+
-  ggtitle("G in position 1") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-p3 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = ends_C))+
-  geom_point()+
-  ggtitle("C in position 3") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-ggarrange(p1,p2,p3, nrow = 1, common.legend = T, legend = "bottom")

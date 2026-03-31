@@ -49,7 +49,7 @@ my_labels = c("Cosmo AF1b\n(dog)",
              "RAC-SK SCSK\n(skunk)")
 
 
-p1 = ggplot(data = df, aes(x = `%G2+A2`, y = PC1))+
+p1 = ggplot(data = df, aes(x = `%G2+A2`/100, y = PC1))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -59,14 +59,14 @@ p1 = ggplot(data = df, aes(x = `%G2+A2`, y = PC1))+
                      labels = my_labels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
-  xlab("%G2+A2")+
-  annotate("text", x = max(df$`%G2+A2`), y = -7.5, 
+  xlab("GA2 content")+
+  annotate("text", x = max(df$`%G2+A2`)/100, y = -7.5, 
            label = paste(bquote("R^2 == "),
                          round(summary(lm(data = df, 
                                           `%G2+A2` ~ PC1))$adj.r.squared,3)), 
            parse = T,hjust = 1)
 
-p2 = ggplot(data = df, aes(x = `%G1+C1`, y = PC2))+
+p2 = ggplot(data = df, aes(x = `%G1+C1`/100, y = PC2))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -76,13 +76,13 @@ p2 = ggplot(data = df, aes(x = `%G1+C1`, y = PC2))+
                      labels = my_labels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
-  xlab("%G1+C1")+
-  annotate("text", x = min(df$`%G1+C1`), y = min(df$PC2), 
+  xlab("GC1 content")+
+  annotate("text", x = min(df$`%G1+C1`)/100, y = min(df$PC2), 
            label = paste(bquote("R^2 == "),round(summary(lm(data = df, `%G1+C1` ~ PC2))$adj.r.squared,3)), 
            parse = T,hjust = 0)
 
 
-p3 = ggplot(data = df, aes(x = `%G3+T3`, y = PC3))+
+p3 = ggplot(data = df, aes(x = `%G3+T3`/100, y = PC3))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -92,8 +92,8 @@ p3 = ggplot(data = df, aes(x = `%G3+T3`, y = PC3))+
                      labels = my_labels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
-  xlab("%G3+T3")+
-  annotate("text", x = min(df$`%G3+T3`), y = min(df$PC3), 
+  xlab("GT3 content")+
+  annotate("text", x = min(df$`%G3+T3`)/100, y = min(df$PC3), 
            label = paste(bquote("R^2 == "),
                          round(summary(lm(data = df, 
                                           `%G3+T3` ~ PC3))$adj.r.squared,3)), 

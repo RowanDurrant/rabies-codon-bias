@@ -29,29 +29,20 @@ for(i in 1:length(seqs)){
   clade = append(clade, rep(metadata$Clade[metadata$Accession==names(seqs)[i]], 
                             length(ZAP_opt_locs[[1]][,1])))
   start_loc = append(start_loc, ZAP_opt_locs[[1]][,1])
-  
-  ZAP_subopt_locs = str_locate_all(x, c("C.......C.CG", "C....C.CG", "C.....C.CG",
-                                     "C......C.CG", "C........C.CG"))
-  accession = append(accession, rep(names(seqs)[i], length(ZAP_subopt_locs[[1]][,1])))
-  motif = append(motif, rep("ZAP suboptimal motifs", length(ZAP_subopt_locs[[1]][,1])))
-  clade = append(clade, rep(metadata$Clade[metadata$Accession==names(seqs)[i]], 
-                            length(ZAP_subopt_locs[[1]][,1])))
-  start_loc = append(start_loc, ZAP_subopt_locs[[1]][,1])
-  
 }
 
 
-df = as.data.frame(cbind(accession, clade, motif, start_loc))
+df3 = as.data.frame(cbind(accession, clade, motif, start_loc))
 
 clade = c()
 motif = c()
 prop = c()
 start_loc = c()
-for(i in unique(df$clade)){
-  for(j in unique(df$motif)){
-    for(k in unique(df$start_loc[df$clade == i & df$motif == j])){
-      prop = append(prop, nrow(df[df$clade == i & df$motif == j & df$start_loc == k,])/
-        length(unique(df$accession[df$clade == i & df$motif == j])))
+for(i in unique(df3$clade)){
+  for(j in unique(df3$motif)){
+    for(k in unique(df3$start_loc[df3$clade == i & df3$motif == j])){
+      prop = append(prop, nrow(df3[df3$clade == i & df3$motif == j & df3$start_loc == k,])/
+        length(unique(df3$accession[df3$clade == i & df3$motif == j])))
       clade = append(clade, i)
       motif = append(motif, j)
       start_loc = append(start_loc, k)
@@ -65,8 +56,7 @@ df2$clade = factor(df2$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arcti
                               "Bats DR","Bats TB1", "Bats LC",
                               "Bats EF-E2","RAC-SK SCSK"))
 mypal = c(rgb(0.9,0.9,0.9, alpha = 0.6),
-          rgb(216/256, 27/256, 96/256, alpha = 0.8),
-          rgb(30/256, 136/256, 229/256, alpha = 0.8))
+          rgb(216/256, 27/256, 96/256, alpha = 0.8))
 
 mylabels = c("Cosmo AF1b",
              "Cosmo AM2a",
