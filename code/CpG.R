@@ -472,6 +472,9 @@ MeanCI(df$tpa[df$host_group == "Bat"], conf.level = 0.95)
 MeanCI(df$ratio_expected[df$host_group == "Carnivore"], conf.level = 0.95)
 MeanCI(df$ratio_expected[df$host_group == "Bat"], conf.level = 0.95)
 
+mean(df$ratio_expected[df$clade == "Asian SEA2b"])
+mean(df$ratio_expected[df$clade == "Bats EF-E2"])
+
 source("code/ZAP_CpG_locs.R")
 ggpubr::ggarrange(p4, g, nrow = 2, labels = "AUTO")
 
