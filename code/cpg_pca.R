@@ -35,6 +35,38 @@ r_df = as.data.frame(cbind(pc,comp,r2))
 #   summary(lm(PC2 ~ cpg + tpa,data[indices,]))$adj.r.squared,R=10000)
 # quantile(bootstrap$t,c(0.025,0.975))
 
+set.seed(37856)
+tree = read.tree("sequence_data/tree/outgroup_removed.nwk")
+ultra.tree = chronos(tree, 0)
+Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
+
+colnames(df)[colnames(df) == "%G2+A2"] = "GA2"
+m1.phylo = MCMCglmm(PC1~GA2, 
+                    random=~Accession, 
+                    ginverse=list(Accession=Ainv.phylo), 
+                    data=df)
+summary(m1.phylo) #pMCMC = 0.868
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9860341 
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9779891 0.9931691
+
+colnames(df)[colnames(df) == "%G1+C1"] = "GC1"
+m2.phylo = MCMCglmm(PC2~GC1, 
+                    random=~Accession, 
+                    ginverse=list(Accession=Ainv.phylo), 
+                    data=df)
+summary(m2.phylo) #pMCMC = <0.001
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9874719
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9769578 0.9921081
+
+colnames(df)[colnames(df) == "%G3+C3"] = "GT3"
+m3.phylo = MCMCglmm(PC3~GT3, 
+                    random=~Accession, 
+                    ginverse=list(Accession=Ainv.phylo), 
+                    data=df)
+summary(m3.phylo) #pMCMC = <0.001
+posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9932576
+HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9846226 0.9963546
+
 my_pal = c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
           "#DDCC77","#999933", "#AA4499","#CC6677","#882255")
 my_labels = c("Cosmo AF1b\n(dog)",
@@ -48,8 +80,7 @@ my_labels = c("Cosmo AF1b\n(dog)",
              "Bat EF-E2\n(big brown bat)",
              "RAC-SK SCSK\n(skunk)")
 
-
-p1 = ggplot(data = df, aes(x = `%G2+A2`/100, y = PC1))+
+p1 = ggplot(data = df, aes(x = GA2/100, y = PC1))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -60,13 +91,13 @@ p1 = ggplot(data = df, aes(x = `%G2+A2`/100, y = PC1))+
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("GA2 content")+
-  annotate("text", x = max(df$`%G2+A2`)/100, y = -7.5, 
+  annotate("text", x = max(df$GA2)/100, y = -7.5, 
            label = paste(bquote("R^2 == "),
                          round(summary(lm(data = df, 
-                                          `%G2+A2` ~ PC1))$adj.r.squared,3)), 
+                                          GA2 ~ PC1))$adj.r.squared,3)), 
            parse = T,hjust = 1)
 
-p2 = ggplot(data = df, aes(x = `%G1+C1`/100, y = PC2))+
+p2 = ggplot(data = df, aes(x = GC1/100, y = PC2))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -77,12 +108,12 @@ p2 = ggplot(data = df, aes(x = `%G1+C1`/100, y = PC2))+
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("GC1 content")+
-  annotate("text", x = min(df$`%G1+C1`)/100, y = min(df$PC2), 
-           label = paste(bquote("R^2 == "),round(summary(lm(data = df, `%G1+C1` ~ PC2))$adj.r.squared,3)), 
+  annotate("text", x = min(df$GC1)/100, y = min(df$PC2), 
+           label = paste(bquote("R^2 == "),round(summary(lm(data = df, GC1 ~ PC2))$adj.r.squared,3)), 
            parse = T,hjust = 0)
 
 
-p3 = ggplot(data = df, aes(x = `%G3+T3`/100, y = PC3))+
+p3 = ggplot(data = df, aes(x = GT3/100, y = PC3))+
   geom_smooth(method = "lm", se = F, colour = "black")+
   geom_point(size = 2, aes(col = clade, shape = clade),
              alpha = 0.8) +
@@ -93,10 +124,10 @@ p3 = ggplot(data = df, aes(x = `%G3+T3`/100, y = PC3))+
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   theme_bw()+
   xlab("GT3 content")+
-  annotate("text", x = min(df$`%G3+T3`)/100, y = min(df$PC3), 
+  annotate("text", x = min(df$GT3)/100, y = min(df$PC3), 
            label = paste(bquote("R^2 == "),
                          round(summary(lm(data = df, 
-                                          `%G3+T3` ~ PC3))$adj.r.squared,3)), 
+                                          GT3 ~ PC3))$adj.r.squared,3)), 
            parse = T,hjust = 0)
 
 

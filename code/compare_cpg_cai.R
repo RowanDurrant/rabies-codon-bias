@@ -1,6 +1,8 @@
 library(tidyr)
 library(ggplot2)
 library(boot)
+library(MCMCglmm)
+library(ape)
 
 df = read.csv("output_data/HIVE-CUTS_CAI.csv")
 cpg = read.csv("output_data/N_CpG.csv")
@@ -74,3 +76,21 @@ summary(lm(data = df, normalised ~ tpa))
 bootstrap = boot(df,function(data,indices)
   summary(lm(normalised ~ tpa,data[indices,]))$adj.r.squared,R=10000)
 print(quantile(bootstrap$t,c(0.025,0.5,0.975)))
+
+tree = read.tree("sequence_data/tree/outgroup_removed.nwk")
+ultra.tree = chronos(tree, 0)
+Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
+
+
+#I think reference species should be included somewhere?
+m1.phylo<-MCMCglmm(normalised ~ tpa, random=~Name, 
+                   ginverse=list(Name=Ainv.phylo), data=df)
+summary(m1.phylo) #<0.001
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.8184092
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.7898131 0.8545874
+
+m2.phylo<-MCMCglmm(normalised ~ cpg + Reference, random=~Name, 
+                   ginverse=list(Name=Ainv.phylo), data=df)
+summary(m2.phylo) #<0.001
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.8496247
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.816564 0.8736289
