@@ -82,7 +82,7 @@ ultra.tree = chronos(tree, 0)
 Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
 
 
-#I think reference species should be included somewhere?
+#I think reference species should be included somewhere? Random effect??
 m1.phylo<-MCMCglmm(normalised ~ tpa, random=~Name, 
                    ginverse=list(Name=Ainv.phylo), data=df)
 summary(m1.phylo) #<0.001

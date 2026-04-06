@@ -7,14 +7,25 @@ library(viridis)
 library(ggplot2)
 library(ggbreak)
 
-tab=read.table('sequence_data/trees/all_seqs.fasta.state',header=TRUE)
+tab=read.table('sequence_data/gannoruwa_outgroup/all_seqs.fasta.state',header=TRUE)
 
 node = c()
 seqs = c()
 
 for(i in unique(tab$Node)){
-  node = append(node, i)
-  seqs = append(seqs, paste(tab$State[tab$Node == i], collapse = ""))
+  for(j in 1:100){
+    print(j)
+    node = append(node, i)
+    newseq = c()
+    for(k in 1:1353){
+      probs =unname(tab[tab$Node == i & 
+                          tab$Site == k, 4:7])
+
+      newseq = append(newseq, sample(c("A", "C", "T", "G"), 1,
+                                          prob = probs))
+    }
+    seqs = append(seqs, paste(newseq, collapse = ""))
+  }
 }
 
 CpG = function(x){
@@ -37,36 +48,38 @@ UpA = function(x){
   return(ObsExpUpA)
 }
 
-GCcontent = function(x){
-  x = toupper(unname(as.character(x)))
-  nG = str_count(x, "G")
-  nC = str_count(x, "C")
-  N = nchar(x)
-  gccont = (nC + nG)/N
-  return(gccont)
-  
-}
-
-CpG_actual = function(x){
-  x = toupper(unname(as.character(x)))
-  nCpG = str_count(x, "CG")
-  return(nCpG)
-}
-
 cpg = c()
 upa = c()
-gc = c()
-cpg_actual = c()
 accessions = node
 
 for(j in 1:length(seqs)){
   cpg = append(cpg, CpG(seqs[j]))
   upa = append(upa, UpA(seqs[j]))
-  gc = append(gc, GCcontent(seqs[j]))
-  cpg_actual = append(cpg_actual, CpG_actual(seqs[j]))
-  
 }
-internal_nodes = data.frame(accessions, cpg, upa, gc, cpg_actual)
+internal_nodes_long = data.frame(accessions, cpg, upa)
+
+cpg = c()
+cpg_upper = c()
+cpg_lower = c()
+upa = c()
+upa_upper = c()
+upa_lower = c()
+accessions = c()
+for(i in unique(internal_nodes_long$accessions)){
+  accessions = append(accessions, i)
+  
+  all_cpg = internal_nodes_long$cpg[internal_nodes_long$accessions == i]
+  cpg = append(cpg, mean(all_cpg))
+  cpg_lower = append(cpg_lower, unname(quantile(all_cpg, 0.025)))
+  cpg_upper = append(cpg_upper, unname(quantile(all_cpg, 0.975)))
+  
+  all_upa = internal_nodes_long$upa[internal_nodes_long$accessions == i]
+  upa = append(upa, mean(all_upa))
+  upa_lower = append(upa_lower, unname(quantile(all_upa, 0.025)))
+  upa_upper = append(upa_upper, unname(quantile(all_upa, 0.975)))
+}
+internal_nodes = data.frame(accessions, cpg, cpg_lower, cpg_upper,
+                               upa, upa_lower, upa_upper)
 
 seqs = seqinr::read.fasta("sequence_data/all_seqs.fasta", as.string = T)
 for(j in 1:length(seqs)){

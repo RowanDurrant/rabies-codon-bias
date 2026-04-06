@@ -87,7 +87,7 @@ mylabels = c("Cosmo AF1b\n(dog)",
              "Bat EF-E2\n(big brown bat)",
              "RAC-SK SCSK\n(skunk)")
 
-p = ggplot(data = df, aes(x = GC3s, y = ENC))+
+p5 = ggplot(data = df, aes(x = GC3s, y = ENC))+
   geom_point(size = 2, aes(colour = clade, shape = clade)) + theme_bw() +
   scale_color_manual(values = my_pal, name = "Clade",
                      labels = mylabels) +
@@ -97,31 +97,6 @@ p = ggplot(data = df, aes(x = GC3s, y = ENC))+
   stat_function(fun=f1, col = "black") +
   xlim(0.3,0.7) + ylim(48,61)+
   xlab("GC3 content")
-p
+p5
 
-df_pca = read.csv("output_data/PCA_output_RSCU.csv")
-df_pca$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
-                              "Asian SEA2b", 
-                              "Bats DR","Bats TB1", "Bats LC",
-                              "Bats EF-E2","RAC-SK SCSK"))
-g1 = ggplot(data = df_pca, aes(x = PC1, y = PC2))+ 
-  geom_point(size = 2, alpha = 0.8, aes(col = clade, shape = clade)) +
-  geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
-  ylim(-8,8) + xlim(-10,10)+
-  scale_color_manual(values = my_pal, name = "Clade",
-                     labels = mylabels) +
-  scale_shape_manual(name = "Clade",
-                     labels = mylabels,
-                     values = c(17,17,17,17,17,16,16,16,16,17))+
-  xlab("PC1 (22.4% explained var.)") + 
-  ylab("PC2 (20.1% explained var.)")+
-  theme_bw() + 
-  coord_axes_inside(labels_inside = TRUE)
 
-ggpubr::ggarrange(p, g1, common.legend = T, legend = "bottom",
-                  align = "h")
-
-png("plots/Supplementary Figure 2.png", width = 9, height = 6, units = 'in', res = 600)
-ggpubr::ggarrange(p, g1, common.legend = T, legend = "bottom",
-                  align = "h")
-dev.off()

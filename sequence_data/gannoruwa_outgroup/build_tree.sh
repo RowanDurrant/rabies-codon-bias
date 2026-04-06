@@ -1,0 +1,1 @@
+iqtree -s all_seqs.fasta -o Gannoruwa_bat_lyssavirus_NC_031988.1 -asr -bb 1000
