@@ -9,20 +9,26 @@ library(ggbreak)
 
 tab=read.table('sequence_data/gannoruwa_outgroup/all_seqs.fasta.state',header=TRUE)
 
-node = c()
+reps = 100
+node = rep(unique(tab$Node), each = reps)
 seqs = c()
 
 for(i in unique(tab$Node)){
-  for(j in 1:100){
-    print(j)
-    node = append(node, i)
-    newseq = c()
-    for(k in 1:1353){
-      probs =unname(tab[tab$Node == i & 
+  print(i)
+  for(j in 1:reps){
+    newseq = tab$State[tab$Node == i]
+    variable_sites = tab$Site[tab$Node == i & 
+                                tab$p_A != 1 & 
+                                tab$p_C != 1 & 
+                                tab$p_G != 1 & 
+                                tab$p_T != 1]
+    
+    for(k in variable_sites){
+      probs = unname(tab[tab$Node == i & 
                           tab$Site == k, 4:7])
 
-      newseq = append(newseq, sample(c("A", "C", "T", "G"), 1,
-                                          prob = probs))
+      newseq[k] = sample(c("A", "C", "T", "G"), 1,
+                                          prob = probs)
     }
     seqs = append(seqs, paste(newseq, collapse = ""))
   }
