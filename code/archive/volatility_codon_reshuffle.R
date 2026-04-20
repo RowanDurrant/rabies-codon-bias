@@ -10,43 +10,27 @@ nucleotides = c("A", "T", "C", "G")
 stop_codons = c("TGA", "TAA", "TAG")
 df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
 volatility_df = read.csv("output_data/archive/codon_volatility_stop_punished.csv")
-volatility_df_0 = read.csv("output_data/archive/codon_volatility.csv")
 codons = colnames(df)[2:ncol(df)]
 
 df$mean_volatility_h = NA
-df$mean_volatility_m = NA
-df$mean_volatility_0_h = NA
-df$mean_volatility_0_m = NA
 
 for(a in 2:nrow(df)){
   total_volatility_h = 0
-  total_volatility_m = 0
-  total_volatility_0_h = 0
-  total_volatility_0_m = 0
   
   codon_count = 0
   for(b in codons){
     total_volatility_h = total_volatility_h + (as.numeric(df[a, b])*as.numeric(volatility_df$hamming[volatility_df$codons == b]))
-    total_volatility_m = total_volatility_m + (as.numeric(df[a, b])*as.numeric(volatility_df$miyata[volatility_df$codons == b]))
-    total_volatility_0_h = total_volatility_0_h + (as.numeric(df[a, b])*as.numeric(volatility_df_0$hamming[volatility_df_0$codons == b]))
-    total_volatility_0_m = total_volatility_0_m + (as.numeric(df[a, b])*as.numeric(volatility_df_0$miyata[volatility_df_0$codons == b]))
-    
+
     codon_count = codon_count + as.numeric(df[a, b])
   }
   
   df$mean_volatility_h[a] = total_volatility_h/codon_count
-  df$mean_volatility_m[a] = total_volatility_m/codon_count
-  df$mean_volatility_0_h[a] = total_volatility_0_h/codon_count
-  df$mean_volatility_0_m[a] = total_volatility_0_m/codon_count
+
 }  
 
 df2 = data.frame(cbind(df$CODONS, 
-                       df$mean_volatility_h, df$mean_volatility_m,
-                       df$mean_volatility_0_h, df$mean_volatility_0_m,
-                       df$normalised_volatility_h, df$normalised_volatility_m,
-                       df$normalised_volatility_0_h, df$normalised_volatility_0_m))
+                       df$mean_volatility_h, df$normalised_volatility_h))
 df2 = df2[2:nrow(df2),]
-colnames(df2) = c("Accession", "Hamming", "Miyata", "Hamming_stop0",
-                  "Miyata_stop0")
+colnames(df2) = c("Accession", "Hamming")
 
 write.csv(df2,"output_data/archive/sequence_volatility_sp_normalised.csv")

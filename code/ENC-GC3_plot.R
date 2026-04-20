@@ -95,7 +95,7 @@ p5 = ggplot(data = df, aes(x = GC3s, y = ENC))+
                      labels = mylabels,
                      values = c(17,17,17,17,17,16,16,16,16,17))+
   stat_function(fun=f1, col = "black") +
-  xlim(0.3,0.7) + ylim(48,61)+
+  xlim(0.4,0.6) + ylim(48,61)+
   xlab("GC3 content")
 p5
 

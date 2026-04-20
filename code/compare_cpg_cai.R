@@ -72,25 +72,36 @@ p1 = ggplot(data = df, aes(x = tpa, y = normalised))+
                                 expression(italic("Eptesicus fuscus")),
                                 expression(italic("Vulpes lagopus"))))+
   xlab("Obs/Exp UpA content") + ylab("nCAI")
+
 summary(lm(data = df, normalised ~ tpa))
 bootstrap = boot(df,function(data,indices)
   summary(lm(normalised ~ tpa,data[indices,]))$adj.r.squared,R=10000)
 print(quantile(bootstrap$t,c(0.025,0.5,0.975)))
 
-tree = read.tree("sequence_data/tree/outgroup_removed.nwk")
+tree = read.tree("sequence_data/all_outgroups/no_outgroup.nwk")
 ultra.tree = chronos(tree, 0)
 Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
 
 
-#I think reference species should be included somewhere? Random effect??
-m1.phylo<-MCMCglmm(normalised ~ tpa, random=~Name, 
-                   ginverse=list(Name=Ainv.phylo), data=df)
-summary(m1.phylo) #<0.001
-posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.8184092
-HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.7898131 0.8545874
+prior2 <- list(
+  G = list(G1 = list(V = 1, nu = 0.002),
+           G2 = list(V = 1, nu = 0.002)),
+  R = list(V = 1, nu = 0.002)
+)
+m1.phylo<-MCMCglmm(normalised ~ tpa, random=~Name+Reference, 
+                   ginverse=list(Name=Ainv.phylo), data=df,
+                   prior = prior1, nitt = 50000)
+plot(m1.phylo$Sol)
+plot(m1.phylo$VCV)
+summary(m1.phylo) #<2e-04
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.04792383
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.0005137768 0.2486094
 
-m2.phylo<-MCMCglmm(normalised ~ cpg + Reference, random=~Name, 
-                   ginverse=list(Name=Ainv.phylo), data=df)
-summary(m2.phylo) #<0.001
-posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.8496247
-HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.816564 0.8736289
+m2.phylo<-MCMCglmm(normalised ~ cpg, random=~Name+Reference, 
+                   ginverse=list(Name=Ainv.phylo), data=df,
+                   prior = prior1, nitt = 50000)
+plot(m2.phylo$Sol)
+plot(m2.phylo$VCV)
+summary(m2.phylo) #<2e-04
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.05850414
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.0006789737 0.2606166

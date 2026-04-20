@@ -96,7 +96,6 @@ TpA_actual = function(x){
 }
 
 seqs = seqinr::read.fasta("sequence_data/all_seqs.fasta",as.string = T)
-seqs = seqs[1:length(seqs)-1]
 metadata = read.csv("sequence_data/metadata.csv")
 shuffled = seqinr::read.fasta("sequence_data/reshuffled.fasta",as.string = T)
 
@@ -129,9 +128,9 @@ tpa_actual = c()
        shuffle_names = shuffled[grep(names(seqs)[j], names(shuffled), value = T)]
        ZAP_expected_motifs = append(ZAP_expected_motifs, ZAP_expected(shuffle_names))
     }
-  
 df = data.frame(accessions, clade, cpg, gc, cpg_actual, 
                 ZAP_optimal_motifs, ZAP_suboptimal_motifs, ZAP_expected_motifs, tpa, ta, tpa_actual)
+write.csv(df, "output_data/N_CpG.csv")
 
 df$clade = factor(df$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                             "Asian SEA2b", 
@@ -464,8 +463,6 @@ df$host_group[df$clade %in% c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic 
 df$host_group[df$clade %in% c("Bats DR","Bats TB1", "Bats LC",
                               "Bats EF-E2")] = "Bat"
 
-write.csv(df, "output_data/N_CpG.csv")
-
 library(DescTools)
 MeanCI(df$cpg[df$host_group == "Carnivore"], conf.level = 0.95)
 MeanCI(df$cpg[df$host_group == "Bat"], conf.level = 0.95)
@@ -488,30 +485,41 @@ dev.off()
 
 #MCMCglmm
 set.seed(37856)
-tree = read.tree("sequence_data/tree/outgroup_removed.nwk")
+tree = read.tree("sequence_data/all_outgroups/no_outgroup.nwk")
 ultra.tree = chronos(tree, 0)
 Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
+
+prior1 <- list(
+  G = list(G1 = list(V = 1, nu = 0.002)),
+  R = list(V = 1, nu = 0.002)
+)
 
 m1.phylo = MCMCglmm(cpg~host_group, 
                     random=~accessions, 
                     ginverse=list(accessions=Ainv.phylo), 
-                    data=df)
-summary(m1.phylo) #pMCMC = 0.044
-posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9527318
-HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9247746, 0.9726757
+                    data=df, prior = prior1)
+plot(m1.phylo$Sol)
+plot(m1.phylo$VCV)
+summary(m1.phylo) #pMCMC = 0.088
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9478485 
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9148833 0.9648778
 
 m2.phylo = MCMCglmm(tpa~host_group, 
                     random=~accessions, 
                     ginverse=list(accessions=Ainv.phylo), 
-                    data=df)
-summary(m2.phylo) #pMCMC = 0.002
-posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9463215
-HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9229595 0.9719175
+                    data=df, prior = prior1)
+plot(m2.phylo$Sol)
+plot(m2.phylo$VCV)
+summary(m2.phylo) #pMCMC = 0.05 .
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9192949
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.8875804 0.947185
 
 m3.phylo = MCMCglmm(ratio_expected~host_group, 
                     random=~accessions, 
                     ginverse=list(accessions=Ainv.phylo), 
-                    data=df)
-summary(m3.phylo) #pMCMC = 0.042
-posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9071233
-HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.8719739 0.9473904
+                    data=df, prior = prior1)
+plot(m3.phylo$Sol)
+plot(m3.phylo$VCV)
+summary(m3.phylo) #pMCMC = 0.03
+posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9226911 
+HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.877815 0.9510562

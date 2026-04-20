@@ -1,3 +1,6 @@
+library(readxl)
+library(ggplot2)
+
 df_loadings = read.csv("output_data/loadings.csv")
 df_comp = read_xlsx("output_data/Nucleotide_comp_codons.xlsx")
 
@@ -7,7 +10,7 @@ pc = c()
 comp = c()
 cc = c()
 for(i in c("PC1", "PC2", "PC3")){
-  for(j in c(colnames(df)[63:103])){
+  for(j in c(colnames(df)[62:102])){
     pc = append(pc, i)
     comp = append(comp,j)
    cc = append(cc, cor(df[,j]/100, df[,i]))
@@ -16,10 +19,6 @@ for(i in c("PC1", "PC2", "PC3")){
 
 r_df = as.data.frame(cbind(pc,comp,cc))
 r_df$cc_abs = abs(as.numeric(r_df$cc))
-
-#PC1 ~ %G3 r = -0.163281895540991
-#PC2 ~ %G3+A3 r = 0.170171196
-#PC3 ~ %G3+T3 r = 0.421705393
 
 m1 = glm(formula = `%G3+T3`/100~PC3,
     family = binomial, 
@@ -32,14 +31,4 @@ p4 = ggplot(data = df, aes(y = `%G3+T3`/100, x =  PC3))+
   ylab("GT3 content of codon")+ xlab("PC3 loading")+
   geom_line(data = newdata1, aes(x = PC3, y = `%G3+T3`), col = 'red')+
   theme_bw()
-
-m2 = glm(formula = `%G3`/100~PC1,
-         family = binomial, 
-         data = df)
-summary(m2)
-
-m3 = glm(formula = `%G3+A3`/100~PC2,
-         family = binomial, 
-         data = df)
-summary(m3)
   

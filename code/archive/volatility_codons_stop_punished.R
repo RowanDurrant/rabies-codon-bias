@@ -9,8 +9,11 @@ library(readxl)
 nucleotides = c("A", "T", "C", "G")
 stop_codons = c("TGA", "TAA", "TAG")
 df = as.data.frame(read_excel("output_data/Codon_usage_N.xlsx"))
-
-miyata_distances = read.csv("output_data/archive/miyata_distances.csv", header = T, row.names = 1)
+df = df[1:2,]
+df = cbind(df, c("M", 0), c("W",0))
+colnames(df)[ncol(df)-1] = "ATG"
+colnames(df)[ncol(df)] = "TGG"
+#miyata_distances = read.csv("output_data/archive/miyata_distances.csv", header = T, row.names = 1)
 
 codons = colnames(df)[2:ncol(df)]
 hamming = c()
@@ -37,22 +40,23 @@ for(i in codons){
         
         if(amino_acid != amino_acid_new){
           cod_vol_h = cod_vol_h + 1
-          cod_vol_m = cod_vol_m + miyata_distances[amino_acid, amino_acid_new]
+          #cod_vol_m = cod_vol_m + miyata_distances[amino_acid, amino_acid_new]
           print(paste(amino_acid, "->", amino_acid_new))
         }
         
       }
       else{        
       cod_vol_h = cod_vol_h + 1
-      cod_vol_m = cod_vol_m + 10}
+      #cod_vol_m = cod_vol_m + 10
+      }
     }
   }
   hamming = append(hamming, cod_vol_h)
-  miyata = append(miyata, cod_vol_m)
+  #miyata = append(miyata, cod_vol_m)
 }
 
 hamming = hamming/9
-miyata = miyata/(9*10)
+#miyata = miyata/(9*10)
 
-volatility_df = data.frame(cbind(codons, hamming, miyata))
+volatility_df = data.frame(cbind(codons, hamming))
 write.csv(volatility_df, "output_data/archive/codon_volatility_stop_punished.csv")

@@ -76,103 +76,63 @@ df2$clade = factor(df2$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arcti
 
 my_pal <- c("#332288","#88CCEE","#CCDDAA","#44AA99","#117733",  
             "#999933", "#DDCC77","#CC6677","#882255","#AA4499")
+my_labels = c("Cosmo AF1b\n(dog)",
+              "Cosmo AM2a\n(mongoose)",
+              "Arctic A\n(arctic fox)",
+              "Asian SEA2a\n(dog)",
+              "Asian SEA2b\n(CFB)",
+              "Bat DR\n(vampire bat)",
+              "Bat TB1\n(Mexican free\n-tailed bat)",
+              "Bat LC\n(hoary bat)",
+              "Bat EF-E2\n(big brown bat)",
+              "RAC-SK SCSK\n(skunk)")
 
 g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+ 
-  geom_point(size = 2, aes(col = clade, shape = clade)) +
+  geom_point(size = 2, alpha = 0.8, aes(col = clade, shape = clade)) +
   geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
+  #ylim(-6,6) + xlim(-8,8)+
   scale_color_manual(values = my_pal, name = "Clade",
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)")) +
+                     labels = my_labels) +
   scale_shape_manual(name = "Clade",
-                     labels = c("Cosmo AF1b\n(dog)",
-                                "Cosmo AM2a\n(mongoose)",
-                                "Arctic A\n(arctic fox)",
-                                "Asian SEA2a\n(dog)",
-                                "Asian SEA2b\n(CFB)",
-                                "Bat TB1\n(Mexican free\n-tailed bat)",
-                                "Bat DR\n(vampire bat)",
-                                "Bat EF-E2\n(big brown bat)",
-                                "RAC-SK SCSK\n(skunk)",
-                                "Bat LC\n(hoary bat)"),
-                     values = c(17,17,17,17,17,16,16,16,17,16))+
+                     labels = my_labels,
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
   xlab("PC1 (22.4% explained var.)") + 
   ylab("PC2 (20.1% explained var.)")+
-  theme_bw() + #ylim(-10, 10) + xlim(-10, 10)+
+  theme_bw() + 
   coord_axes_inside(labels_inside = TRUE) +
-  theme(legend.position = "bottom", legend.box = "vertical")
+  theme(legend.position = "none")
 
-g1
+g2 = ggplot(data = df2, aes(x = PC1, y = PC3))+ 
+  geom_point(size = 2, alpha = 0.8, aes(col = clade, shape = clade)) +
+  geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
+  #ylim(-6,6) + xlim(-8,8)+
+  scale_color_manual(values = my_pal, name = "Clade",
+                     labels = my_labels) +
+  scale_shape_manual(name = "Clade",
+                     labels = my_labels,
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
+  xlab("PC1 (22.4% explained var.)") + 
+  ylab("PC3 (17.1% explained var.)")+
+  theme_bw() + 
+  coord_axes_inside(labels_inside = TRUE) +
+  theme(legend.position = "none")
+
+g3 = ggplot(data = df2, aes(x = PC2, y = PC3,col = clade, shape = clade))+ 
+  geom_point(size = 2, alpha = 0.8) +
+  geom_hline(yintercept = 0) + geom_vline(xintercept = 0)+
+  #ylim(-6,6) + xlim(-8,8)+
+  scale_color_manual(values = my_pal, name = "Clade",
+                     labels = my_labels) +
+  scale_shape_manual(name = "Clade",
+                     labels = my_labels,
+                     values = c(17,17,17,17,17,16,16,16,16,17))+
+  xlab("PC2 (20.1% explained var.)") + 
+  ylab("PC3 (17.1% explained var.)")+
+  theme_bw() + 
+  coord_axes_inside(labels_inside = TRUE) +
+  theme(legend.position = "none")
+
+ggpubr::ggarrange(g1,g2,g3, nrow = 1, common.legend = T, legend = "bottom",
+                  labels = "AUTO", align = "v")
 
 write.csv(df2, "output_data/PCA_output_RSCU.csv")
-
-# Helper function 
-#::::::::::::::::::::::::::::::::::::::::
-var_coord_func <- function(loadings, comp.sdev){
-  loadings*comp.sdev
-}
-# Compute Coordinates
-#::::::::::::::::::::::::::::::::::::::::
-loadings <- pc$rotation
-sdev <- pc$sdev
-var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
-var.cos2 <- var.coord^2
-comp.cos2 <- apply(var.cos2, 2, sum)
-contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
-var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
-
-pc2 = var.contrib[,"PC2"]
-barplot(pc2)
-max(pc2)
-names(pc2[pc2>5])
-
-pc1 = var.contrib[,"PC1"]
-barplot(pc1)
-max(pc1)
-names(pc1[pc1>4])
-
-loadings = as.data.frame(loadings)
-loadings = loadings[,1:2]
-
-loadings$contains_cpg = F
-loadings$contains_cpg[grep(pattern = "CG", x = rownames(loadings))] = T
-
-loadings$starts_G = F
-loadings$starts_G[str_sub(rownames(loadings), -3,-3) == "G"] = T
-
-loadings$ends_C = F
-loadings$ends_C[str_sub(rownames(loadings), -1,-1) == "C"] = T
-
-
-p1 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = contains_cpg))+
-  geom_point()+
-  ggtitle("Contains CG dinucleotide") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-p2 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = starts_G))+
-  geom_point()+
-  ggtitle("G in position 1") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-p3 = ggplot(data = loadings, aes(y = PC2, x = PC1, colour = ends_C))+
-  geom_point()+
-  ggtitle("C in position 3") +
-  scale_color_manual(values = c("grey80", "grey30"),
-                     labels = c(F, T),
-                     name = "")+
-  theme_bw() + geom_hline(yintercept = 0) + geom_vline(xintercept = 0)
-
-ggarrange(p1,p2,p3, nrow = 1, common.legend = T, legend = "bottom")
