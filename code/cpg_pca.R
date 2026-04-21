@@ -24,8 +24,8 @@ pc = c()
 comp = c()
 cc = c()
 for(i in c("PC1", "PC2", "PC3")){
-  for(j in c("cpg","cpg_actual","gc","tpa","tpa_actual","ta","ZAP_optimal_motifs",
-             "ZAP_suboptimal_motifs", colnames(df)[3:43])){
+  for(j in c("cpg","cpg_actual","tpa","tpa_actual","ZAP_optimal_motifs",
+              colnames(df)[3:43])){
     pc = append(pc, i)
     comp = append(comp,j)
     cc = append(cc, cor(df[,j]/100, df[,i]))
@@ -35,83 +35,81 @@ for(i in c("PC1", "PC2", "PC3")){
 r_df = as.data.frame(cbind(pc,comp,cc))
 r_df$cc_abs = abs(as.numeric(r_df$cc))
 
-r_df1 = r_df[r_df$pc == "PC1",]
-r_df2 = r_df[r_df$pc == "PC2",]
-r_df3 = r_df[r_df$pc == "PC3",]
-top2 = rbind(r_df1[rev(order(r_df1$cc_abs)),][1:4,],
-             r_df2[rev(order(r_df2$cc_abs)),][1:4,],
-             r_df3[rev(order(r_df3$cc_abs)),][1:4,])
-
-top2$upper = NA
-top2$lower = NA
-top2$label = NA
-
-library(confintr)
-for(i in 1:nrow(top2)){
-  
-  top2$lower[i] =ci_cor(y = df[,top2$pc[i]], x = df[,top2$comp[i]])$interval[1]
-  top2$upper[i] =ci_cor(y = df[,top2$pc[i]], x = df[,top2$comp[i]])$interval[2]
-  top2$label[i] = paste(top2$pc[i], "~", top2$comp[i])
-}
-
-top2$label = factor(top2$label, levels = rev(top2$label))
-
-p4 = ggplot(data = top2, aes(y = as.numeric(cc), x = label))+
-  geom_point(colour = "blue", size = 0.5)+
-  geom_errorbar(aes(ymin=as.numeric(lower), ymax=as.numeric(upper)),
-                width = 0.1)+
-  geom_hline(yintercept = 0, linetype = "dashed")+
-  geom_hline(yintercept = c(1,-1))+
-  scale_x_discrete(labels = c("PC3~AC", "PC3~GT",
-                              "PC3~GT3", "PC3~AC3",
-                              "PC2~GA", "PC2~CT",
-                              "PC2~GA3", "PC2~CT3",
-                              "PC1~UpA", "PC1~AT1",
-                              "PC1~GC1", 'PC1~C1'))+
-  theme_bw()+ ylab("Correlation coefficient") + xlab("")+
-  coord_flip()
+# r_df1 = r_df[r_df$pc == "PC1",]
+# r_df2 = r_df[r_df$pc == "PC2",]
+# r_df3 = r_df[r_df$pc == "PC3",]
+# top2 = rbind(r_df1[rev(order(r_df1$cc_abs)),][1:4,],
+#              r_df2[rev(order(r_df2$cc_abs)),][1:4,],
+#              r_df3[rev(order(r_df3$cc_abs)),][1:4,])
+# 
+# top2$upper = NA
+# top2$lower = NA
+# top2$label = NA
+# 
+# library(confintr)
+# for(i in 1:nrow(top2)){
+#   
+#   top2$lower[i] =ci_cor(y = df[,top2$pc[i]], x = df[,top2$comp[i]])$interval[1]
+#   top2$upper[i] =ci_cor(y = df[,top2$pc[i]], x = df[,top2$comp[i]])$interval[2]
+#   top2$label[i] = paste(top2$pc[i], "~", top2$comp[i])
+# }
+# 
+# top2$label = factor(top2$label, levels = rev(top2$label))
+# 
+# p4 = ggplot(data = top2, aes(y = as.numeric(cc), x = label))+
+#   geom_point(colour = "blue", size = 0.5)+
+#   geom_errorbar(aes(ymin=as.numeric(lower), ymax=as.numeric(upper)),
+#                 width = 0.1)+
+#   geom_hline(yintercept = 0, linetype = "dashed")+
+#   geom_hline(yintercept = c(1,-1))+
+#   scale_x_discrete(labels = c("PC3~AC", "PC3~GT",
+#                               "PC3~GT3", "PC3~AC3",
+#                               "PC2~GA", "PC2~CT",
+#                               "PC2~GA3", "PC2~CT3",
+#                               "PC1~UpA", "PC1~AT1",
+#                               "PC1~GC1", 'PC1~C1'))+
+#   theme_bw()+ ylab("Correlation coefficient") + xlab("")+
+#   coord_flip()
 
 tree = read.tree("sequence_data/all_outgroups/no_outgroup.nwk")
 ultra.tree = chronos(tree, 0)
 Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
 
-prior1 <- list(
-  G = list(G1 = list(V = 1, nu = 0.002)),
-  R = list(V = 1, nu = 0.002)
-)
-
 colnames(df)[colnames(df) == "%C1"] = "pC1"
 m1.phylo = MCMCglmm(PC1~pC1,
                     random=~Accession,
                     ginverse=list(Accession=Ainv.phylo),
-                    data=df, prior=prior1)
+                    nitt = 15000, burnin = 1500,
+                    data=df)
 plot(m1.phylo$Sol)
 plot(m1.phylo$VCV)
-summary(m1.phylo) #pMCMC = <0.001
-posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9879975
-HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9797923 0.9935779
+summary(m1.phylo) #pMCMC = <7e-04
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9880437
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9798148 0.9935394
 
 colnames(df)[colnames(df) == "%G3+A3"] = "GA3"
 m2.phylo = MCMCglmm(PC2~GA3,
                     random=~Accession,
                     ginverse=list(Accession=Ainv.phylo),
-                    data=df, prior = prior1)
+                    nitt = 15000, burnin = 1500,
+                    data=df)
 plot(m2.phylo$Sol)
 plot(m2.phylo$VCV)
-summary(m2.phylo) #pMCMC = <0.001
-posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9825264 
-HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9717638 0.9883312
+summary(m2.phylo) #pMCMC = <7e-04
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.982599
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9724531 0.9882378
 
 colnames(df)[colnames(df) == "%G3+T3"] = "GT3"
 m3.phylo = MCMCglmm(PC3~GT3, 
                     random=~Accession, 
-                    ginverse=list(Accession=Ainv.phylo), 
-                    data=df, prior = prior1)
+                    ginverse=list(Accession=Ainv.phylo),
+                    nitt = 15000, burnin = 1500,
+                    data=df)
 plot(m3.phylo$Sol)
 plot(m3.phylo$VCV)
-summary(m3.phylo) #pMCMC = <0.001
-posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9893406
-HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9794927 0.9945502
+summary(m3.phylo) #pMCMC = <7e-04
+posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9893393
+HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9783179 0.9940024
 
 summary(lm(data = df, PC1~pC1))$adj.r.squared #0.6656295
 bootstrap = boot(df,function(data,indices)
@@ -239,6 +237,7 @@ g3 = ggplot(data = df, aes(x = PC2, y = PC3))+
 ggpubr::ggarrange(g1,g2,g3, p1,p2,p3, common.legend = T, legend = "bottom",
           labels = "AUTO", align = "v")
 
+source("code/loadings_nucleotides.R")
 source("code/ENC-GC3_plot.R")
 
 ggpubr::ggarrange(ggpubr::ggarrange(g1,g2,g3,

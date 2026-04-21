@@ -489,37 +489,35 @@ tree = read.tree("sequence_data/all_outgroups/no_outgroup.nwk")
 ultra.tree = chronos(tree, 0)
 Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
 
-prior1 <- list(
-  G = list(G1 = list(V = 1, nu = 0.002)),
-  R = list(V = 1, nu = 0.002)
-)
-
 m1.phylo = MCMCglmm(cpg~host_group, 
                     random=~accessions, 
                     ginverse=list(accessions=Ainv.phylo), 
-                    data=df, prior = prior1)
+                    nitt = 15000, burnin = 1500,
+                    data=df)
 plot(m1.phylo$Sol)
 plot(m1.phylo$VCV)
-summary(m1.phylo) #pMCMC = 0.088
-posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9478485 
-HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9148833 0.9648778
+summary(m1.phylo) #pMCMC = 0.102
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9583152 
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.9345453 0.9795981
 
 m2.phylo = MCMCglmm(tpa~host_group, 
                     random=~accessions, 
                     ginverse=list(accessions=Ainv.phylo), 
-                    data=df, prior = prior1)
+                    nitt = 15000, burnin = 1500,
+                    data=df)
 plot(m2.phylo$Sol)
 plot(m2.phylo$VCV)
-summary(m2.phylo) #pMCMC = 0.05 .
-posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9192949
-HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.8875804 0.947185
+summary(m2.phylo) #pMCMC = 0.0681 .
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9651787
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.9407795 0.9826934
 
 m3.phylo = MCMCglmm(ratio_expected~host_group, 
                     random=~accessions, 
                     ginverse=list(accessions=Ainv.phylo), 
-                    data=df, prior = prior1)
+                    nitt = 15000, burnin = 1500,
+                    data=df)
 plot(m3.phylo$Sol)
 plot(m3.phylo$VCV)
-summary(m3.phylo) #pMCMC = 0.03
-posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.9226911 
-HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.877815 0.9510562
+summary(m3.phylo) #pMCMC = 0.0252
+posterior.mode(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.921793
+HPDinterval(m3.phylo$VCV[,1]/rowSums(m3.phylo$VCV)) #0.8746038 0.9479297
