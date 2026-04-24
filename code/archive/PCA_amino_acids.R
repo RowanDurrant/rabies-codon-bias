@@ -57,8 +57,6 @@ for(k in 1:nrow(df)){
   df$G_codons[k] = sum(as.numeric(df[k,56:59]))
 }
 
-
-df <- sapply(df, as.numeric )
 df = df[,60:ncol(df)]
 
 df = remove_constant(df)
@@ -88,8 +86,12 @@ g <- g + theme(legend.direction = 'horizontal',
 print(g)
 
 df2 = as.data.frame(pc$x)
-df2$clade = metadata$Clade
-df2$Accession = metadata$Accession
+
+for(i in 1:nrow(df2)){
+  df2$clade[i] = metadata$Clade[metadata$Accession == rownames(df2)[i]]
+  df2$Accession[i] = metadata$Accession[metadata$Accession == rownames(df2)[i]]
+}
+
 
 df2$clade = factor(df2$clade, c("Cosmopolitan AF1b", "Cosmopolitan AM2a", "Arctic A", "Asian SEA2a", 
                                 "Asian SEA2b", 
@@ -133,6 +135,31 @@ g1 = ggplot(data = df2, aes(x = PC1, y = PC2))+
   theme(legend.position = "bottom", legend.box = "vertical")
 
 g1
+# Helper function 
+#::::::::::::::::::::::::::::::::::::::::
+var_coord_func <- function(loadings, comp.sdev){
+  loadings*comp.sdev
+}
+# Compute Coordinates
+#::::::::::::::::::::::::::::::::::::::::
 loadings <- pc$rotation
+sdev <- pc$sdev
+var.coord <- t(apply(loadings, 1, var_coord_func, sdev))
+var.cos2 <- var.coord^2
+comp.cos2 <- apply(var.cos2, 2, sum)
+contrib <- function(var.cos2, comp.cos2){var.cos2*100/comp.cos2}
+var.contrib <- t(apply(var.cos2,1, contrib, comp.cos2))
+
+pc2 = var.contrib[,"PC2"]
+barplot(pc2)
+max(pc2)
+names(pc2[pc2>10])
+
+pc1 = var.contrib[,"PC1"]
+barplot(pc1)
+max(pc1)
+names(pc1[pc1>10])
+
+loadings = as.data.frame(loadings)
 
 write.csv(df2, "output_data/PCA_aminoacid_output.csv")
