@@ -82,26 +82,22 @@ tree = read.tree("sequence_data/all_outgroups/no_outgroup.nwk")
 ultra.tree = chronos(tree, 0)
 Ainv.phylo<-inverseA(ultra.tree,nodes="TIPS")$Ainv
 
+set.seed(80954)
 
-prior2 <- list(
-  G = list(G1 = list(V = 1, nu = 0.002),
-           G2 = list(V = 1, nu = 0.002)),
-  R = list(V = 1, nu = 0.002)
-)
-m1.phylo<-MCMCglmm(normalised ~ tpa, random=~Name+Reference, 
+m1.phylo<-MCMCglmm(normalised ~ tpa, random=~Name, 
                    ginverse=list(Name=Ainv.phylo), data=df,
-                   prior = prior1, nitt = 50000)
+                   nitt = 15000, burnin = 1500)
 plot(m1.phylo$Sol)
 plot(m1.phylo$VCV)
-summary(m1.phylo) #<2e-04
-posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.04792383
-HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.0005137768 0.2486094
+summary(m1.phylo) #<7e-04
+posterior.mode(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.8345081
+HPDinterval(m1.phylo$VCV[,1]/rowSums(m1.phylo$VCV)) #0.7993474 0.8615335
 
-m2.phylo<-MCMCglmm(normalised ~ cpg, random=~Name+Reference, 
+m2.phylo<-MCMCglmm(normalised ~ cpg, random=~Name, 
                    ginverse=list(Name=Ainv.phylo), data=df,
-                   prior = prior1, nitt = 50000)
+                   nitt = 15000, burnin = 1500)
 plot(m2.phylo$Sol)
 plot(m2.phylo$VCV)
-summary(m2.phylo) #<2e-04
-posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.05850414
-HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.0006789737 0.2606166
+summary(m2.phylo) #<7e-04
+posterior.mode(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.8572582 
+HPDinterval(m2.phylo$VCV[,1]/rowSums(m2.phylo$VCV)) #0.8172054 0.8746243
